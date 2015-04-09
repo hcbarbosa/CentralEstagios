@@ -1,0 +1,9 @@
+<resources>
+    <string name="title_activity_login">" "</string>
+
+    <!-- Strings related to login -->
+    <string name="error_invalid_rm">O R.M é inválido</string>
+    <string name="error_invalid_senha">A senha é muito pequena</string>
+    <string name="error_incorrect_senha">Senha incorreta</string>
+    <string name="error_field_required">O campo é obrigatório</string>
+</resources>

@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">CentralEstagios</string>
+    <string name="app_name">Central de Estágios</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="Entrar">Entrar</string>
+    <string name="Rm">R.M</string>
+    <string name="Senha">Senha</string>
 </resources>
