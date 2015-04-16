@@ -64,7 +64,7 @@
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@android:color/background_light"
             android:background="@android:color/background_light"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@color/colorPrimary"
             android:layout_marginLeft="196dp"
             android:layout_marginBottom="86dp"
             android:layout_alignParentBottom="true"
@@ -74,9 +74,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
-            android:src="@drawable/logologin"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:src="@drawable/app_logo"
+            android:layout_above="@+id/rm"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
