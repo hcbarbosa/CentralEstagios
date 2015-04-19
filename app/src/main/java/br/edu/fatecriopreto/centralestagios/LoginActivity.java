@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.Entrar);
+        Button mEmailSignInButton = (Button) findViewById(R.id.btnEntrar);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +101,7 @@ public class LoginActivity extends Activity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            //showProgress(true);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 

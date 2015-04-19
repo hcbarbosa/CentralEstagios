@@ -2,4 +2,6 @@
 <resources>
     <color name="colorLogo">#ffb32d30</color>
     <color name="colorPrimary">#ffe91301</color>
+    <color name="colorWhite">#fffffcec</color>
+
 </resources>
