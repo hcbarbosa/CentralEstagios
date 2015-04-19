@@ -7,4 +7,6 @@
     <string name="Entrar">Entrar</string>
     <string name="Rm">R.M</string>
     <string name="Senha">Senha</string>
+    <string name="imgLogo">imgLogo</string>
+    <string name="btnEntrar">Entrar</string>
 </resources>

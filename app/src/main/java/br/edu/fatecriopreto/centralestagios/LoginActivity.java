@@ -38,9 +38,9 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        mRmView = (EditText) findViewById(R.id.rm);
+        mRmView = (EditText) findViewById(R.id.edtRm);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.edtSenha);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.btnEntrar);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
+        mLoginFormView = findViewById(R.id.Login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
 
