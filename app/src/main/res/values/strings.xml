@@ -9,4 +9,9 @@
     <string name="Senha">Senha</string>
     <string name="imgLogo">imgLogo</string>
     <string name="btnEntrar">Entrar</string>
+    <string name="pesquisa">pesquisa</string>
+    <string name="title_activity_search">Pesquisar</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
