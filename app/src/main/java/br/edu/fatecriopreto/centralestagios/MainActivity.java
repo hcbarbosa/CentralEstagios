@@ -15,10 +15,14 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_appbar);
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appBar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         //DrawerFragment = menu lateral
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
         getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
