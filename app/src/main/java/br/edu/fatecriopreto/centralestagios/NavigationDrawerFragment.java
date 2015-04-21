@@ -49,7 +49,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-    public void setUp(int fragment_navigation_drawer, DrawerLayout drawerLayout, Toolbar appBar) {
+    public void setUp(int fragment_navigation_drawer, DrawerLayout drawerLayout, final Toolbar appBar) {
         containerView = getActivity().findViewById(fragment_navigation_drawer);
         mDrawerLayout = drawerLayout;
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, appBar,
@@ -76,8 +76,9 @@ public class NavigationDrawerFragment extends Fragment {
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 //guarda a porcentagem do tamanho do menu ja percorrida
                 //Log.d("CentralEstagios","offset "+slideOffset);
-                if(slideOffset < 0.6)
-                drawerView.setAlpha(1-slideOffset);
+                if(slideOffset < 0.6) {
+                    appBar.setAlpha(2 - slideOffset);
+                }
             }
         };
 
