@@ -37,6 +37,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
+        mFromSavedInstanceState = false;
     }
 
     @Override
@@ -57,6 +58,7 @@ public class NavigationDrawerFragment extends Fragment {
         adapter = new InformationAdapter(getActivity(),getListaMenu());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         return layout;
     }
 

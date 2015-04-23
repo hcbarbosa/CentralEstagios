@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
         }
         if(id == R.id.search)
         {
-            startActivity(new Intent(this, Search.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
