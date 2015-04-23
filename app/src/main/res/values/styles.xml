@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:colorPrimary">@color/colorGray</item>
         <item name="android:colorAccent">@color/colorLogo</item>
+        <item name="android:statusBarColor">@color/colorStatusBar</item>
     </style>
 
     <style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.Light">

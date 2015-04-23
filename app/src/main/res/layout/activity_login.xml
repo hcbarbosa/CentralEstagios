@@ -88,8 +88,8 @@
             android:background="@color/colorWhite"
             android:textAlignment="center"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="end"/>
+            android:layout_centerInParent="true"
+            android:layout_alignEnd="@id/Login_form"/>
 
     </RelativeLayout>
 
