@@ -103,7 +103,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-                appBar.setTitle("Central de Estágios");
+                appBar.setTitle("Central de Estagios");
             }
 
 
