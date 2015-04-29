@@ -12,7 +12,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String NOME_BANCO = "CentralEstagios.db";
     public static int VERSAO_BANCO = 1;
 
-    public static String ID = "id";
+    public static String RM = "rm";
+    public static String CURSOID = "cursoId";
     public static String CIDADE = "cidade";
     public static String TELEFONE = "telefone";
     public static String CEP = "cep";
@@ -32,7 +33,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static String CREATE_DATABASE =
             "create table " + TABELA + " ( " +
-                    ID + " integer primary key autoincrement,"+
+                    RM + " integer primary key autoincrement,"+
+                    CURSOID + " integer, " +
                     CIDADE + " text, " +
                     TELEFONE + " text, " +
                     CEP + " text, " +
