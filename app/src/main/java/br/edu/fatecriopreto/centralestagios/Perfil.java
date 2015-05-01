@@ -19,6 +19,11 @@ public class Perfil {
     private String email;
     private String semestre;
 
+    public Perfil(long aLong, long aLong1, String string, String string1, String string2, long aLong2, String string3, String string4, String string5, String string6, String string7, String string8) {
+
+    }
+
+
     public long getRm() {
         return rm;
     }

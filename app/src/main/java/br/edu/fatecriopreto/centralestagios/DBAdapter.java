@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Arian on 28/04/2015.
  */
@@ -53,6 +56,80 @@ public class DBAdapter {
         database.insert(DBHelper.TABELA, null,
                 contentValues);
     }
+
+    public void apagar(long idPerfil)
+    {
+        database.delete(DBHelper.TABELA, DBHelper.RM + " = " + idPerfil, null);
+    }
+
+    public Cursor getPerfil(){
+        Cursor cursor = database.rawQuery(
+                " select rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro, complemento, nome, email, semestre from "
+                        + DBHelper.TABELA, null);
+
+        return cursor;
+    }
+
+    private Perfil cursorPerfil(Cursor cursor){
+        Perfil perfil =
+                new Perfil(cursor.getLong(0),cursor.getLong(1),cursor.getString(3),
+                        cursor.getString(4),cursor.getString(5),cursor.getLong(6),cursor.getString(7),
+                        cursor.getString(8),cursor.getString(9),cursor.getString(10),
+                        cursor.getString(11),cursor.getString(12));
+        return perfil;
+    }
+
+    public Perfil getPerfil(long rm){
+        Cursor cursor =
+                database.query(DBHelper.TABELA,
+                        colunas, DBHelper.RM + " = " +
+                                rm, null,null, null, null);
+
+        cursor.moveToFirst();
+        return cursorPerfil(cursor);
+    }
+
+    public List<Perfil> listarPerfil(){
+        Cursor cursor = this.getPerfil();
+        List<Perfil> lista = new ArrayList<>();
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            Perfil perfil;
+
+            while(!cursor.isAfterLast()){
+                perfil = cursorPerfil(cursor);
+                lista.add(perfil);
+                cursor.moveToNext();
+            }
+        }
+        return lista;
+    }
+
+    public void editarPerfil(Perfil perfil){
+        ContentValues valores =
+                new ContentValues();
+
+        valores.put(DBHelper.RM, perfil.getRm());
+        valores.put(DBHelper.CURSOID, perfil.getCursoId());
+        valores.put(DBHelper.CIDADE, perfil.getCidade());
+        valores.put(DBHelper.ANO, perfil.getAno());
+        valores.put(DBHelper.CEP, perfil.getCEP());
+        valores.put(DBHelper.TELEFONE, perfil.getTelefone());
+        valores.put(DBHelper.UF, perfil.getUf());
+        valores.put(DBHelper.BAIRRO, perfil.getBairro());
+        valores.put(DBHelper.LOGRADOURO, perfil.getLogradouro());
+        valores.put(DBHelper.COMPLEMENTO, perfil.getComplemento());
+        valores.put(DBHelper.NOME, perfil.getNome());
+        valores.put(DBHelper.EMAIL, perfil.getEmail());
+        valores.put(DBHelper.SEMESTRE, perfil.getSemestre());
+
+        database.update(DBHelper.TABELA,valores,
+                DBHelper.RM + " = ?", new String[] {String.valueOf(perfil.getRm())});
+
+    }
+
+
 
 
 }
