@@ -53,8 +53,6 @@ public class LoginActivity extends Activity {
         mLoginFormView = findViewById(R.id.Login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
-
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -79,7 +77,8 @@ public class LoginActivity extends Activity {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        }else if(!isPasswordValid(password))
+        }
+        else if(!isPasswordValid(password))
         {
             mPasswordView.setError(getString(R.string.error_invalid_senha));
             focusView = mPasswordView;
@@ -93,25 +92,57 @@ public class LoginActivity extends Activity {
             focusView = mRmView;
             cancel = true;
         }
+        //Validar WebService
+        //Validar WebService para Login
+        if(mRmView.getText().toString().equals("123"))
+        {
+
+                //Validar senha WebService
+            if(mPasswordView.getText().toString().equals("jumanji"))
+            {
+                cancel = false;
+            }
+            else
+            {
+                if (TextUtils.isEmpty(password)) {
+                    mPasswordView.setError(getString(R.string.error_field_required));
+                    focusView = mPasswordView;
+                    cancel = true;
+                }
+                else
+                {
+                    cancel = true;
+                    mPasswordView.setError("Senha incorreta");
+                    mPasswordView.setText("");
+                    focusView = mPasswordView;
+                }
+            }
+        }
+        else
+        {
+            mRmView.setError("Login incorreto");
+            mPasswordView.setText("");
+            focusView = mRmView;
+            cancel = true;
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
+
+        }
+        else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             //showProgress(true);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
         }
     }
-
-
     private boolean isPasswordValid(String password) {
 
-        return password.length() > 2;
+        return password.length() >= 6;
     }
 
     /**

@@ -15,4 +15,6 @@
     <string name="drawer_close">Close</string>
 
     <string name="hello_blank_fragment">Menu</string>
+    <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="Perfil">Perfil</string>
 </resources>
