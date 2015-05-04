@@ -1,7 +1,8 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Menu;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,11 +18,15 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
+import br.edu.fatecriopreto.centralestagios.Activities.PerfilActivity;
+import br.edu.fatecriopreto.centralestagios.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements InformationAdapter.ClickListener {
 
     private RecyclerView recyclerView;
     public static final  String PREF_FILE_NAME = "testPref";
@@ -55,6 +60,7 @@ public class NavigationDrawerFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         adapter = new InformationAdapter(getActivity(),getListaMenu());
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -141,5 +147,21 @@ public class NavigationDrawerFragment extends Fragment {
     public static String readFromPreferences(Context context, String preferenceName, String preferenceValue){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
         return  sharedPreferences.getString(preferenceName,preferenceValue);
+    }
+
+    @Override
+    public void itemClicked(View view, int position) {
+        switch (position){
+             case 0: //"Início"
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                break;
+             case 1: //"Perfil"
+                startActivity(new Intent(getActivity(), PerfilActivity.class));
+                break;
+             default:
+                startActivity(new Intent(getActivity(), PerfilActivity.class));
+                break;
+        }
+
     }
 }

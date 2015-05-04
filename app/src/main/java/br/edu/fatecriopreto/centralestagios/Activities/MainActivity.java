@@ -1,10 +1,13 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Activities;
 
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
+import br.edu.fatecriopreto.centralestagios.R;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -47,11 +50,12 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.search)
+
+        /*if(id == R.id.search)
         {
             return true;
         }
-
+        */
         return super.onOptionsItemSelected(item);
     }
 }

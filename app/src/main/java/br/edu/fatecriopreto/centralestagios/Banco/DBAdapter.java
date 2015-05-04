@@ -1,12 +1,11 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Banco;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 
 public class DBAdapter {
     private SQLiteDatabase database;
@@ -60,20 +59,16 @@ public class DBAdapter {
     }
 
     public Cursor getPerfil(){
-        Cursor cursor = database.rawQuery(
+        return database.rawQuery(
                 " select rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro, complemento, nome, email, semestre from "
                         + DBHelper.TABELA, null);
-
-        return cursor;
     }
 
     private Perfil cursorPerfil(Cursor cursor){
-        Perfil perfil =
-                new Perfil(cursor.getLong(0),cursor.getLong(1),cursor.getString(3),
+        return new Perfil(cursor.getLong(0),cursor.getLong(1),cursor.getString(3),
                         cursor.getString(4),cursor.getString(5),cursor.getLong(6),cursor.getString(7),
                         cursor.getString(8),cursor.getString(9),cursor.getString(10),
                         cursor.getString(11),cursor.getString(12));
-        return perfil;
     }
 
     public Perfil getPerfil(long rm){

@@ -1,4 +1,4 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Entidades;
 
 public class Perfil {
 

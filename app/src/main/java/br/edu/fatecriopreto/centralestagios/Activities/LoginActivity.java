@@ -1,4 +1,4 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,9 +10,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import br.edu.fatecriopreto.centralestagios.R;
 
 /**
  * A login screen that offers login via email/password.

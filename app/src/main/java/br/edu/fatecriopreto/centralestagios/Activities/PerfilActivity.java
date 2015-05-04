@@ -1,9 +1,11 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import br.edu.fatecriopreto.centralestagios.R;
 
 
 public class PerfilActivity extends ActionBarActivity {

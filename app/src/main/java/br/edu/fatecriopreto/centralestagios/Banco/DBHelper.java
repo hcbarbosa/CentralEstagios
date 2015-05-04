@@ -1,4 +1,4 @@
-package br.edu.fatecriopreto.centralestagios;
+package br.edu.fatecriopreto.centralestagios.Banco;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
