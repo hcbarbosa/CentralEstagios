@@ -1,6 +1,5 @@
 package br.edu.fatecriopreto.centralestagios;
 
-import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

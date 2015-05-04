@@ -1,8 +1,5 @@
 package br.edu.fatecriopreto.centralestagios;
 
-/**
- * Created by Arian on 28/04/2015.
- */
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;

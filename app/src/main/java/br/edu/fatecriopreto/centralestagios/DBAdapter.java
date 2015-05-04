@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Arian on 28/04/2015.
- */
 public class DBAdapter {
     private SQLiteDatabase database;
     private DBHelper dbHelper;
@@ -89,6 +86,7 @@ public class DBAdapter {
         return cursorPerfil(cursor);
     }
 
+    /* Não precisa listar perfis no app
     public List<Perfil> listarPerfil(){
         Cursor cursor = this.getPerfil();
         List<Perfil> lista = new ArrayList<>();
@@ -105,6 +103,7 @@ public class DBAdapter {
         }
         return lista;
     }
+    */
 
     public void editarPerfil(Perfil perfil){
         ContentValues valores =
