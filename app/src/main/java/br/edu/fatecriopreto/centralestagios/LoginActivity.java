@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
         String rm = mRmView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
+        boolean cancel;
         View focusView = null;
 
 
@@ -86,19 +86,18 @@ public class LoginActivity extends Activity {
         }
 
 
-        // Check for a valid email address.
+        // Check for a valid rm.
         if (TextUtils.isEmpty(rm)) {
             mRmView.setError(getString(R.string.error_field_required));
             focusView = mRmView;
             cancel = true;
-        }
-        //Validar WebService
+        }else
         //Validar WebService para Login
-        if(mRmView.getText().toString().equals("123"))
+        if(mRmView.getText().toString().equals("1"))
         {
 
-                //Validar senha WebService
-            if(mPasswordView.getText().toString().equals("jumanji"))
+            //Validar senha WebService
+            if(mPasswordView.getText().toString().equals("1"))
             {
                 cancel = false;
             }

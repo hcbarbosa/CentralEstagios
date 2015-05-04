@@ -61,13 +61,16 @@ public class NavigationDrawerFragment extends Fragment {
         return layout;
     }
 
-    public static List<Information> getListaMenu(){
+    public List<Information> getListaMenu(){
         List<Information> listMenu = new ArrayList<>();
-        int[] icons = {R.drawable.ic_plusone_medium_off_client,R.drawable.ic_plusone_medium_off_client,
-                R.drawable.ic_plusone_medium_off_client,R.drawable.ic_plusone_medium_off_client,
-                R.drawable.ic_plusone_medium_off_client,R.drawable.ic_plusone_medium_off_client,
-                R.drawable.ic_plusone_medium_off_client};
-        String[] titles = {"Inicio","Perfil","Curriculo","Vagas", "Mensagens","Configuracoes","Sair"};
+        int[] icons = {R.drawable.ic_home,R.drawable.ic_account,
+                R.drawable.ic_curriculo,R.drawable.ic_vagas,
+                R.drawable.ic_message,R.drawable.ic_settings,
+                R.drawable.ic_exit_to_app};
+        String[] titles = new String[]{getResources().getString(R.string.inicio),
+                getResources().getString(R.string.Perfil),getResources().getString(R.string.curriculo),
+                getResources().getString(R.string.vagas),getResources().getString(R.string.mensagens),
+                getResources().getString(R.string.configuracoes),getResources().getString(R.string.sair)};
 
         for(int i = 0; i < icons.length && i < titles.length; i++)
         {
@@ -95,14 +98,14 @@ public class NavigationDrawerFragment extends Fragment {
                     saveToPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, mUserLearnedDrawer+"");
                 }
                 getActivity().invalidateOptionsMenu();
-                appBar.setTitle("Menu");
+                appBar.setTitle(getResources().getString(R.string.menu));
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-                appBar.setTitle("Central de Estagios");
+                appBar.setTitle(getResources().getString(R.string.title_activity_main));
             }
 
 

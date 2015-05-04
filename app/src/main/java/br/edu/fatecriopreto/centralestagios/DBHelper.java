@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static String CREATE_DATABASE =
             "create table " + TABELA + " ( " +
-                    RM + " integer primary key autoincrement,"+
+                    RM + " integer primary key,"+
                     CURSOID + " integer, " +
                     CIDADE + " text, " +
                     TELEFONE + " text, " +
