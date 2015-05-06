@@ -18,8 +18,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
+import br.edu.fatecriopreto.centralestagios.Activities.CurriculoActivity;
+import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
+import br.edu.fatecriopreto.centralestagios.Activities.MensagemActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.PerfilActivity;
+import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
 import br.edu.fatecriopreto.centralestagios.R;
 
 
@@ -111,7 +116,7 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-                appBar.setTitle(getResources().getString(R.string.title_activity_main));
+                appBar.setTitle(getActivity().getTitle());
             }
 
 
@@ -151,14 +156,36 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
+            //aqui que vai muda o layout do main
              case 0: //"Inicio"
                 startActivity(new Intent(getActivity(), MainActivity.class));
-                break;
+                 getActivity().finish();
+                 break;
              case 1: //"Perfil"
-                startActivity(new Intent(getActivity(), PerfilActivity.class));
+                 startActivity(new Intent(getActivity(), PerfilActivity.class));
+                 getActivity().finish();
+                break;
+            case 2: //"Curriculo"
+                startActivity(new Intent(getActivity(), CurriculoActivity.class));
+                getActivity().finish();
+                break;
+            case 3: //"Vagas"
+                startActivity(new Intent(getActivity(), VagaActivity.class));
+                getActivity().finish();
+                break;
+            case 4: //"Mensagens"
+                startActivity(new Intent(getActivity(), MensagemActivity.class));
+                getActivity().finish();
+                break;
+            case 5: //"Configuracoes"
+                startActivity(new Intent(getActivity(), ConfiguracoesActivity.class));
+                getActivity().finish();
+                break;
+            case 6: //"Sair"
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
                 break;
              default:
-                startActivity(new Intent(getActivity(), PerfilActivity.class));
                 break;
         }
 

@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate themenu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -131,13 +131,14 @@ public class MainActivity extends ActionBarActivity {
             if (bundle!=null){
                 position = bundle.getInt("position");
                 if(position==0){
-                    layout = inflater.inflate(R.layout.activity_vaga, container, false);
+                    layout = inflater.inflate(R.layout.activity_tabvaga, container, false);
                 }
                 else if(position==1){
-                    layout= inflater.inflate(R.layout.activity_mensagem, container, false);
+                    layout= inflater.inflate(R.layout.activity_tabmensagem, container, false);
                 }
             }
             return  layout;
         }
     }
+
 }

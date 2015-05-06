@@ -1,34 +1,24 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
-import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
 
+public class CurriculoActivity extends ActionBarActivity {
 
-public class PerfilActivity extends ActionBarActivity {
 
     private Toolbar appBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+        setContentView(R.layout.activity_curriculo);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -42,11 +32,10 @@ public class PerfilActivity extends ActionBarActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate themenu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_curriculo, menu);
         return true;
     }
 
@@ -62,12 +51,6 @@ public class PerfilActivity extends ActionBarActivity {
             return true;
         }
 
-        /*if(id == R.id.search)
-        {
-            return true;
-        }
-        */
         return super.onOptionsItemSelected(item);
     }
-
 }

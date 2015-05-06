@@ -30,6 +30,22 @@
             android:name=".Activities.PerfilActivity"
             android:label="@string/title_activity_perfil" >
         </activity>
+        <activity
+            android:name=".Activities.MensagemActivity"
+            android:label="@string/title_activity_mensagem" >
+        </activity>
+        <activity
+            android:name=".Activities.VagaActivity"
+            android:label="@string/title_activity_vaga" >
+        </activity>
+        <activity
+            android:name=".Activities.ConfiguracoesActivity"
+            android:label="@string/title_activity_configuracoes" >
+        </activity>
+        <activity
+            android:name=".Activities.CurriculoActivity"
+            android:label="@string/title_activity_curriculo" >
+        </activity>
     </application>
 
 </manifest>

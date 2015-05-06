@@ -138,6 +138,7 @@ public class LoginActivity extends Activity {
             //showProgress(true);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            this.finish();
         }
     }
     private boolean isPasswordValid(String password) {

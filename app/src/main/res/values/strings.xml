@@ -1,7 +1,12 @@
 <resources>
     <!--App-->
     <string name="app_name">Central de Estágios</string>
-    <string name="title_activity_main">Central de Estágios</string>
+    <string name="title_activity_main">Início</string>
+    <string name="title_activity_vaga">Vagas</string>
+    <string name="title_activity_configuracoes">Configurações</string>
+    <string name="title_activity_curriculo">Currículo</string>
+    <string name="title_activity_mensagem">Mensagens</string>
+    <string name="title_activity_perfil">Perfil</string>
 
     <!--Login-->
     <string name="action_settings">Settings</string>
@@ -10,6 +15,9 @@
     <string name="Senha">Senha</string>
     <string name="imgLogo">imgLogo</string>
     <string name="btnEntrar">Entrar</string>
+    <string name="lembraRm">Lembrar R.M para próximos acessos?</string>
+    <string name="btnDuvidas">Dúvidas</string>
+
 
     <!--Menu-->
     <string name="pesquisa">pesquisa</string>
@@ -31,7 +39,16 @@
     </string-array>
 
     <!--Perfil-->
-    <string name="title_activity_perfil">Perfil</string>
+    <string name="dadosPrincipais">Dados principais</string>
+    <string name="nomeCompleto">Nome completo:</string>
+    <string name="dadosPessoais">Dados Pessoais</string>
 
+    <!--Vagas-->
+    <string name="pesqsimples">Padrão (Curso)</string>
+    <string name="pesqavancada">Conhecimentos/Benefícios</string>
+    <string name="pesqrecomendada">Recomendadas</string>
+
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
