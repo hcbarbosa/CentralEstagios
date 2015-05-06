@@ -74,7 +74,7 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
                 R.drawable.ic_message,R.drawable.ic_settings,
                 R.drawable.ic_exit_to_app};
         String[] titles = new String[]{getResources().getString(R.string.inicio),
-                getResources().getString(R.string.Perfil),getResources().getString(R.string.curriculo),
+                getResources().getString(R.string.perfil),getResources().getString(R.string.curriculo),
                 getResources().getString(R.string.vagas),getResources().getString(R.string.mensagens),
                 getResources().getString(R.string.configuracoes),getResources().getString(R.string.sair)};
 
@@ -117,7 +117,6 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                //guarda a porcentagem do tamanho do menu ja percorrida
                 //Log.d("CentralEstagios","offset "+slideOffset);
                 if(slideOffset < 0.6) {
                     appBar.setAlpha(2 - slideOffset);
@@ -152,7 +151,7 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
-             case 0: //"Início"
+             case 0: //"Inicio"
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 break;
              case 1: //"Perfil"

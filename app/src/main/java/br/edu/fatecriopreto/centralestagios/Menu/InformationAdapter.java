@@ -68,8 +68,6 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
         @Override
         public void onClick(View v) {
-            //abre uma activity dependendo do menu q ser clicar
-            //context.startActivity(new Intent(context, PerfilActivity.class));
 
             if(clickListener != null){
                 clickListener.itemClicked(v, getPosition());

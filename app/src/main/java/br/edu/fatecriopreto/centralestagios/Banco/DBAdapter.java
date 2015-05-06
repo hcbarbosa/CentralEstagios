@@ -81,7 +81,7 @@ public class DBAdapter {
         return cursorPerfil(cursor);
     }
 
-    /* Não precisa listar perfis no app
+    /* Nao precisa listar perfis no app
     public List<Perfil> listarPerfil(){
         Cursor cursor = this.getPerfil();
         List<Perfil> lista = new ArrayList<>();

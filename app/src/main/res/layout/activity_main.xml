@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="br.edu.fatecriopreto.centralestagios.activities.MainActivity">
+        tools:context="br.edu.fatecriopreto.centralestagios.Activities.MainActivity">
 
             <include
                 android:id="@+id/toolbar"
                 layout="@layout/app_bar" />
 
-            <br.edu.fatecriopreto.centralestagios.tabs.SlidingTabLayout
+            <br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBgRipple"/>
+                android:background="@color/colorGrayWhite"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="br.edu.fatecriopreto.centralestagios.menu.NavigationDrawerFragment"
+        android:name="br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

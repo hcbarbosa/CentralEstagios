@@ -1,40 +1,67 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
 
 public class MainActivity extends ActionBarActivity {
 
-    private android.support.v7.widget.Toolbar appBar;
-
+    private Toolbar appBar;
+    private ViewPager mPager;
+    private SlidingTabLayout mTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_main_appbar);
+        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main_appbar);
+
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        //DrawerFragment = menu lateral
+        //DrawerFragment = menulateral
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
         getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
-    }
+
+        //Tabs
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+            //Customizando as tabs
+            mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
+            mTabs.setDistributeEvenly(true);
+            mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+                @Override
+                public int getIndicatorColor(int position) {
+                    return getResources().getColor(R.color.colorLogo);
+                }
+            });
+        mTabs.setViewPager(mPager);
+
+        }
 
 
-    @Override
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate themenu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -57,5 +84,60 @@ public class MainActivity extends ActionBarActivity {
         }
         */
         return super.onOptionsItemSelected(item);
+    }
+
+    class MyPagerAdapter extends FragmentPagerAdapter{
+
+        String[] tabs;
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+            tabs = getResources().getStringArray(R.array.tabs);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return MyFragment.getInstance(position);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabs[position];
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
+    public static class  MyFragment extends Fragment{
+
+        private TextView textView;
+
+        public static MyFragment getInstance(int position){
+            MyFragment myFragment =  new MyFragment();
+            Bundle args = new Bundle();
+            args.putInt("position", position);
+            myFragment.setArguments(args);
+            return myFragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+            View layout = null;
+            Bundle bundle = getArguments();
+            int position;
+            if (bundle!=null){
+                position = bundle.getInt("position");
+                if(position==0){
+                    layout = inflater.inflate(R.layout.activity_vaga, container, false);
+                }
+                else if(position==1){
+                    layout= inflater.inflate(R.layout.activity_mensagem, container, false);
+                }
+            }
+            return  layout;
+        }
     }
 }
