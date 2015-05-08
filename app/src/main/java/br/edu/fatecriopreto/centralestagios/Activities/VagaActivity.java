@@ -25,6 +25,7 @@ public class VagaActivity extends ActionBarActivity {
         setSupportActionBar(appBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
         //DrawerFragment = menulateral
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);

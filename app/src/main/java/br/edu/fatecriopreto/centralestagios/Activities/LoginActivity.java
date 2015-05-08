@@ -1,12 +1,11 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,33 +13,21 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.WebServices.*;
 
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity  {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     *
-     */
-
-
-    // UI references.
     private EditText mRmView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up the login form.
         mRmView = (EditText) findViewById(R.id.edtRm);
-
         mPasswordView = (EditText) findViewById(R.id.edtSenha);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.btnEntrar);
@@ -50,136 +37,88 @@ public class LoginActivity extends Activity {
                 attemptLogin();
             }
         });
-
-        mLoginFormView = findViewById(R.id.Login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+
     public void attemptLogin() {
 
-        // Reset errors.
+        // Reseta erros.
         mRmView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
-        String rm = mRmView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        // Armazena os valores da tela em variaveis
+        final String rm = mRmView.getText().toString();
+        final String password = mPasswordView.getText().toString();
 
-        boolean cancel;
+        boolean cancel = true;
         View focusView = null;
 
-
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-        else if(!isPasswordValid(password))
-        {
-            mPasswordView.setError(getString(R.string.error_invalid_senha));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-
-        // Check for a valid rm.
+        // rm vazio
         if (TextUtils.isEmpty(rm)) {
             mRmView.setError(getString(R.string.error_field_required));
             focusView = mRmView;
             cancel = true;
-        }else
-        //Validar WebService para Login
-        if(mRmView.getText().toString().equals("1"))
-        {
-
-            //Validar senha WebService
-            if(mPasswordView.getText().toString().equals("1"))
-            {
-                cancel = false;
-            }
-            else
-            {
-                if (TextUtils.isEmpty(password)) {
-                    mPasswordView.setError(getString(R.string.error_field_required));
-                    focusView = mPasswordView;
-                    cancel = true;
-                }
-                else
-                {
-                    cancel = true;
-                    mPasswordView.setError("Senha incorreta");
-                    mPasswordView.setText("");
-                    focusView = mPasswordView;
-                }
-            }
-        }
-        else
-        {
-            mRmView.setError("Login incorreto");
-            mPasswordView.setText("");
-            focusView = mRmView;
+        //senha vazia
+        } else if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
             cancel = true;
-        }
+        //tamanho da senha
+        } else if (password.length() < 2) {
+            mPasswordView.setError(getString(R.string.error_short_senha));
+            focusView = mPasswordView;
+            cancel = true;
+        } else {
+            //mostra uma mensagem ao usuario para esperar
+            progressDialog = ProgressDialog.show(this, "", "Aguarde, verificando login na base de dados...", true);
 
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            //chama o webservice
+            String respostaws = wsLogin.verificaLoginSoap(rm, password);
+            if (respostaws != null) {
+                //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
+                switch (respostaws){
+                    case "Sem conexao":
+                        mRmView.setError("Sem acesso a base de dados");
+                        mRmView.setText("");
+                        mPasswordView.setText("");
+                        focusView = mRmView;
+                        cancel = true;
+                        break;
+                    case "rm":
+                        mRmView.setError(getString(R.string.error_invalid_rm));
+                        focusView = mRmView;
+                        cancel = true;
+                        break;
+                    case "senha":
+                        mPasswordView.setError(getString(R.string.error_invalid_senha));
+                        focusView = mPasswordView;
+                        cancel = true;
+                        break;
+                    case "acesso":
+                        mRmView.setError(getString(R.string.error_deny_access));
+                        mRmView.setText("");
+                        mPasswordView.setText("");
+                        focusView = mRmView;
+                        cancel = true;
+                        break;
+                    case "true":
+                        cancel = false;
+                        break;
+                }
+            }
+
+        }
+        progressDialog.dismiss();
+        //verifica se é necessario cancelar e da foco no que esta errado
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
-
-        }
-        else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
+        } else {
+            //chama a main
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             this.finish();
         }
     }
-    private boolean isPasswordValid(String password) {
-
-        return password.length() >= 6;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    public void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
 }

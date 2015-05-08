@@ -10,14 +10,7 @@
     android:background="@color/colorWhite"
     android:clickable="true">
 
-    <!-- Login progress -->
-    <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" android:visibility="gone"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
+    <!-- Login -->
 
     <ImageView
         android:layout_width="137dp"

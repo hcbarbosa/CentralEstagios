@@ -2,8 +2,9 @@
     <string name="title_activity_login">" "</string>
 
     <!-- Strings related to login -->
-    <string name="error_invalid_rm">O R.M é inválido</string>
-    <string name="error_invalid_senha">A senha é muito pequena</string>
-    <string name="error_incorrect_senha">Senha incorreta</string>
+    <string name="error_invalid_rm">R.M não existe</string>
+    <string name="error_short_senha">A senha é muito pequena</string>
+    <string name="error_invalid_senha">Senha errada</string>
     <string name="error_field_required">O campo é obrigatório</string>
+    <string name="error_deny_access">Acesso negado</string>
 </resources>
