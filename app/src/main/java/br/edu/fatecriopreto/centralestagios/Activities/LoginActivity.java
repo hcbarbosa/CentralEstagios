@@ -75,7 +75,7 @@ public class LoginActivity extends Activity  {
             StrictMode.setThreadPolicy(policy);
 
             //chama o webservice
-            String respostaws = wsLogin.verificaLoginSoap(rm, password);
+            String respostaws = wsLogin.verificaLoginSoap(rm, password, getApplicationContext());
             if (respostaws != null) {
                 //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
                 switch (respostaws){
