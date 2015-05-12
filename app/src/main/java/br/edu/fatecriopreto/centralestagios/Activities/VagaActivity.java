@@ -1,5 +1,6 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -49,11 +50,14 @@ public class VagaActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.pesqsimples) {
-            return true;
+            startActivity(new Intent(this, VagaActivity.class));
+            this.finish();
         }else if (id == R.id.pesqavancada) {
-            return true;
+            startActivity(new Intent(this, VagaPesquisaAvancadaActivity.class));
+            this.finish();
         }else if (id == R.id.pesqrecomendada) {
-            return true;
+            startActivity(new Intent(this, VagaRecomendadaActivity.class));
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);

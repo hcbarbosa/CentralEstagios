@@ -111,7 +111,7 @@ public class LoginActivity extends Activity  {
 
         }
         progressDialog.dismiss();
-        //verifica se é necessario cancelar e da foco no que esta errado
+        //verifica se eh necessario cancelar e da foco no que esta errado
         if (cancel) {
             focusView.requestFocus();
         } else {
