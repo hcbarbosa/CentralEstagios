@@ -1,5 +1,6 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class CurriculoActivity extends ActionBarActivity {
 
@@ -19,6 +21,9 @@ public class CurriculoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curriculo);
+
+        //Auxiliar na transicao de telas e pilha
+        variaveisGlobais.setActivityAtual(CurriculoActivity.class);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -53,4 +58,11 @@ public class CurriculoActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Pega o evento de voltar do celular e volta para a activity anterior
+    public void onBackPressed(){
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        this.finish();
+    }
+
 }

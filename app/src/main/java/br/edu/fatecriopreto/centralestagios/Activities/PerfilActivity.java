@@ -1,5 +1,6 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,21 +15,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 
 public class PerfilActivity extends ActionBarActivity {
 
     private Toolbar appBar;
+    TextView txtDadosPessoais;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
+        //Auxiliar na transicao de telas e pilha
+        variaveisGlobais.setActivityAtual(PerfilActivity.class);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -39,6 +47,12 @@ public class PerfilActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
+        //Ligas as variaveis com a tela
+        txtDadosPessoais = (TextView) findViewById(R.id.txtDadosPessoais);
+        //Animacao no txt
+        txtDadosPessoais.setAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+
 
     }
 
@@ -69,5 +83,12 @@ public class PerfilActivity extends ActionBarActivity {
         */
         return super.onOptionsItemSelected(item);
     }
+
+    //Pega o evento de voltar do celular e volta para a activity anterior
+    public void onBackPressed(){
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        this.finish();
+    }
+
 
 }

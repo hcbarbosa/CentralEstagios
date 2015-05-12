@@ -29,7 +29,15 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Candidatar-se"
+                android:id="@+id/btnCandidatar"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"

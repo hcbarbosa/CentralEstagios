@@ -1,7 +1,9 @@
 package br.edu.fatecriopreto.centralestagios.Menu;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import br.edu.fatecriopreto.centralestagios.Activities.MensagemActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.PerfilActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 
 /**
@@ -144,7 +147,7 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
     public void saveToPreferences(Context context, String preferenceName, String preferenceValue){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(preferenceName,preferenceValue);
+        editor.putString(preferenceName, preferenceValue);
         editor.apply();
     }
 
@@ -159,35 +162,60 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
             //aqui que vai muda o layout do main
              case 0: //"Inicio"
                 startActivity(new Intent(getActivity(), MainActivity.class));
+                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                  getActivity().finish();
                  break;
              case 1: //"Perfil"
                  startActivity(new Intent(getActivity(), PerfilActivity.class));
+                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                  getActivity().finish();
                 break;
             case 2: //"Curriculo"
                 startActivity(new Intent(getActivity(), CurriculoActivity.class));
+                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 3: //"Vagas"
                 startActivity(new Intent(getActivity(), VagaActivity.class));
+                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 4: //"Mensagens"
                 startActivity(new Intent(getActivity(), MensagemActivity.class));
+                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 5: //"Configuracoes"
                 startActivity(new Intent(getActivity(), ConfiguracoesActivity.class));
+                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 6: //"Sair"
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
+                AlertDialog.Builder alert = new AlertDialog.Builder(variaveisGlobais.getAlert());
+                alert.setTitle("Sair");
+                alert.setCancelable(false);
+                alert.setMessage(R.string.alertsair);
+                alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        getActivity().finish();
+                    }
+                });
+                alert.setNegativeButton(R.string.nao, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = alert.create();
+                dialog.show();
                 break;
              default:
                 break;
         }
 
     }
+
 }

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class VagaRecomendadaActivity extends ActionBarActivity {
 
@@ -31,6 +32,9 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga_recomendada);
+
+        //Auxiliar na transicao de telas e pilha
+        variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -74,12 +78,18 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.pesqsimples) {
             startActivity(new Intent(this, VagaActivity.class));
+            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
+            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqavancada) {
             startActivity(new Intent(this, VagaPesquisaAvancadaActivity.class));
+            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
+            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqrecomendada) {
             startActivity(new Intent(this, VagaRecomendadaActivity.class));
+            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
+            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }
 
@@ -140,4 +150,11 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
             return  layout;
         }
     }
+
+    //Pega o evento de voltar do celular e volta para a activity anterior
+    public void onBackPressed(){
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        this.finish();
+    }
+
 }

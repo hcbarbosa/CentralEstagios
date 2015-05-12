@@ -1,5 +1,7 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -30,7 +33,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setContentView(R.layout.activity_main_appbar);
+        //Auxiliar na transicao de telas e pilha
+        variaveisGlobais.setActivityAtual(MainActivity.class);
+
+        variaveisGlobais.setAlert(MainActivity.this);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -139,6 +145,13 @@ public class MainActivity extends ActionBarActivity {
             }
             return  layout;
         }
+    }
+
+
+    //Pega o evento de voltar do celular e volta para a activity anterior
+    public void onBackPressed(){
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        this.finish();
     }
 
 }

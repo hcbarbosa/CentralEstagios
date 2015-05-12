@@ -31,6 +31,8 @@
     <string name="sair">Sair</string>
     <string name="menu">Menu</string>
     <string name="perfil">Perfil</string>
+    <string name="alertsair">Você tem certeza que deseja sair?</string>
+    <string name="nao">Não</string>
 
     <!--Tabs-->
     <string-array name="tabs">
