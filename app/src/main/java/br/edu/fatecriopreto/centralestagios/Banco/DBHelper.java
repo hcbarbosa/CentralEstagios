@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String NOME = "nome";
     public static String EMAIL = "email";
     public static String SEMESTRE = "semestre";
-    public static String CURRICULOPDF = "curriculo_pdf";
+    public static String REMEMBERRM = "rememberRm";
 
 
     public static String TABELA = "perfil";
@@ -43,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     NOME + " text, " +
                     EMAIL + " text, " +
                     SEMESTRE + " integer, " +
-                    CURRICULOPDF + " blob, " +
+                    REMEMBERRM + " integer " +
                     ANO + " integer );";
 
     public static String DROP_DATABASE =

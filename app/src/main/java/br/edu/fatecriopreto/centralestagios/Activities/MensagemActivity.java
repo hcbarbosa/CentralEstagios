@@ -24,6 +24,7 @@ public class MensagemActivity extends ActionBarActivity {
 
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setActivityAtual(MensagemActivity.class);
+        variaveisGlobais.setAlert(MensagemActivity.this);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);

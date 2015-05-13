@@ -37,6 +37,7 @@ public class PerfilActivity extends ActionBarActivity {
 
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setActivityAtual(PerfilActivity.class);
+        variaveisGlobais.setAlert(PerfilActivity.this);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);

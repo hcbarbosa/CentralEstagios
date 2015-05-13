@@ -27,7 +27,7 @@ public class wsLogin {
     private static final String NAMESPACE = "http://tempuri.org/";
     private static final String METHOD_NAME = "verificaLogin";
     private static final String SOAP_ACTION = "http://tempuri.org/verificaLogin";
-    private static final String URL = "http://192.168.1.196:26046/WebServices/Login.asmx?WSDL";
+    private static final String URL = "http://192.168.43.214:26046/WebServices/Login.asmx?WSDL";
 
     public static String verificaLoginSoap(String login, String senha, Context applicationContext){
         String resposta = "Sem conexao";
@@ -73,8 +73,8 @@ public class wsLogin {
 
     public static String verificaLoginJson(String login, String senha, Context context) {
         final String[] resposta = {"Sem conexao"};
-        //String url = String.format("http://192.168.1.196:1326/api/Login/verificaLogin?rm="+login+"&senha="+senha);
-        String url = String.format("http://192.168.1.196:26046/WebServices/teste.aspx?rm="+login+"&senha="+senha);
+        //String url = String.format("http://localhost:1326/api/Login/verificaLogin?rm="+login+"&senha="+senha);
+        String url = String.format("http://10.0.0.2:26046/WebServices/teste.aspx?rm="+login+"&senha="+senha);
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,

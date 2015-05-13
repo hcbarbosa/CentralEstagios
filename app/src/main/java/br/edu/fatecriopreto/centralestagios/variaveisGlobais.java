@@ -1,9 +1,11 @@
 package br.edu.fatecriopreto.centralestagios;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 
+import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
 
@@ -13,7 +15,7 @@ public class variaveisGlobais extends Application {
 
     private static Class activityAtual = LoginActivity.class;
 
-   private static MainActivity alert;
+   private static Activity alert;
 
     public static Class getActivityAnterior(){
         return activityAnterior;
@@ -30,11 +32,13 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.activityAtual = s;
     }
 
-    public static MainActivity getAlert() {
+    public static Activity getAlert() {
         return alert;
     }
 
-    public static void setAlert(MainActivity alert) {
+    public static void setAlert(Activity alert) {
         variaveisGlobais.alert = alert;
     }
+
+
 }

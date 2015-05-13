@@ -24,6 +24,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
 
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setActivityAtual(ConfiguracoesActivity.class);
+        variaveisGlobais.setAlert(ConfiguracoesActivity.this);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);

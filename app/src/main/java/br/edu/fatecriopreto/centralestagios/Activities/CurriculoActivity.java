@@ -24,6 +24,7 @@ public class CurriculoActivity extends ActionBarActivity {
 
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setActivityAtual(CurriculoActivity.class);
+        variaveisGlobais.setAlert(CurriculoActivity.this);
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);

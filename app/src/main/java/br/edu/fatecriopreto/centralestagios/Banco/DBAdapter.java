@@ -14,7 +14,7 @@ public class DBAdapter {
             DBHelper.CIDADE, DBHelper.TELEFONE, DBHelper.CEP,
             DBHelper.ANO, DBHelper.UF,DBHelper.IMAGEM,DBHelper.BAIRRO,
             DBHelper.LOGRADOURO,DBHelper.COMPLEMENTO,DBHelper.NOME,
-            DBHelper.EMAIL,DBHelper.SEMESTRE,DBHelper.CURRICULOPDF};
+            DBHelper.EMAIL,DBHelper.SEMESTRE,DBHelper.REMEMBERRM};
 
     public  DBAdapter(Context context){
         dbHelper = new DBHelper(context);
@@ -28,10 +28,15 @@ public class DBAdapter {
         database.close();
     }
 
+    public void refreshdb(){
+        database.execSQL(dbHelper.DROP_DATABASE);
+        dbHelper.onCreate(database);
+    }
+
     public void adicionar(Integer rm,
                           Integer cursoId, String cidade, String telefone, String cep,
                           int ano, String uf, String bairro, String logradouro, String complemento,
-                          String nome, String email, String semestre ) {
+                          String nome, String email, String semestre, Integer rememberRm) {
         ContentValues contentValues =
                 new ContentValues();
 
@@ -48,6 +53,7 @@ public class DBAdapter {
         contentValues.put(DBHelper.NOME, nome);
         contentValues.put(DBHelper.EMAIL, email);
         contentValues.put(DBHelper.SEMESTRE, semestre);
+        contentValues.put(DBHelper.REMEMBERRM, rememberRm);
 
         database.insert(DBHelper.TABELA, null,
                 contentValues);
@@ -60,7 +66,7 @@ public class DBAdapter {
 
     public Cursor getPerfil(){
         return database.rawQuery(
-                " select rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro, complemento, nome, email, semestre from "
+                " select rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro, complemento, nome, email, semestre, rememberRm from "
                         + DBHelper.TABELA, null);
     }
 
@@ -68,7 +74,7 @@ public class DBAdapter {
         return new Perfil(cursor.getLong(0),cursor.getLong(1),cursor.getString(3),
                         cursor.getString(4),cursor.getString(5),cursor.getLong(6),cursor.getString(7),
                         cursor.getString(8),cursor.getString(9),cursor.getString(10),
-                        cursor.getString(11),cursor.getString(12));
+                        cursor.getString(11),cursor.getString(12), cursor.getLong(13));
     }
 
     public Perfil getPerfil(long rm){

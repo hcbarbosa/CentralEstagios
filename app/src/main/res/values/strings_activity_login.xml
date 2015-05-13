@@ -7,4 +7,12 @@
     <string name="error_invalid_senha">Senha errada</string>
     <string name="error_field_required">O campo é obrigatório</string>
     <string name="error_deny_access">Acesso negado</string>
+    <string name="duvidasTitle">Dúvidas</string>
+    <string name="duvidasBody1">1)As vagas disponíveis para visualização são vagas que foram definidas para o seu curso</string>
+    <string name="duvidasBody2">2)Você pode pesquisar utilizando a pesquisa padrão(por curso), pesquisa avançada
+        (por beneficio ou conhecimento) ou a pesquisa de vagas recomendadas (seriam aquelas que encaixam com seu perfil)</string>
+    <string name="duvidasBody3">3)Ao se candidatar a uma vaga uma tela para edição do email que será enviado a empresa aparecerá.</string>
+    <string name="duvidasBody4">4)Qualquer dúvida sobre a vaga pode ser enviada clicando sobre o ícone de mensagens da vaga,
+        isso fará que um chat seja aberto.</string>
+    <string name="duvidasBody5">....</string>
 </resources>

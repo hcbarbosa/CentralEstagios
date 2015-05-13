@@ -1,7 +1,9 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,16 +17,23 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.WebServices.*;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class LoginActivity extends Activity  {
 
     private EditText mRmView;
     private EditText mPasswordView;
+    private TextView mtxtDuvidas;
+    private CheckBox mRmRemember;
+
     ProgressDialog progressDialog;
 
 
@@ -35,6 +44,24 @@ public class LoginActivity extends Activity  {
 
         mRmView = (EditText) findViewById(R.id.edtRm);
         mPasswordView = (EditText) findViewById(R.id.edtSenha);
+
+        //se ja existe algum rm armazenado
+        DBAdapter db = new DBAdapter(LoginActivity.this);
+        db.refreshdb();
+        db.open();
+        if(db.getPerfil() != null){
+            mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
+            String lembraRm = String.valueOf(db.getPerfil().getColumnIndex("rememberRm"));
+            if(lembraRm != "" && lembraRm != null){
+                mRmView.setText(lembraRm);
+                mRmRemember.setChecked(true);
+            }else
+            {
+                mRmRemember.setChecked(false);
+            }
+        }
+        db.close();
+
 
         //Rede de dados
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
@@ -57,6 +84,21 @@ public class LoginActivity extends Activity  {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        mtxtDuvidas = (TextView) findViewById(R.id.btnDuvidas);
+        mtxtDuvidas.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                alert.setTitle(R.string.duvidasTitle);
+                alert.setCancelable(false);
+                alert.setMessage(R.string.duvidasBody1 + "\n" + R.string.duvidasBody2 + "\n" +
+                        R.string.duvidasBody3 + "\n" +  R.string.duvidasBody4 + "\n" + R.string.duvidasBody5);
+
+                AlertDialog dialog = alert.create();
+                dialog.show();
             }
         });
     }
@@ -108,7 +150,7 @@ public class LoginActivity extends Activity  {
                     public void run() {
                         try{
                             //chama o webservice
-                            respostaws[0] = wsLogin.verificaLoginSoap(rm, password, getApplicationContext());
+                            respostaws[0] = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
                         }
                         catch (Exception ex){
                             ex.printStackTrace();
@@ -161,6 +203,10 @@ public class LoginActivity extends Activity  {
         if (cancel) {
             focusView.requestFocus();
         } else {
+            //armazena o rm se estiver checkado
+            if(mRmRemember.isChecked()){
+                Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado" , Toast.LENGTH_LONG).show();
+            }
             //chama a main
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
