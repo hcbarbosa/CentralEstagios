@@ -47,12 +47,11 @@ public class LoginActivity extends Activity  {
 
         //se ja existe algum rm armazenado
         DBAdapter db = new DBAdapter(LoginActivity.this);
-        db.refreshdb();
         db.open();
-        if(db.getPerfil() != null){
+        if(db.getPerfilRememberRm() != null){
             mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
-            String lembraRm = String.valueOf(db.getPerfil().getColumnIndex("rememberRm"));
-            if(lembraRm != "" && lembraRm != null){
+            String lembraRm = String.valueOf(db.getPerfilRememberRm().getColumnIndex("rememberRm"));
+            if(lembraRm != "" && lembraRm != "0"){
                 mRmView.setText(lembraRm);
                 mRmRemember.setChecked(true);
             }else
@@ -94,9 +93,18 @@ public class LoginActivity extends Activity  {
                 AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                 alert.setTitle(R.string.duvidasTitle);
                 alert.setCancelable(false);
-                alert.setMessage(R.string.duvidasBody1 + "\n" + R.string.duvidasBody2 + "\n" +
-                        R.string.duvidasBody3 + "\n" +  R.string.duvidasBody4 + "\n" + R.string.duvidasBody5);
-
+                String texto = R.string.duvidasBody1 + "\n";
+                texto += R.string.duvidasBody2 + "\n";
+                texto += R.string.duvidasBody3 + "\n";
+                texto += R.string.duvidasBody4 + "\n";
+                texto += R.string.duvidasBody5 + "\n";
+                alert.setMessage(texto);
+                alert.setNegativeButton("Fechar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 AlertDialog dialog = alert.create();
                 dialog.show();
             }

@@ -35,7 +35,7 @@ public class DBAdapter {
 
     public void adicionar(Integer rm,
                           Integer cursoId, String cidade, String telefone, String cep,
-                          int ano, String uf, String bairro, String logradouro, String complemento,
+                          Integer ano, String uf, String bairro, String logradouro, String complemento,
                           String nome, String email, String semestre, Integer rememberRm) {
         ContentValues contentValues =
                 new ContentValues();
@@ -67,6 +67,12 @@ public class DBAdapter {
     public Cursor getPerfil(){
         return database.rawQuery(
                 " select rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro, complemento, nome, email, semestre, rememberRm from "
+                        + DBHelper.TABELA, null);
+    }
+
+    public Cursor getPerfilRememberRm(){
+        return database.rawQuery(
+                " select rememberRm from "
                         + DBHelper.TABELA, null);
     }
 
