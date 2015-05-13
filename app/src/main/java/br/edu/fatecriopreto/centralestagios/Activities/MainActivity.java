@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
@@ -43,10 +44,14 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(appBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //coloca qual a img do usuario
+        variaveisGlobais.setImageUser(R.raw.app_icon);
+
         //DrawerFragment = menulateral
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
         getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
 
         //Tabs
         mPager = (ViewPager) findViewById(R.id.pager);

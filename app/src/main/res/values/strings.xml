@@ -33,6 +33,7 @@
     <string name="perfil">Perfil</string>
     <string name="alertsair">Você tem certeza que deseja sair?</string>
     <string name="nao">Não</string>
+    <string name="ola">Olá</string>
 
     <!--Tabs-->
     <string-array name="tabs">
@@ -59,5 +60,6 @@
         <item>Recomendadas</item>
     </string-array>
     <string name="title_activity_vaga_recomendada">Vagas</string>
+    <string name="title_activity_perfil_edit">Editar Perfil</string>
 
 </resources>

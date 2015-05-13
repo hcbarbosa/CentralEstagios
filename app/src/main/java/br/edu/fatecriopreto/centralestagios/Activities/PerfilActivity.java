@@ -17,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
+import br.edu.fatecriopreto.centralestagios.Utils.FloatingActionButton;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 
@@ -29,6 +31,7 @@ public class PerfilActivity extends ActionBarActivity {
 
     private Toolbar appBar;
     TextView txtDadosPessoais;
+    private static FloatingActionButton floatingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,21 @@ public class PerfilActivity extends ActionBarActivity {
         //Animacao no txt
         txtDadosPessoais.setAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
 
+        //botao flutuante
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.ic_edit);
+
+        floatingButton = new FloatingActionButton.Builder(this)
+                .setBackgroundDrawable(R.drawable.selector_button_red)
+                .setContentView(imageView).build();
+
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PerfilActivity.this, PerfilEditActivity.class));
+                finish();
+            }
+        });
 
     }
 
@@ -92,5 +110,10 @@ public class PerfilActivity extends ActionBarActivity {
         this.finish();
     }
 
-
+    //esconde o botao quando aparece menu
+    public static void onDrawerSlide(float slideOffset) {
+        if(floatingButton != null){
+           floatingButton.setTranslationX(slideOffset * 200);
+        }
+    }
 }

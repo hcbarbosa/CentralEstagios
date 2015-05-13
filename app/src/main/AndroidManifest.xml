@@ -6,9 +6,9 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!--Usado com o progressdialog e o webservice-->
+    <!-- Usado com o progressdialog e o webservice -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--Verifica se a net esta conectada-->
+    <!-- Verifica se a net esta conectada -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -21,7 +21,6 @@
             android:name=".Activities.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-
         </activity>
         <activity
             android:name=".Activities.MainActivity"
@@ -31,7 +30,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Activities.PerfilActivity"
@@ -60,6 +58,10 @@
         <activity
             android:name=".Activities.VagaRecomendadaActivity"
             android:label="@string/title_activity_vaga_recomendada" >
+        </activity>
+        <activity
+            android:name=".Activities.PerfilEditActivity"
+            android:label="@string/title_activity_perfil_edit" >
         </activity>
     </application>
 

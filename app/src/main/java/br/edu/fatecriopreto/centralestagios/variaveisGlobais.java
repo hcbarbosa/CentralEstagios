@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.widget.RelativeLayout;
 
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
@@ -14,6 +15,10 @@ public class variaveisGlobais extends Application {
     private static Class activityAnterior = LoginActivity.class;
 
     private static Class activityAtual = LoginActivity.class;
+
+    private static int drawer_user = R.layout.drawer_header;
+
+    private static int imageUser = R.raw.app_icon;
 
    private static Activity alert;
 
@@ -40,5 +45,19 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.alert = alert;
     }
 
+    public static int getImageUser() {
+        return imageUser;
+    }
 
+    public static void setImageUser(int imageUser) {
+        variaveisGlobais.imageUser = imageUser;
+    }
+
+    public static int getDrawer_user() {
+        return drawer_user;
+    }
+
+    public static void setDrawer_user(int drawer_user) {
+        variaveisGlobais.drawer_user = drawer_user;
+    }
 }

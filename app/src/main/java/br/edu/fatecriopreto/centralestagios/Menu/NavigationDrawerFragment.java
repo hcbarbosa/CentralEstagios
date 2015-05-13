@@ -1,6 +1,7 @@
 package br.edu.fatecriopreto.centralestagios.Menu;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MensagemActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.PerfilActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
@@ -67,6 +69,7 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        //cria o menu
         adapter = new InformationAdapter(getActivity(),getListaMenu());
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -125,21 +128,24 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                //Log.d("CentralEstagios","offset "+slideOffset);
+                super.onDrawerSlide(drawerView,slideOffset);
+                PerfilActivity.onDrawerSlide(slideOffset);
                 if(slideOffset < 0.6) {
                     appBar.setAlpha(2 - slideOffset);
                 }
             }
         };
 
-        if(!mUserLearnedDrawer && !mFromSavedInstanceState){
-            mDrawerLayout.openDrawer(containerView);
-        }
+
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerLayout.post(new Runnable() {
             @Override
             public void run() {
                 mDrawerToggle.syncState();
+                if(!mUserLearnedDrawer && !mFromSavedInstanceState){
+                    mDrawerLayout.openDrawer(containerView);
+
+                }
             }
         });
     }
@@ -160,37 +166,37 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
     public void itemClicked(View view, int position) {
         switch (position){
             //aqui que vai muda o layout do main
-             case 0: //"Inicio"
+             case 1: //"Inicio"
                 startActivity(new Intent(getActivity(), MainActivity.class));
                  variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                  getActivity().finish();
                  break;
-             case 1: //"Perfil"
+             case 2: //"Perfil"
                  startActivity(new Intent(getActivity(), PerfilActivity.class));
                  variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                  getActivity().finish();
                 break;
-            case 2: //"Curriculo"
+            case 3: //"Curriculo"
                 startActivity(new Intent(getActivity(), CurriculoActivity.class));
                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
-            case 3: //"Vagas"
+            case 4: //"Vagas"
                 startActivity(new Intent(getActivity(), VagaActivity.class));
                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
-            case 4: //"Mensagens"
+            case 5: //"Mensagens"
                 startActivity(new Intent(getActivity(), MensagemActivity.class));
                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
-            case 5: //"Configuracoes"
+            case 6: //"Configuracoes"
                 startActivity(new Intent(getActivity(), ConfiguracoesActivity.class));
                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
-            case 6: //"Sair"
+            case 7: //"Sair"
                 AlertDialog.Builder alert = new AlertDialog.Builder(variaveisGlobais.getAlert());
                 alert.setTitle("Sair");
                 alert.setCancelable(false);
