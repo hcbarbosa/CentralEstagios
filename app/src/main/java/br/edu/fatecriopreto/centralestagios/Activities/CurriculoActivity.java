@@ -23,7 +23,8 @@ public class CurriculoActivity extends ActionBarActivity {
         setContentView(R.layout.activity_curriculo);
 
         //Auxiliar na transicao de telas e pilha
-        variaveisGlobais.setActivityAtual(CurriculoActivity.class);
+        if(variaveisGlobais.getActivityAnterior() != CurriculoActivity.class)
+            variaveisGlobais.setActivityAtual(CurriculoActivity.class);
         variaveisGlobais.setAlert(CurriculoActivity.this);
 
         //AppBar

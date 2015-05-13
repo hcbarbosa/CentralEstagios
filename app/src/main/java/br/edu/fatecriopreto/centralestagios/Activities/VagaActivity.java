@@ -26,7 +26,8 @@ public class VagaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_vaga);
 
         //Auxiliar na transicao de telas e pilha
-        variaveisGlobais.setActivityAtual(VagaActivity.class);
+        if(variaveisGlobais.getActivityAnterior() != VagaActivity.class)
+            variaveisGlobais.setActivityAtual(VagaActivity.class);
         variaveisGlobais.setAlert(VagaActivity.this);
 
         //AppBar

@@ -36,7 +36,8 @@ public class PerfilActivity extends ActionBarActivity {
         setContentView(R.layout.activity_perfil);
 
         //Auxiliar na transicao de telas e pilha
-        variaveisGlobais.setActivityAtual(PerfilActivity.class);
+        if(variaveisGlobais.getActivityAnterior() != PerfilActivity.class)
+            variaveisGlobais.setActivityAtual(PerfilActivity.class);
         variaveisGlobais.setAlert(PerfilActivity.this);
 
         //AppBar

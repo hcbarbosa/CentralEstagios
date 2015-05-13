@@ -34,7 +34,8 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_vaga_pesquisa_avancada);
 
         //Auxiliar na transicao de telas e pilha
-        variaveisGlobais.setActivityAtual(VagaPesquisaAvancadaActivity.class);
+        if(variaveisGlobais.getActivityAnterior() != VagaPesquisaAvancadaActivity.class)
+            variaveisGlobais.setActivityAtual(VagaPesquisaAvancadaActivity.class);
         variaveisGlobais.setAlert(VagaPesquisaAvancadaActivity.this);
 
         //AppBar

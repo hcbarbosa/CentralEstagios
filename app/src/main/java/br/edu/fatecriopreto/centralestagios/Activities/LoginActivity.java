@@ -51,6 +51,7 @@ public class LoginActivity extends Activity  {
         if(db.getPerfilRememberRm() != null){
             mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
             String lembraRm = String.valueOf(db.getPerfilRememberRm().getColumnIndex("rememberRm"));
+            //String lembraRm = "123456789068";
             if(lembraRm != "" && lembraRm != "0"){
                 mRmView.setText(lembraRm);
                 mRmRemember.setChecked(true);
@@ -93,13 +94,13 @@ public class LoginActivity extends Activity  {
                 AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                 alert.setTitle(R.string.duvidasTitle);
                 alert.setCancelable(false);
-                String texto = R.string.duvidasBody1 + "\n";
-                texto += R.string.duvidasBody2 + "\n";
-                texto += R.string.duvidasBody3 + "\n";
-                texto += R.string.duvidasBody4 + "\n";
-                texto += R.string.duvidasBody5 + "\n";
-                alert.setMessage(texto);
-                alert.setNegativeButton("Fechar", new DialogInterface.OnClickListener() {
+                alert.setMessage(getResources().getString(R.string.duvidasBody1) + "\n"
+                        + getResources().getString(R.string.duvidasBody2) + "\n"
+                        + getResources().getString(R.string.duvidasBody3) + "\n"
+                        + getResources().getString(R.string.duvidasBody4) + "\n"
+                        + getResources().getString(R.string.duvidasBody5) + "\n");
+                alert.setIcon(R.drawable.help_circle);
+                alert.setNeutralButton("Fechar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

@@ -34,8 +34,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Auxiliar na transicao de telas e pilha
-        variaveisGlobais.setActivityAtual(MainActivity.class);
-
+        if(variaveisGlobais.getActivityAnterior() != MainActivity.class)
+            variaveisGlobais.setActivityAtual(MainActivity.class);
         variaveisGlobais.setAlert(MainActivity.this);
 
         //AppBar
