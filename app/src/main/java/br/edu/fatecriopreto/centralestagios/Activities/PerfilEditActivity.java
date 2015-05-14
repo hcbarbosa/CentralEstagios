@@ -46,6 +46,8 @@ public class PerfilEditActivity extends ActionBarActivity {
     EditText edtAno;
     EditText edtSemestre;
 
+    Bitmap fotoPerfil;
+
     Button btnBuscar;
     Button btnSalvar;
 
