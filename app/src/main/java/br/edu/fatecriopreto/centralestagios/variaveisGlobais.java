@@ -18,7 +18,7 @@ public class variaveisGlobais extends Application {
 
     private static int drawer_user = R.layout.drawer_header;
 
-    private static int imageUser = R.raw.app_icon;
+    private static int imageUser = R.drawable.app_icon;
 
    private static Activity alert;
 

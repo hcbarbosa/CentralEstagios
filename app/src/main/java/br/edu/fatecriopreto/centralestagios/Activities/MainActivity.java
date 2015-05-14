@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //coloca qual a img do usuario
-        variaveisGlobais.setImageUser(R.raw.app_icon);
+        variaveisGlobais.setImageUser(R.drawable.app_icon);
 
         //DrawerFragment = menulateral
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
