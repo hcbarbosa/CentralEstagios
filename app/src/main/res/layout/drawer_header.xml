@@ -12,13 +12,13 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:src="@drawable/app_icon"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         app:civ_border="true"
-        app:civ_borderColor="@color/colorLogo"
-        app:civ_borderWidth="4dp"
+        app:civ_borderColor="@color/colorBlack"
+        app:civ_borderWidth="2dp"
         app:civ_shadow="true" />
 
     <LinearLayout

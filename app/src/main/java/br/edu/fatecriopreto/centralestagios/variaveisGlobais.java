@@ -22,9 +22,15 @@ public class variaveisGlobais extends Application {
 
    private static Activity alert;
 
+    public static String KEY_ID ="id";
+    public static String KEY_TITLE = "titlevaga";
+    public static String KEY_SALARY = "salary";
+    public static String KEY_COMPANY = "company";
+
     public static Class getActivityAnterior(){
         return activityAnterior;
     }
+
     public static void setActivityAnterior(Class s){
        activityAnterior = s;
     }

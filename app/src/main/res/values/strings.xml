@@ -49,17 +49,19 @@
     <!--Vagas-->
     <string name="pesqsimples">Padrão (Curso)</string>
     <string name="pesqavancada">Conhecimentos/Benefícios</string>
+    <string name="conhecimentos">Conhecimentos</string>
+    <string name="beneficios">Benefícios</string>
     <string name="pesqrecomendada">Recomendadas</string>
 
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_vaga_pesquisa_avancada">Vagas</string>
+    <string name="title_activity_vaga_pesquisa_avancada">Pesquisa Avançada</string>
     <string-array name="tabsvagas">
         <item>Pesquisa padrão</item>
         <item>Pesquisa avançada</item>
         <item>Recomendadas</item>
     </string-array>
-    <string name="title_activity_vaga_recomendada">Vagas</string>
+    <string name="title_activity_vaga_recomendada">Recomendadas</string>
     <string name="title_activity_perfil_edit">Editar Perfil</string>
 
 </resources>
