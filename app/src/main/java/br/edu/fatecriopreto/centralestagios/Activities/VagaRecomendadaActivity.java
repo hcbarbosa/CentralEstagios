@@ -44,8 +44,8 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_vaga_recomendada);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != VagaRecomendadaActivity.class)
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaRecomendadaActivity.class)
+            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
         variaveisGlobais.setAlert(VagaRecomendadaActivity.this);
 
         //AppBar
@@ -117,18 +117,12 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.pesqsimples) {
             startActivity(new Intent(this, VagaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqavancada) {
             startActivity(new Intent(this, VagaPesquisaAvancadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqrecomendada) {
             startActivity(new Intent(this, VagaRecomendadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }
 
@@ -192,7 +186,8 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 

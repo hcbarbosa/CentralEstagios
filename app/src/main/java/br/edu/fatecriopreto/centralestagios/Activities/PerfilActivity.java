@@ -39,8 +39,8 @@ public class PerfilActivity extends ActionBarActivity {
         setContentView(R.layout.activity_perfil);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != PerfilActivity.class)
-            variaveisGlobais.setActivityAtual(PerfilActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != PerfilActivity.class)
+            variaveisGlobais.setActivityAnterior(PerfilActivity.class);
         variaveisGlobais.setAlert(PerfilActivity.this);
 
         //AppBar
@@ -106,7 +106,8 @@ public class PerfilActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 

@@ -43,8 +43,8 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_vaga_pesquisa_avancada);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != VagaPesquisaAvancadaActivity.class)
-            variaveisGlobais.setActivityAtual(VagaPesquisaAvancadaActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaPesquisaAvancadaActivity.class)
+            variaveisGlobais.setActivityAnterior(VagaPesquisaAvancadaActivity.class);
         variaveisGlobais.setAlert(VagaPesquisaAvancadaActivity.this);
 
         //AppBar
@@ -73,7 +73,7 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
         mTabs.setViewPager(mPager);
         */
 
-        ArrayList<HashMap<String,String>> lista = new ArrayList<>();
+        final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
         for(int i=0; i < 10; i++){
             HashMap<String,String> map = new HashMap<>();
             map.put(variaveisGlobais.KEY_ID,String.valueOf(i));
@@ -91,7 +91,16 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
         lsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), Vaga_ConsultarActivity.class);
+                Bundle params = new Bundle();
+                params.putString("titlevaga", lista.get(position).get("titlevaga"));
+                params.putString("id", lista.get(position).get("id"));
+                params.putString("salary", lista.get(position).get("salary"));
+                params.putString("company", lista.get(position).get("company"));
 
+                intent.putExtras(params);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -117,18 +126,12 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.pesqsimples) {
             startActivity(new Intent(this, VagaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaPesquisaAvancadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaPesquisaAvancadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqavancada) {
             startActivity(new Intent(this, VagaPesquisaAvancadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaPesquisaAvancadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaPesquisaAvancadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqrecomendada) {
             startActivity(new Intent(this, VagaRecomendadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaPesquisaAvancadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaPesquisaAvancadaActivity.class);
             this.finish();
         }
 
@@ -195,7 +198,8 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 }

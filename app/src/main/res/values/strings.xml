@@ -63,5 +63,6 @@
     </string-array>
     <string name="title_activity_vaga_recomendada">Recomendadas</string>
     <string name="title_activity_perfil_edit">Editar Perfil</string>
+    <string name="title_activity_vaga__consultar">Vaga</string>
 
 </resources>

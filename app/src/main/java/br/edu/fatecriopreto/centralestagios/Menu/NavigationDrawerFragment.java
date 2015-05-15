@@ -168,32 +168,27 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
             //aqui que vai muda o layout do main
              case 1: //"Inicio"
                 startActivity(new Intent(getActivity(), MainActivity.class));
-                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
+
                  getActivity().finish();
                  break;
              case 2: //"Perfil"
                  startActivity(new Intent(getActivity(), PerfilActivity.class));
-                 variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
-                 getActivity().finish();
+                  getActivity().finish();
                 break;
             case 3: //"Curriculo"
                 startActivity(new Intent(getActivity(), CurriculoActivity.class));
-                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 4: //"Vagas"
                 startActivity(new Intent(getActivity(), VagaActivity.class));
-                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
-                getActivity().finish();
+                 getActivity().finish();
                 break;
             case 5: //"Mensagens"
                 startActivity(new Intent(getActivity(), MensagemActivity.class));
-                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 6: //"Configuracoes"
                 startActivity(new Intent(getActivity(), ConfiguracoesActivity.class));
-                variaveisGlobais.setActivityAnterior(variaveisGlobais.getActivityAtual());
                 getActivity().finish();
                 break;
             case 7: //"Sair"

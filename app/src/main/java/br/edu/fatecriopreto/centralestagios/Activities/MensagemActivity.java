@@ -23,8 +23,8 @@ public class MensagemActivity extends ActionBarActivity {
         setContentView(R.layout.activity_mensagem);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != MensagemActivity.class)
-            variaveisGlobais.setActivityAtual(MensagemActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != MensagemActivity.class)
+            variaveisGlobais.setActivityAnterior(MensagemActivity.class);
         variaveisGlobais.setAlert(MensagemActivity.this);
 
         //AppBar
@@ -63,7 +63,8 @@ public class MensagemActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 }

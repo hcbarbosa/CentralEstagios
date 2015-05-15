@@ -110,6 +110,15 @@ public class LoginActivity extends Activity  {
                 dialog.show();
             }
         });
+
+        variaveisGlobais.clearAnterior();
+        if(variaveisGlobais.getSizeActivityAnterior()!=0 &&
+                variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-1)!= LoginActivity.class)
+            variaveisGlobais.setActivityAnterior(LoginActivity.class);
+        else{
+            variaveisGlobais.setActivityAnterior(LoginActivity.class);
+        }
+
     }
 
     public void attemptLogin() {

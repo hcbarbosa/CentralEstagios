@@ -35,8 +35,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != MainActivity.class)
-            variaveisGlobais.setActivityAtual(MainActivity.class);
+        if(variaveisGlobais.getSizeActivityAnterior()!=0 && variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != MainActivity.class)
+            variaveisGlobais.setActivityAnterior(MainActivity.class);
+        else{
+            variaveisGlobais.setActivityAnterior(MainActivity.class);
+        }
         variaveisGlobais.setAlert(MainActivity.this);
 
         //AppBar
@@ -62,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
             mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                 @Override
                 public int getIndicatorColor(int position) {
-                    return getResources().getColor(R.color.colorLogo);
+                    return getResources().getColor(R.color.colorGray);
                 }
             });
         mTabs.setViewPager(mPager);
@@ -155,7 +158,8 @@ public class MainActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, LoginActivity.class));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 
