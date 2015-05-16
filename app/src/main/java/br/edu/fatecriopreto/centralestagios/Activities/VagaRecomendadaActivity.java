@@ -15,11 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
+import br.edu.fatecriopreto.centralestagios.Utils.ListVagasAdapter;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class VagaRecomendadaActivity extends ActionBarActivity {
@@ -28,14 +35,17 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
 
+    private ListView lsView;
+    private ListVagasAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga_recomendada);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != VagaRecomendadaActivity.class)
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaRecomendadaActivity.class)
+            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
         variaveisGlobais.setAlert(VagaRecomendadaActivity.this);
 
         //AppBar
@@ -49,6 +59,7 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
         //Tabs
+        /*
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         //Customizando as tabs
@@ -61,6 +72,32 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
             }
         });
         mTabs.setViewPager(mPager);
+        */
+
+        ArrayList<HashMap<String,String>> lista = new ArrayList<>();
+        for(int i=0; i < 10; i++){
+            HashMap<String,String> map = new HashMap<>();
+            map.put(variaveisGlobais.KEY_ID,String.valueOf(i));
+            map.put(variaveisGlobais.KEY_TITLE,"Nome vaga "+i);
+            map.put(variaveisGlobais.KEY_COMPANY,"Nome empresa "+i);
+            map.put(variaveisGlobais.KEY_SALARY,String.valueOf(i*20.0));
+            lista.add(map);
+        }
+
+        lsView = (ListView) findViewById(R.id.listVagaRecomendada);
+
+        adapter = new ListVagasAdapter(this, lista);
+        lsView.setAdapter(adapter);
+
+        lsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+
+
     }
 
     @Override
@@ -80,18 +117,12 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.pesqsimples) {
             startActivity(new Intent(this, VagaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqavancada) {
             startActivity(new Intent(this, VagaPesquisaAvancadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }else if (id == R.id.pesqrecomendada) {
             startActivity(new Intent(this, VagaRecomendadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaRecomendadaActivity.class);
             this.finish();
         }
 
@@ -155,7 +186,8 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 

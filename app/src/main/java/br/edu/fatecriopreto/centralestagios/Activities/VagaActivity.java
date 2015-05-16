@@ -26,8 +26,8 @@ public class VagaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_vaga);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != VagaActivity.class)
-            variaveisGlobais.setActivityAtual(VagaActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaActivity.class)
+            variaveisGlobais.setActivityAnterior(VagaActivity.class);
         variaveisGlobais.setAlert(VagaActivity.this);
 
         //AppBar
@@ -84,18 +84,12 @@ public class VagaActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.pesqsimples) {
             startActivity(new Intent(this, VagaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaActivity.class);
             this.finish();
         }else if (id == R.id.pesqavancada) {
             startActivity(new Intent(this, VagaPesquisaAvancadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaActivity.class);
             this.finish();
         }else if (id == R.id.pesqrecomendada) {
             startActivity(new Intent(this, VagaRecomendadaActivity.class));
-            variaveisGlobais.setActivityAnterior(VagaActivity.class);
-            variaveisGlobais.setActivityAtual(VagaActivity.class);
             this.finish();
         }
 
@@ -104,7 +98,8 @@ public class VagaActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 }

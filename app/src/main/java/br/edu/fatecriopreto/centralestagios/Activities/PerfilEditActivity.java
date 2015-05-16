@@ -59,7 +59,6 @@ public class PerfilEditActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_edit);
         //Auxiliar na transicao de telas e pilha
-            variaveisGlobais.setActivityAtual(PerfilEditActivity.class);
         variaveisGlobais.setAlert(PerfilEditActivity.this);
 
         //AppBar
@@ -179,6 +178,7 @@ public class PerfilEditActivity extends ActionBarActivity {
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
         startActivity(new Intent(this, PerfilActivity.class));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 }

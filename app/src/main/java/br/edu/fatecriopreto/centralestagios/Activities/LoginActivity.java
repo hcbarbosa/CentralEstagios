@@ -52,7 +52,7 @@ public class LoginActivity extends Activity  {
             mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
             String lembraRm = String.valueOf(db.getPerfilRememberRm().getColumnIndex("rememberRm"));
             //String lembraRm = "123456789068";
-            if(lembraRm != "" && lembraRm != "0"){
+            if(!lembraRm.equals("") && !lembraRm.equals("0")){
                 mRmView.setText(lembraRm);
                 mRmRemember.setChecked(true);
             }else
@@ -110,6 +110,15 @@ public class LoginActivity extends Activity  {
                 dialog.show();
             }
         });
+
+        variaveisGlobais.clearAnterior();
+        if(variaveisGlobais.getSizeActivityAnterior()!=0 &&
+                variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-1)!= LoginActivity.class)
+            variaveisGlobais.setActivityAnterior(LoginActivity.class);
+        else{
+            variaveisGlobais.setActivityAnterior(LoginActivity.class);
+        }
+
     }
 
     public void attemptLogin() {
@@ -122,7 +131,7 @@ public class LoginActivity extends Activity  {
         final String rm = mRmView.getText().toString();
         final String password = mPasswordView.getText().toString();
 
-        boolean cancel = true;
+        boolean cancel = false;
         View focusView = null;
 
         // rm vazio
@@ -151,7 +160,8 @@ public class LoginActivity extends Activity  {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 //chama o webservice
-                 respostaws[0] = wsLogin.verificaLoginSoap(rm, password, getApplicationContext());
+                // respostaws[0] = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
+                 respostaws[0] = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
             }
             else{
                 new Thread(new Runnable() {

@@ -63,6 +63,10 @@
             android:name=".Activities.PerfilEditActivity"
             android:label="@string/title_activity_perfil_edit" >
         </activity>
+        <activity
+            android:name=".Activities.Vaga_ConsultarActivity"
+            android:label="@string/title_activity_vaga__consultar" >
+        </activity>
     </application>
 
 </manifest>

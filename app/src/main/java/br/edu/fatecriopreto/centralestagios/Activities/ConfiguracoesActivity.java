@@ -23,8 +23,8 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         setContentView(R.layout.activity_configuracoes);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior() != ConfiguracoesActivity.class)
-            variaveisGlobais.setActivityAtual(ConfiguracoesActivity.class);
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != ConfiguracoesActivity.class)
+            variaveisGlobais.setActivityAnterior(ConfiguracoesActivity.class);
         variaveisGlobais.setAlert(ConfiguracoesActivity.this);
 
         //AppBar
@@ -64,7 +64,8 @@ public class ConfiguracoesActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior()));
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
         this.finish();
     }
 }

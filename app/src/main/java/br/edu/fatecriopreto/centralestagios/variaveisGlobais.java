@@ -6,15 +6,16 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
 
 public class variaveisGlobais extends Application {
 
-    private static Class activityAnterior = LoginActivity.class;
-
-    private static Class activityAtual = LoginActivity.class;
+    private static List<Class> activityAnterior = new ArrayList<>();
 
     private static int drawer_user = R.layout.drawer_header;
 
@@ -22,19 +23,21 @@ public class variaveisGlobais extends Application {
 
    private static Activity alert;
 
-    public static Class getActivityAnterior(){
-        return activityAnterior;
+    public static String KEY_ID ="id";
+    public static String KEY_TITLE = "titlevaga";
+    public static String KEY_SALARY = "salary";
+    public static String KEY_COMPANY = "company";
+
+    public static Class getActivityAnterior(int n){
+        return activityAnterior.get(n);
     }
+
     public static void setActivityAnterior(Class s){
-       activityAnterior = s;
+       activityAnterior.add(s);
     }
 
-    public static Class getActivityAtual() {
-        return activityAtual;
-    }
-
-    public static void setActivityAtual(Class s) {
-        variaveisGlobais.activityAtual = s;
+    public static int getSizeActivityAnterior(){
+        return activityAnterior.size();
     }
 
     public static Activity getAlert() {
@@ -45,19 +48,17 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.alert = alert;
     }
 
-    public static int getImageUser() {
-        return imageUser;
-    }
-
     public static void setImageUser(int imageUser) {
         variaveisGlobais.imageUser = imageUser;
     }
 
-    public static int getDrawer_user() {
-        return drawer_user;
+    public static void deleteAnterior() {
+        activityAnterior.remove(getSizeActivityAnterior()-1);
     }
 
-    public static void setDrawer_user(int drawer_user) {
-        variaveisGlobais.drawer_user = drawer_user;
+    public static void clearAnterior(){
+        activityAnterior.clear();
     }
 }
+
+
