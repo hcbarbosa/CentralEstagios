@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,28 +20,50 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.WebServices.*;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
+import com.microsoft.windowsazure.mobileservices.*;
+import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
+import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
+
+import java.net.MalformedURLException;
+
 public class LoginActivity extends Activity  {
+
+    private MobileServiceClient mClient;
 
     private EditText mRmView;
     private EditText mPasswordView;
     private TextView mtxtDuvidas;
     private CheckBox mRmRemember;
 
-    ProgressDialog progressDialog;
-
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        try {
+            mClient = new MobileServiceClient(
+                    "https://serviceappcentralestagios.azure-mobile.net/",
+                    "dunzvlJnuBXBqGHYPbaGlDCPaRLSnl60",
+                    this
+            );
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
+
 
         mRmView = (EditText) findViewById(R.id.edtRm);
         mPasswordView = (EditText) findViewById(R.id.edtSenha);
@@ -150,8 +173,12 @@ public class LoginActivity extends Activity  {
             focusView = mPasswordView;
             cancel = true;
         } else {
-            //mostra uma mensagem ao usuario para esperar
-            progressDialog = ProgressDialog.show(LoginActivity.this, "", "Aguarde, verificando login na base de dados...", true);
+
+            mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+
+            // chama progress bar
+            mProgressBar.setVisibility(ProgressBar.GONE);
+
 
             //chama o webservice
             final String[] respostaws = {""};
@@ -215,9 +242,7 @@ public class LoginActivity extends Activity  {
 
         }
 
-        if(progressDialog.isShowing()){
-            progressDialog.dismiss();
-        }
+
         //verifica se eh necessario cancelar e da foco no que esta errado
         if (cancel) {
             focusView.requestFocus();
@@ -232,6 +257,7 @@ public class LoginActivity extends Activity  {
             this.finish();
         }
     }
+
 
 
     //Pega o evento de voltar do celular e volta para a activity anterior

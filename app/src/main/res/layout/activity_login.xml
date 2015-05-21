@@ -12,6 +12,11 @@
 
     <!-- Login -->
 
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="28dp"
+        android:layout_height="28dp" />
+
     <ImageView
         android:layout_width="137dp"
         android:layout_height="208dp"

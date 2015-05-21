@@ -22,6 +22,8 @@ public class Perfil {
 
     }
 
+    public Perfil(){}
+
 
     public long getRm() {
         return rm;
