@@ -22,6 +22,11 @@
             android:orientation="vertical"
             tools:context="br.edu.fatecriopreto.centralestagios.Activities.VagaRecomendadaActivity">
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtFiltroNome" />
+
             <br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"

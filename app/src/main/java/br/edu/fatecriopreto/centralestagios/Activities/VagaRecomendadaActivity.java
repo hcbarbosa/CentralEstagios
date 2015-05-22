@@ -10,18 +10,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
@@ -37,6 +43,8 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
     private ListView lsView;
     private ListVagasAdapter adapter;
+
+    EditText edtFiltroNome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,8 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
+        edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
+
         //Tabs
         /*
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -74,7 +84,7 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         mTabs.setViewPager(mPager);
         */
 
-        ArrayList<HashMap<String,String>> lista = new ArrayList<>();
+        final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
         for(int i=0; i < 10; i++){
             HashMap<String,String> map = new HashMap<>();
             map.put(variaveisGlobais.KEY_ID,String.valueOf(i));
@@ -96,8 +106,44 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
             }
         });
 
+        final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
 
+        //evento de text changed na edt de filtro de nome de vaga
+        edtFiltroNome.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                listaFiltrada.clear();
+
+                for(HashMap<String, String> map: lista){
+
+                    if(map.get(variaveisGlobais.KEY_TITLE).contains(edtFiltroNome.getText().toString())){
+
+                        HashMap<String,String> mapValue = new HashMap<>();
+                        mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(map.get(variaveisGlobais.KEY_ID)));
+                        mapValue.put(variaveisGlobais.KEY_TITLE, map.get(variaveisGlobais.KEY_TITLE));
+                        mapValue.put(variaveisGlobais.KEY_COMPANY, map.get(variaveisGlobais.KEY_COMPANY));
+                        mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(Double.parseDouble(map.get(variaveisGlobais.KEY_SALARY))));
+                        listaFiltrada.add(mapValue);
+                    }
+                }
+
+                lsView.setAdapter(null);
+
+                adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, listaFiltrada);
+                lsView.setAdapter(adapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
