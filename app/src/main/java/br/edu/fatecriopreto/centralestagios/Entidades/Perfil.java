@@ -2,19 +2,19 @@ package br.edu.fatecriopreto.centralestagios.Entidades;
 
 public class Perfil {
 
-    private long rm;
-    private long cursoId;
-    private String cidade;
-    private String telefone;
-    private long CEP;
-    private long ano;
-    private String uf;
-    private String bairro;
-    private String logradouro;
-    private String complemento;
-    private String nome;
-    private String email;
-    private String semestre;
+    private long LoginRm;
+    private long CursoId;
+    private String Cidade;
+    private String Telefone;
+    private long Cep;
+    private long Ano;
+    private String Uf;
+    private String Bairro;
+    private String Logradouro;
+    private String Complemento;
+    private String Nome;
+    private String Email;
+    private String Semestre;
 
     private String rememberRm;
 
@@ -26,107 +26,107 @@ public class Perfil {
 
 
     public long getRm() {
-        return rm;
+        return LoginRm;
     }
 
     public void setRm(long rm) {
-        this.rm = rm;
+        this.LoginRm = rm;
     }
 
     public long getCursoId() {
-        return cursoId;
+        return CursoId;
     }
 
     public void setCursoId(long cursoId) {
-        this.cursoId = cursoId;
+        this.CursoId = cursoId;
     }
 
     public String getCidade() {
-        return cidade;
+        return Cidade;
     }
 
     public void setCidade(String cidade) {
-        this.cidade = cidade;
+        this.Cidade = cidade;
     }
 
     public String getTelefone() {
-        return telefone;
+        return Telefone;
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.Telefone = telefone;
     }
 
     public long getCEP() {
-        return CEP;
+        return Cep;
     }
 
     public void setCEP(long CEP) {
-        this.CEP = CEP;
+        this.Cep = CEP;
     }
 
     public long getAno() {
-        return ano;
+        return Ano;
     }
 
     public void setAno(long ano) {
-        this.ano = ano;
+        this.Ano = ano;
     }
 
     public String getUf() {
-        return uf;
+        return Uf;
     }
 
     public void setUf(String uf) {
-        this.uf = uf;
+        this.Uf = uf;
     }
 
     public String getBairro() {
-        return bairro;
+        return Bairro;
     }
 
     public void setBairro(String bairro) {
-        this.bairro = bairro;
+        this.Bairro = bairro;
     }
 
     public String getLogradouro() {
-        return logradouro;
+        return Logradouro;
     }
 
     public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+        this.Logradouro = logradouro;
     }
 
     public String getComplemento() {
-        return complemento;
+        return Complemento;
     }
 
     public void setComplemento(String complemento) {
-        this.complemento = complemento;
+        this.Complemento = complemento;
     }
 
     public String getNome() {
-        return nome;
+        return Nome;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.Nome = nome;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.Email = email;
     }
 
     public String getSemestre() {
-        return semestre;
+        return Semestre;
     }
 
     public void setSemestre(String semestre) {
-        this.semestre = semestre;
+        this.Semestre = semestre;
     }
 
     public void setRememberRm(String rememberRm) {

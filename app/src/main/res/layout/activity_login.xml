@@ -12,10 +12,7 @@
 
     <!-- Login -->
 
-    <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="28dp"
-        android:layout_height="28dp" />
+
 
     <ImageView
         android:layout_width="137dp"
@@ -79,19 +76,25 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/login_progress"
         android:layout_below="@+id/Login_form"
         android:layout_alignParentBottom="true"
         android:weightSum="1">
 
         <CheckBox
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:text="@string/lembraRm"
             android:id="@+id/chkLembraRm"
             android:layout_gravity="center_horizontal"
             android:checked="false"
             android:layout_weight="0.85" />
+
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center" />
+
 
         <TextView
             android:layout_width="wrap_content"
