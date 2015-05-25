@@ -7,9 +7,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
@@ -28,6 +30,8 @@ public class wsLogin {
     private static final String METHOD_NAME = "verificaLogin";
     private static final String SOAP_ACTION = "http://tempuri.org/verificaLogin";
     private static final String URL = "http://http://centralestagios.azurewebsites.net/WebServices/Login.asmx?WSDL";
+
+    public static String resposta;
 
     public static String verificaLoginSoap(String login, String senha, Context applicationContext){
         String resposta = "Sem conexao";
@@ -72,33 +76,37 @@ public class wsLogin {
 
 
     public static String verificaLoginJson(String login, String senha, Context context) {
-        final String[] resposta = {"Sem conexao"};
+
         //http://centralestagios.azurewebsites.net/WebServices/Login.aspx?rm=1&senha=1
-        String url = "http://centralestagios.azurewebsites.net/WebServices/Login.aspx?rm="+login+"&senha="+senha;
+        String url = "http://centralestagios.ddns.net/WebServices/teste.aspx?rm="+login+"&senha="+senha;
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        try {
-                            Log.d("RESPOSTA", jsonObject.toString());
-                            resposta[0] = jsonObject.getString("resposta");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Log.d("RESPOSTA", jsonObject.toString());
+        JsonArrayRequest getRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
 
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                            try {
+                                JSONObject jo = response.getJSONObject(0);
+                                resposta = jo.getString("resposta");
+                                Log.d("RESPOSTA", jo.toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+
+
+                        }
                     }
-                },new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-               Log.d("Error.Response.Aki", volleyError.getMessage());
-            }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response.Aki", error.getMessage());
+                    }
         });
+
         queue.add(getRequest);
 
-        return resposta[0];
+        return resposta;
     }
 
 }

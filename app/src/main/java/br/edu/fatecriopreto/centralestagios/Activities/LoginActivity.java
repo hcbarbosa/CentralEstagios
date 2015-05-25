@@ -2,12 +2,10 @@ package br.edu.fatecriopreto.centralestagios.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -15,8 +13,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -24,21 +20,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
-import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.WebServices.*;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
-import com.microsoft.windowsazure.mobileservices.*;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
-import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
-
-import java.net.MalformedURLException;
 
 public class LoginActivity extends Activity  {
-
-    private MobileServiceClient mClient;
 
     private EditText mRmView;
     private EditText mPasswordView;
@@ -47,23 +45,12 @@ public class LoginActivity extends Activity  {
 
     private ProgressBar mProgressBar;
 
+    public  String respostaws = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        try {
-            mClient = new MobileServiceClient(
-                    "https://serviceappcentralestagios.azure-mobile.net/",
-                    "dunzvlJnuBXBqGHYPbaGlDCPaRLSnl60",
-                    this
-            );
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-
-
 
         mRmView = (EditText) findViewById(R.id.edtRm);
         mPasswordView = (EditText) findViewById(R.id.edtSenha);
@@ -154,8 +141,8 @@ public class LoginActivity extends Activity  {
         final String rm = mRmView.getText().toString();
         final String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+        boolean cancel = true;
+        View focusView = mRmView;
 
         // rm vazio
         if (TextUtils.isEmpty(rm)) {
@@ -181,14 +168,14 @@ public class LoginActivity extends Activity  {
 
 
             //chama o webservice
-            final String[] respostaws = {""};
+
+            respostaws = "Sem conexao";
 
             if(Build.VERSION.SDK_INT > 9) {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 //chama o webservice
-                // respostaws[0] = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
-                 respostaws[0] = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
+                respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
             }
             else{
                 new Thread(new Runnable() {
@@ -196,7 +183,8 @@ public class LoginActivity extends Activity  {
                     public void run() {
                         try{
                             //chama o webservice
-                            respostaws[0] = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
+                            respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
+
                         }
                         catch (Exception ex){
                             ex.printStackTrace();
@@ -207,9 +195,9 @@ public class LoginActivity extends Activity  {
 
 
 
-            if (respostaws[0] != null) {
+            if (respostaws != null) {
                 //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
-                switch (respostaws[0]){
+                switch (respostaws){
                     case "Sem conexao":
                         mRmView.setError("Sem acesso a base de dados");
                         mRmView.setText("");
@@ -234,7 +222,7 @@ public class LoginActivity extends Activity  {
                         focusView = mRmView;
                         cancel = true;
                         break;
-                    case "true":
+                    case "ok":
                         cancel = false;
                         break;
                 }
