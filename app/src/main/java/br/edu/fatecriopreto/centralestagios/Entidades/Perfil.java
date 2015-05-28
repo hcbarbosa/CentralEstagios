@@ -15,8 +15,8 @@ public class Perfil {
     private String Nome;
     private String Email;
     private String Semestre;
-
     private String rememberRm;
+
 
     public Perfil(long aLong, long aLong1, String string, String string1, String string2, long aLong2, String string3, String string4, String string5, String string6, String string7, String string8, long string9) {
 

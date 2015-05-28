@@ -3,22 +3,12 @@ package br.edu.fatecriopreto.centralestagios.Entidades;
 
 public class Login {
 
-    @com.google.gson.annotations.SerializedName("Rm")
     private String Rm;
-
-    @com.google.gson.annotations.SerializedName("Senha")
     private String Senha;
-
-    @com.google.gson.annotations.SerializedName("ConfirmaSenha")
     private String ConfirmaSenha;
-
-    @com.google.gson.annotations.SerializedName("Status")
     private int Status;
-
-    @com.google.gson.annotations.SerializedName("StatusAdmin")
     private boolean StatusAdmin;
 
-    @com.google.gson.annotations.SerializedName("id")
     private String Id;
 
 

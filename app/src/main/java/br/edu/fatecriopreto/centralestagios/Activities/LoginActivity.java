@@ -30,7 +30,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
+import br.edu.fatecriopreto.centralestagios.Entidades.Login;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.WebServices.*;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
@@ -46,6 +51,10 @@ public class LoginActivity extends Activity  {
     private ProgressBar mProgressBar;
 
     public  String respostaws = "";
+    public   boolean cancel = true;
+    public View focusView = mRmView;
+    private RequestQueue queue;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +110,20 @@ public class LoginActivity extends Activity  {
         mtxtDuvidas.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                 alert.setTitle(R.string.duvidasTitle);
                 alert.setCancelable(false);
-                alert.setMessage(getResources().getString(R.string.duvidasBody1) + "\n"
+                final View recipientsLayout = getLayoutInflater().inflate(R.layout.scrollable_alert, null);
+                final TextView recipientsTextView = (TextView) recipientsLayout.findViewById(R.id.textDuvidas);
+
+                recipientsTextView.setText(getResources().getString(R.string.duvidasBody1) + "\n"
                         + getResources().getString(R.string.duvidasBody2) + "\n"
                         + getResources().getString(R.string.duvidasBody3) + "\n"
                         + getResources().getString(R.string.duvidasBody4) + "\n"
                         + getResources().getString(R.string.duvidasBody5) + "\n");
+                alert.setView(recipientsLayout);
+
                 alert.setIcon(R.drawable.help_circle);
                 alert.setNeutralButton("Fechar", new DialogInterface.OnClickListener() {
                     @Override
@@ -141,8 +156,7 @@ public class LoginActivity extends Activity  {
         final String rm = mRmView.getText().toString();
         final String password = mPasswordView.getText().toString();
 
-        boolean cancel = true;
-        View focusView = mRmView;
+
 
         // rm vazio
         if (TextUtils.isEmpty(rm)) {
@@ -171,65 +185,74 @@ public class LoginActivity extends Activity  {
 
             respostaws = "Sem conexao";
 
-            if(Build.VERSION.SDK_INT > 9) {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                //chama o webservice
-                respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
-            }
-            else{
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            //chama o webservice
-                            respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
+            //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            //StrictMode.setThreadPolicy(policy);
+            //chama o webservice
+            //respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
 
-                        }
-                        catch (Exception ex){
-                            ex.printStackTrace();
-                        }
+            url = "http://192.168.26.50:26046/WebServices/Login.aspx?rm=" + rm + "&senha=" + password;
+            Thread threadA = new Thread() {
+                public void run() {
+                    wsLogin threadB = new wsLogin(url, LoginActivity.this, queue);
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = threadB.execute().get(15, TimeUnit.SECONDS);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (TimeoutException e) {
+                        e.printStackTrace();
                     }
-                });
-            }
 
+                    final JSONArray receivedJSONArray = jsonArray;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("Resposta is: ", String.valueOf(wsLogin.resposta.toString()));
+                            respostaws = wsLogin.resposta.toString();
 
-
-            if (respostaws != null) {
-                //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
-                switch (respostaws){
-                    case "Sem conexao":
-                        mRmView.setError("Sem acesso a base de dados");
-                        mRmView.setText("");
-                        mPasswordView.setText("");
-                        focusView = mRmView;
-                        cancel = true;
-                        break;
-                    case "rm":
-                        mRmView.setError(getString(R.string.error_invalid_rm));
-                        focusView = mRmView;
-                        cancel = true;
-                        break;
-                    case "senha":
-                        mPasswordView.setError(getString(R.string.error_invalid_senha));
-                        focusView = mPasswordView;
-                        cancel = true;
-                        break;
-                    case "acesso":
-                        mRmView.setError(getString(R.string.error_deny_access));
-                        mRmView.setText("");
-                        mPasswordView.setText("");
-                        focusView = mRmView;
-                        cancel = true;
-                        break;
-                    case "ok":
-                        cancel = false;
-                        break;
+                        }//fecha run
+                    });
                 }
+            };
+
+            threadA.start();
+
+        }//fecha else e verifica
+
+        if (respostaws != null) {
+            //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
+            switch (respostaws) {
+                case "Sem conexao":
+                    mRmView.setError("Sem acesso a base de dados");
+                    mRmView.setText("");
+                    mPasswordView.setText("");
+                    focusView = mRmView;
+                    cancel = true;
+                    break;
+                case "rm":
+                    mRmView.setError(getString(R.string.error_invalid_rm));
+                    focusView = mRmView;
+                    cancel = true;
+                    break;
+                case "senha":
+                    mPasswordView.setError(getString(R.string.error_invalid_senha));
+                    focusView = mPasswordView;
+                    cancel = true;
+                    break;
+                case "acesso":
+                    mRmView.setError(getString(R.string.error_deny_access));
+                    mRmView.setText("");
+                    mPasswordView.setText("");
+                    focusView = mRmView;
+                    cancel = true;
+                    break;
+                case "ok":
+                    cancel = false;
+                    break;
             }
-
         }
-
 
         //verifica se eh necessario cancelar e da foco no que esta errado
         if (cancel) {
@@ -240,10 +263,11 @@ public class LoginActivity extends Activity  {
                 Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado" , Toast.LENGTH_LONG).show();
             }
             //chama a main
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            this.finish();
+            LoginActivity.this.finish();
         }
+
     }
 
 

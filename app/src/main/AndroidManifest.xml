@@ -30,7 +30,6 @@
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/title_activity_main" >
-
         </activity>
         <activity
             android:name=".Activities.PerfilActivity"
@@ -67,6 +66,10 @@
         <activity
             android:name=".Activities.Vaga_ConsultarActivity"
             android:label="@string/title_activity_vaga__consultar" >
+        </activity>
+        <activity
+            android:name=".Activities.PerfilRequeridoActivity"
+            android:label="@string/title_activity_perfil_requerido" >
         </activity>
     </application>
 
