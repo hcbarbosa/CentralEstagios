@@ -1,6 +1,7 @@
 package br.edu.fatecriopreto.centralestagios.WebServices;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -9,7 +10,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +26,11 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-public class wsLogin {
+public class wsLogin{
 
     private static final String NAMESPACE = "http://tempuri.org/";
     private static final String METHOD_NAME = "verificaLogin";
@@ -74,11 +80,9 @@ public class wsLogin {
         return resposta;
     }
 
-
     public static String verificaLoginJson(String login, String senha, Context context) {
 
-        //http://centralestagios.azurewebsites.net/WebServices/Login.aspx?rm=1&senha=1
-        String url = "http://centralestagios.ddns.net/WebServices/teste.aspx?rm="+login+"&senha="+senha;
+        String url = "http://192.168.0.101:26046/WebServices/Login.aspx?rm="+login+"&senha="+senha;
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
@@ -100,13 +104,12 @@ public class wsLogin {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response.Aki", error.getMessage());
+                        Log.d("Error.Response.Aki", "Erro no webservice");
                     }
         });
 
         queue.add(getRequest);
 
-        return resposta;
+            return resposta;
     }
-
 }

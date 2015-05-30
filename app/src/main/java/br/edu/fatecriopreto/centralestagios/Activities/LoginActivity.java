@@ -47,6 +47,9 @@ public class LoginActivity extends Activity  {
 
     public  String respostaws = "";
 
+    String rm;
+    String password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,9 @@ public class LoginActivity extends Activity  {
 
         mRmView = (EditText) findViewById(R.id.edtRm);
         mPasswordView = (EditText) findViewById(R.id.edtSenha);
+
+        rm = "";
+        password = "";
 
         //se ja existe algum rm armazenado
         DBAdapter db = new DBAdapter(LoginActivity.this);
@@ -138,8 +144,8 @@ public class LoginActivity extends Activity  {
         mPasswordView.setError(null);
 
         // Armazena os valores da tela em variaveis
-        final String rm = mRmView.getText().toString();
-        final String password = mPasswordView.getText().toString();
+        rm = mRmView.getText().toString();
+        password = mPasswordView.getText().toString();
 
         boolean cancel = true;
         View focusView = mRmView;
@@ -171,54 +177,58 @@ public class LoginActivity extends Activity  {
 
             respostaws = "Sem conexao";
 
-            if(Build.VERSION.SDK_INT > 9) {
+            if (Build.VERSION.SDK_INT > 9) {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 //chama o webservice
                 respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
-            }
-            else{
+            } else {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try{
+                        try {
                             //chama o webservice
                             respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
 
-                        }
-                        catch (Exception ex){
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
                 });
             }
 
-
-
             if (respostaws != null) {
                 //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
-                switch (respostaws){
+                switch (respostaws) {
                     case "Sem conexao":
                         mRmView.setError("Sem acesso a base de dados");
                         mRmView.setText("");
                         mPasswordView.setText("");
+                        rm = "";
+                        password = "";
                         focusView = mRmView;
                         cancel = true;
                         break;
                     case "rm":
                         mRmView.setError(getString(R.string.error_invalid_rm));
                         focusView = mRmView;
+                        rm = "";
+                        password = "";
                         cancel = true;
                         break;
                     case "senha":
                         mPasswordView.setError(getString(R.string.error_invalid_senha));
                         focusView = mPasswordView;
+                        rm = "";
+                        password = "";
                         cancel = true;
                         break;
                     case "acesso":
                         mRmView.setError(getString(R.string.error_deny_access));
                         mRmView.setText("");
                         mPasswordView.setText("");
+                        rm = "";
+                        password = "";
                         focusView = mRmView;
                         cancel = true;
                         break;
@@ -227,7 +237,6 @@ public class LoginActivity extends Activity  {
                         break;
                 }
             }
-
         }
 
 
