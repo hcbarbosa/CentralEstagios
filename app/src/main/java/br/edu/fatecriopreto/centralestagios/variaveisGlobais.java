@@ -18,10 +18,15 @@ public class variaveisGlobais extends Application {
     private static List<Class> activityAnterior = new ArrayList<>();
 
     private static int drawer_user = R.layout.drawer_header;
-
     private static int imageUser = R.drawable.app_icon;
+    private static String userRm = "";
+    private static String userName = "";
+    private static String userEmail = "";
 
-   private static Activity alert;
+
+    private static String respostawsLogin = "";
+
+    private static Activity alert;
 
     public static String KEY_ID ="id";
     public static String KEY_TITLE = "titlevaga";
@@ -58,6 +63,39 @@ public class variaveisGlobais extends Application {
 
     public static void clearAnterior(){
         activityAnterior.clear();
+    }
+
+    public static String getUserRm() {
+        return userRm;
+    }
+
+    public static void setUserRm(String userRm) {
+        variaveisGlobais.userRm = userRm;
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        variaveisGlobais.userName = userName;
+    }
+
+    public static String getUserEmail() {
+        return userEmail;
+    }
+
+    public static void setUserEmail(String userEmail) {
+        variaveisGlobais.userEmail = userEmail;
+    }
+
+
+    public static String getRespostawsLogin() {
+        return respostawsLogin;
+    }
+
+    public static void setRespostawsLogin(String respostawsLogin) {
+        variaveisGlobais.respostawsLogin = respostawsLogin;
     }
 }
 

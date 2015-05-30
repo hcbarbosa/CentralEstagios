@@ -10,17 +10,11 @@
         android:id="@+id/toolbar"
         layout="@layout/app_bar" />
 
-    <android.support.v4.widget.DrawerLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="br.edu.fatecriopreto.centralestagios.Activities.PerfilActivity">
+            tools:context="br.edu.fatecriopreto.centralestagios.Activities.PerfilRequeridoActivity">
 
             <br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout
                 android:id="@+id/tabs"
@@ -252,18 +246,5 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <fragment
-            android:id="@+id/fragment_navigation_drawer"
-            android:name="br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment"
-            android:layout_width="@dimen/nav_drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:layout="@layout/fragment_navigation_drawer"
-            tools:layout="@layout/fragment_navigation_drawer" />
-    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
 
