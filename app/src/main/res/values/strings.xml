@@ -45,6 +45,8 @@
     <string name="dadosPrincipais">Dados principais</string>
     <string name="nomeCompleto">Nome completo:</string>
     <string name="dadosPessoais">Dados Pessoais</string>
+    <string name="title_activity_perfil_edit">Editar Perfil</string>
+    <string name="title_activity_perfil_requerido">Perfil obrigatório</string>
 
     <!--Vagas-->
     <string name="pesqsimples">Padrão (Curso)</string>
@@ -52,18 +54,16 @@
     <string name="conhecimentos">Conhecimentos</string>
     <string name="beneficios">Benefícios</string>
     <string name="pesqrecomendada">Recomendadas</string>
-
-
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_vaga_recomendada">Recomendadas</string>
+    <string name="title_activity_vaga__consultar">Vaga</string>
     <string name="title_activity_vaga_pesquisa_avancada">Pesquisa Avançada</string>
     <string-array name="tabsvagas">
         <item>Pesquisa padrão</item>
         <item>Pesquisa avançada</item>
         <item>Recomendadas</item>
     </string-array>
-    <string name="title_activity_vaga_recomendada">Recomendadas</string>
-    <string name="title_activity_perfil_edit">Editar Perfil</string>
-    <string name="title_activity_vaga__consultar">Vaga</string>
-    <string name="title_activity_perfil_requerido">PerfilRequeridoActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
 
 </resources>

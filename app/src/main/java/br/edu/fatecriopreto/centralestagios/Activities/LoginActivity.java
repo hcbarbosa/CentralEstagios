@@ -6,9 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +30,6 @@ import org.json.JSONObject;
 
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
 import br.edu.fatecriopreto.centralestagios.R;
-import br.edu.fatecriopreto.centralestagios.WebServices.*;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 
@@ -46,6 +43,8 @@ public class LoginActivity extends Activity  {
     private ProgressBar mProgressBar;
 
     public  String respostaws = "";
+    public   boolean cancel = true;
+    public View focusView = null;
 
     String rm;
     String password;
@@ -110,12 +109,23 @@ public class LoginActivity extends Activity  {
                 AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                 alert.setTitle(R.string.duvidasTitle);
                 alert.setCancelable(false);
-                alert.setMessage(getResources().getString(R.string.duvidasBody1) + "\n"
-                        + getResources().getString(R.string.duvidasBody2) + "\n"
-                        + getResources().getString(R.string.duvidasBody3) + "\n"
-                        + getResources().getString(R.string.duvidasBody4) + "\n"
-                        + getResources().getString(R.string.duvidasBody5) + "\n");
+                final View recipientsLayout = getLayoutInflater().inflate(R.layout.scrollable_alert, null);
+                final TextView recipientsTextView = (TextView) recipientsLayout.findViewById(R.id.textDuvidas);
+                recipientsTextView.setText(getResources().getString(R.string.duvidasBody0).toUpperCase() + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody1) + "\n"
+                                + getResources().getString(R.string.duvidasBody2) + "\n"
+                                + getResources().getString(R.string.duvidasBody3) + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody4).toUpperCase() + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody5) + "\n"
+                                + getResources().getString(R.string.duvidasBody6) + "\n"
+                                + getResources().getString(R.string.duvidasBody7) + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody8).toUpperCase() + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody9) + "\n"
+                                + getResources().getString(R.string.duvidasBody10) + "\n"
+                                + getResources().getString(R.string.duvidasBody11) + "\n"
+                                + getResources().getString(R.string.duvidasBody12) + "\n");
                 alert.setIcon(R.drawable.help_circle);
+                alert.setView(recipientsLayout);
                 alert.setNeutralButton("Fechar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -147,115 +157,159 @@ public class LoginActivity extends Activity  {
         rm = mRmView.getText().toString();
         password = mPasswordView.getText().toString();
 
-        boolean cancel = true;
-        View focusView = mRmView;
-
         // rm vazio
         if (TextUtils.isEmpty(rm)) {
             mRmView.setError(getString(R.string.error_field_required));
             focusView = mRmView;
-            cancel = true;
-        //senha vazia
+            focusView.requestFocus();
+            //senha vazia
         } else if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
-            cancel = true;
-        //tamanho da senha
+            focusView.requestFocus();
+            //tamanho da senha
         } else if (password.length() < 2) {
             mPasswordView.setError(getString(R.string.error_short_senha));
             focusView = mPasswordView;
-            cancel = true;
-        } else {
+            focusView.requestFocus();
+        } else {//tudo preenchido
 
             mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
             // chama progress bar
             mProgressBar.setVisibility(ProgressBar.GONE);
-
+            mProgressBar.setVisibility(ProgressBar.VISIBLE);
 
             //chama o webservice
-
             respostaws = "Sem conexao";
 
-            if (Build.VERSION.SDK_INT > 9) {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                //chama o webservice
-                respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
-            } else {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //chama o webservice
-                            respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
+            //chama o webservice
+            //respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
 
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
+            String url = "http://192.168.0.12:26046/WebServices/Login.aspx?rm="+rm+"&senha="+password;
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+            JsonArrayRequest getRequest = new JsonArrayRequest(url,
+                    new Response.Listener<JSONArray>() {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+
+                            try {
+                                JSONObject jo = response.getJSONObject(0);
+                                respostaws = jo.getString("resposta");
+                                Log.d("RESPOSTA", jo.toString());
+
+                                if (respostaws != null) {
+                                    //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
+                                    switch (respostaws) {
+                                        case "Sem conexao":
+                                            mRmView.setError("Sem acesso a base de dados");
+                                            mRmView.setText("");
+                                            mPasswordView.setText("");
+                                            rm = "";
+                                            password = "";
+                                            focusView = mRmView;
+                                            cancel = true;
+                                            break;
+                                        case "rm":
+                                            mRmView.setError(getString(R.string.error_invalid_rm));
+                                            focusView = mRmView;
+                                            rm = "";
+                                            password = "";
+                                            cancel = true;
+                                            break;
+                                        case "senha":
+                                            mPasswordView.setError(getString(R.string.error_invalid_senha));
+                                            focusView = mPasswordView;
+                                            rm = "";
+                                            password = "";
+                                            cancel = true;
+                                            break;
+                                        case "acesso":
+                                            mRmView.setError(getString(R.string.error_deny_access));
+                                            mRmView.setText("");
+                                            mPasswordView.setText("");
+                                            rm = "";
+                                            password = "";
+                                            focusView = mRmView;
+                                            cancel = true;
+                                            break;
+                                        case "ok":
+                                            cancel = false;
+                                            variaveisGlobais.setUserEmail(jo.getString("email"));
+                                            variaveisGlobais.setUserRm(jo.getString("rm"));
+                                            variaveisGlobais.setUserName(jo.getString("nome"));
+                                            if(jo.getString("img") != null && !jo.getString("img").isEmpty()){
+                                                variaveisGlobais.setUserImg(jo.getString("img"));
+                                            }
+                                            break;
+                                        case "requerido":
+                                            cancel = false;
+                                            variaveisGlobais.setUserRm(jo.getString("rm"));
+                                            break;
+                                    }
+
+                                    //verifica se eh necessario cancelar e da foco no que esta errado
+                                    if (cancel) {
+                                        focusView.requestFocus();
+                                    } else {
+                                        //armazena o rm se estiver checkado
+                                        if (mRmRemember.isChecked()) {
+                                            Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado", Toast.LENGTH_LONG).show();
+                                        }
+                                        //chama a main
+                                        if (respostaws.equals("ok")) {
+                                            Intent intent = new Intent(RetornaAc(), MainActivity.class);
+                                            startActivity(intent);
+                                            FecharLogin();
+                                        } else if (respostaws.equals("requerido")) {
+                                            Intent intent = new Intent(RetornaAc(), PerfilRequeridoActivity.class);
+                                            startActivity(intent);
+                                            FecharLogin();
+                                        }
+                                    }
+                                    focusView = null;
+                                    mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                                    respostaws = null;
+
+                                }//fecha se resposta eh diferente de null
+                                else{
+
+                                        mRmView.setError("Sem acesso a base de dados");
+                                        mRmView.setText("");
+                                        mPasswordView.setText("");
+                                        rm = "";
+                                        password = "";
+                                        focusView = mRmView;
+                                        focusView.requestFocus();
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
-            }
-
-            if (respostaws != null) {
-                //verifica se a resposta foi possitiva e existe aquele login na base de dados, ou qual erro deu
-                switch (respostaws) {
-                    case "Sem conexao":
-                        mRmView.setError("Sem acesso a base de dados");
-                        mRmView.setText("");
-                        mPasswordView.setText("");
-                        rm = "";
-                        password = "";
-                        focusView = mRmView;
-                        cancel = true;
-                        break;
-                    case "rm":
-                        mRmView.setError(getString(R.string.error_invalid_rm));
-                        focusView = mRmView;
-                        rm = "";
-                        password = "";
-                        cancel = true;
-                        break;
-                    case "senha":
-                        mPasswordView.setError(getString(R.string.error_invalid_senha));
-                        focusView = mPasswordView;
-                        rm = "";
-                        password = "";
-                        cancel = true;
-                        break;
-                    case "acesso":
-                        mRmView.setError(getString(R.string.error_deny_access));
-                        mRmView.setText("");
-                        mPasswordView.setText("");
-                        rm = "";
-                        password = "";
-                        focusView = mRmView;
-                        cancel = true;
-                        break;
-                    case "ok":
-                        cancel = false;
-                        break;
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("Error.Response.Aki", "Erro no webservice");
                 }
-            }
-        }
+            });
+
+            queue.add(getRequest);
+
+        }//fecha dados preenchidos corretamente
+    }//fecha metodo attemplogin
 
 
-        //verifica se eh necessario cancelar e da foco no que esta errado
-        if (cancel) {
-            focusView.requestFocus();
-        } else {
-            //armazena o rm se estiver checkado
-            if(mRmRemember.isChecked()){
-                Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado" , Toast.LENGTH_LONG).show();
-            }
-            //chama a main
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            this.finish();
-        }
+    public void FecharLogin(){
+        this.finish();
     }
 
-
+    public LoginActivity RetornaAc(){
+        return  this;
+    }
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){

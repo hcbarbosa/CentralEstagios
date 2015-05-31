@@ -12,11 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Espaco do usuario -->
-        <!--<ImageView
-            android:layout_width="@dimen/nav_drawer_width"
-            android:layout_height="80dp"
-            android:src="@color/colorGrayWhite"/>-->
 
 
     </LinearLayout>

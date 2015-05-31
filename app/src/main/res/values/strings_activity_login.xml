@@ -7,12 +7,27 @@
     <string name="error_invalid_senha">Senha errada</string>
     <string name="error_field_required">O campo é obrigatório</string>
     <string name="error_deny_access">Acesso negado</string>
+
     <string name="duvidasTitle">Dúvidas</string>
-    <string name="duvidasBody1">1)As vagas disponíveis para visualização são vagas que foram definidas para o seu curso</string>
-    <string name="duvidasBody2">2)Você pode pesquisar utilizando a pesquisa padrão(por curso), pesquisa avançada
+    <string name="duvidasBody0">Login</string>
+    <string name="duvidasBody1">1)Caso queira guardar o Rm para futuros acessos deixe marcado a opção Guardar Rm</string>
+    <string name="duvidasBody2">2)Em caso de não estar conectado uma mensagem aparecerá ao usuário indicando que o mesmo
+        não possui acesso a base de dados</string>
+    <string name="duvidasBody3">3)Em caso de acesso negado, possivelmente seu usuário está inativo </string>
+    <string name="duvidasBody4">Perfil</string>
+    <string name="duvidasBody5">1)É necessário o cadastro de seu perfil em seu primeiro acesso, caso contrário não
+        conseguirá acesso as vagas</string>
+    <string name="duvidasBody6">2)Os dados são confidenciais e a central de estágio não possui acesso a essas informações</string>
+    <string name="duvidasBody7">3)Mantenha seu perfil atualizado pois a empresa receberá esses dados no se caso de
+        se candidatar a uma vaga</string>
+    <string name="duvidasBody8">Vagas</string>
+    <string name="duvidasBody9">1)As vagas disponíveis para visualização são vagas que foram definidas para o seu curso</string>
+    <string name="duvidasBody10">2)Você pode pesquisar utilizando a pesquisa padrão(por curso), pesquisa avançada
         (por beneficio ou conhecimento) ou a pesquisa de vagas recomendadas (seriam aquelas que encaixam com seu perfil)</string>
-    <string name="duvidasBody3">3)Ao se candidatar a uma vaga uma tela para edição do email que será enviado a empresa aparecerá.</string>
-    <string name="duvidasBody4">4)Qualquer dúvida sobre a vaga pode ser enviada clicando sobre o ícone de mensagens da vaga,
+    <string name="duvidasBody11">3)Ao se candidatar a uma vaga uma tela para edição do email que será enviado a empresa aparecerá.</string>
+    <string name="duvidasBody12">4)Qualquer dúvida sobre a vaga pode ser enviada clicando sobre o ícone de mensagens da vaga,
         isso fará que um chat seja aberto.</string>
-    <string name="duvidasBody5">....</string>
+
+
+
 </resources>

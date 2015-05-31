@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -19,12 +20,11 @@ public class variaveisGlobais extends Application {
 
     private static int drawer_user = R.layout.drawer_header;
     private static int imageUser = R.drawable.app_icon;
+    private static View viewNaView;
     private static String userRm = "";
     private static String userName = "";
     private static String userEmail = "";
-
-
-    private static String respostawsLogin = "";
+    private static String userImg = "";
 
     private static Activity alert;
 
@@ -32,6 +32,16 @@ public class variaveisGlobais extends Application {
     public static String KEY_TITLE = "titlevaga";
     public static String KEY_SALARY = "salary";
     public static String KEY_COMPANY = "company";
+
+
+
+    public static View getViewNaView() {
+        return viewNaView;
+    }
+
+    public static void setViewNaView(View viewNaView) {
+        variaveisGlobais.viewNaView = viewNaView;
+    }
 
     public static Class getActivityAnterior(int n){
         return activityAnterior.get(n);
@@ -90,13 +100,19 @@ public class variaveisGlobais extends Application {
     }
 
 
-    public static String getRespostawsLogin() {
-        return respostawsLogin;
+    public static String getUserImg() {
+        return userImg;
     }
 
-    public static void setRespostawsLogin(String respostawsLogin) {
-        variaveisGlobais.respostawsLogin = respostawsLogin;
+    public static void setUserImg(String userImg) {
+        variaveisGlobais.userImg = userImg;
     }
+
+
+    public static int getImageUser() {
+        return imageUser;
+    }
+
 }
 
 

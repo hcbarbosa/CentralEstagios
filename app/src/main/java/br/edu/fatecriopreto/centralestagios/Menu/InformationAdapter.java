@@ -62,6 +62,7 @@ public class InformationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemHolder.title.setText(atual.title);
             itemHolder.icon.setImageResource(atual.iconid);
         }
+
     }
 
     public void setClickListener(ClickListener clickListener){
@@ -103,6 +104,14 @@ public class InformationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public HeaderHolder(View itemView) {
             super(itemView);
 
+            ImageView img = (ImageView) itemView.findViewById(R.id.image_profile);
+            TextView name = (TextView) itemView.findViewById(R.id.nameUser);
+            TextView email = (TextView) itemView.findViewById(R.id.emailUser);
+
+            //alterando dados do usuario no menu
+            name.setText(variaveisGlobais.getUserName());
+            img.setImageDrawable(itemView.getResources().getDrawable(variaveisGlobais.getImageUser()));
+            email.setText(variaveisGlobais.getUserEmail());
         }
     }
 
