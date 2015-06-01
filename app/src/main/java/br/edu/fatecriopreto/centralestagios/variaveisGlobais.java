@@ -13,6 +13,7 @@ import java.util.List;
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
+import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 
 public class variaveisGlobais extends Application {
 
@@ -99,6 +100,7 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.userEmail = userEmail;
     }
 
+    public static List<Vaga> listVagas;
 
     public static String getUserImg() {
         return userImg;

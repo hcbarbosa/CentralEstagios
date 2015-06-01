@@ -5,11 +5,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
@@ -49,6 +63,51 @@ public class VagaActivity extends ActionBarActivity {
                 candidatar();
             }
         });
+
+        String url = "http://192.168.0.101:26046/webservices/vagas.aspx?rm=" + variaveisGlobais.getUserRm().toString();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        JsonArrayRequest getRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            //variaveisGlobais.listVagas =
+
+                            Vaga vaga = new Vaga();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                //achar um jeito de definir qual array dentro do response será utilizado para verificar um getJSONObject
+                                    vaga.setId(Integer.parseInt(response.getJSONObject(0).getString("Id")));
+                                    //vaga.setBeneficio(Integer.parseInt(response.getJSONObject(1).toString();
+                                    vaga.setBeneficioId(Integer.parseInt(response.getJSONObject(2).getString("BeneficioId")));
+                                    vaga.setDescricao(response.getJSONObject(3).getString("Descricao"));
+                                    vaga.setTelefoneEmpresa(response.getJSONObject(4).getString("TelefoneEmpresa"));
+                                    vaga.setHorario(response.getJSONObject(5).getString("Horario"));
+                                    vaga.setPessoaContato(response.getJSONObject(6).getString("PessoaContato"));
+                                    vaga.setPeriodo(response.getJSONObject(7).getString("Periodo"));
+                                    vaga.setTipoVaga(response.getJSONObject(8).getString("TipoVaga"));
+                                    vaga.setEmpresa(response.getJSONObject(9).getString("Empresa"));
+                                    vaga.setRemuneracao(Double.parseDouble(response.getJSONObject(10).getString("Remuneracao")));
+                                    vaga.setEmailEmpresa(response.getJSONObject(11).getString("EmailEmpresa"));
+                                    vaga.setObservacoes(response.getJSONObject(12).getString("Observacoes"));
+                                    //vaga.setDataCriacao(response.getJSONObject(13).toString());
+                                    variaveisGlobais.listVagas.add(vaga);
+                                }
+                        } catch (Exception e) {
+                            Log.d("erro: ", e.getMessage());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
+
+        queue.add(getRequest);
     }
 
     public void candidatar(){
@@ -64,7 +123,6 @@ public class VagaActivity extends ActionBarActivity {
         emailIntent.setType("message/rfc822");
         startActivity(Intent.createChooser(emailIntent,"Escolha seu aplicativo de email..."));
     }
-
 
 
     @Override
