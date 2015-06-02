@@ -48,6 +48,9 @@
     <string name="title_activity_perfil_edit">Editar Perfil</string>
     <string name="title_activity_perfil_requerido">Perfil obrigatório</string>
 
+    <!--Configurações-->
+    <String name="salvar">Salvar</String>
+
     <!--Vagas-->
     <string name="pesqsimples">Padrão (Curso)</string>
     <string name="pesqavancada">Conhecimentos/Benefícios</string>

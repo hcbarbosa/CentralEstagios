@@ -9,8 +9,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -21,6 +35,9 @@ import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 public class ConfiguracoesActivity extends ActionBarActivity {
 
     private Toolbar appBar;
+
+    EditText edtSenha;
+    Button btnSalvar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +59,56 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
+
+        edtSenha = (EditText) findViewById(R.id.edtSenha);
+        btnSalvar = (Button) findViewById(R.id.btnSalvar);
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String senha;
+
+                senha = edtSenha.getText().toString();
+
+                final String url = "http://192.168.0.101/webservices/trocarsenha.aspx?senha=" + senha + "&rm=" + variaveisGlobais.getUserRm();
+
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                JsonObjectRequest getRequest =
+                        new JsonObjectRequest(Request.Method.GET, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject jsonObject) {
+                                        try {
+
+                                            edtSenha.setText(jsonObject.getString("senha").toString());
+
+
+                                        } catch (JSONException ex){
+                                            ex.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Log.d("Error.Response", volleyError.getMessage());
+                            }
+                        });
+
+                queue.add(getRequest);
+            }
+        });
+
+
+
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
