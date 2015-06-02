@@ -64,7 +64,7 @@ public class VagaActivity extends ActionBarActivity {
             }
         });
 
-        String url = "http://192.168.0.101:26046/webservices/vagas.aspx?rm=" + variaveisGlobais.getUserRm().toString();
+        String url = "http://"+variaveisGlobais.EndIPAPP+":/vagas.aspx?rm=" + variaveisGlobais.getUserRm().toString();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,

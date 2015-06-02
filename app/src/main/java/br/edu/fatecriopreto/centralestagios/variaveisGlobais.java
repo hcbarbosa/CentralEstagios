@@ -34,7 +34,7 @@ public class variaveisGlobais extends Application {
     public static String KEY_SALARY = "salary";
     public static String KEY_COMPANY = "company";
 
-
+    public static String EndIPAPP ="http://192.168.43.170:26046/WebServices";
 
     public static View getViewNaView() {
         return viewNaView;
