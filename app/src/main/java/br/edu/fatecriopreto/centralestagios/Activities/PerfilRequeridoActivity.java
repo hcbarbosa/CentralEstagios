@@ -166,9 +166,6 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                 uf = edtUf.getText().toString();
                 lembrarRm = 0;
 
-                database.adicionar(rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro,
-                 complemento, nome, email, semestre, lembrarRm);
-
                 //envia para webservice
 
 

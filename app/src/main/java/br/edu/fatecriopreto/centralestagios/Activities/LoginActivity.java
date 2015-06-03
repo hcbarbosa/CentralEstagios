@@ -63,9 +63,9 @@ public class LoginActivity extends Activity  {
         //se ja existe algum rm armazenado
         DBAdapter db = new DBAdapter(LoginActivity.this);
         db.open();
-        if(db.getPerfilRememberRm() != null){
+        if(db.getRM() != null){
             mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
-            String lembraRm = String.valueOf(db.getPerfilRememberRm().getColumnIndex("rememberRm"));
+            String lembraRm = String.valueOf(db.getRM().getColumnIndex("rm"));
             //String lembraRm = "123456789068";
             if(!lembraRm.equals("") && !lembraRm.equals("0")){
                 mRmView.setText(lembraRm);
@@ -258,6 +258,11 @@ public class LoginActivity extends Activity  {
                                         if (mRmRemember.isChecked()) {
                                             Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado", Toast.LENGTH_LONG).show();
 
+                                            DBAdapter db = new DBAdapter(LoginActivity.this);
+                                            db.open();
+                                            db.refreshdb();
+                                            db.adicionar(Integer.parseInt(rm),1);
+                                            db.close();
                                         }
                                         //chama a main
                                         if (respostaws.equals("ok")) {

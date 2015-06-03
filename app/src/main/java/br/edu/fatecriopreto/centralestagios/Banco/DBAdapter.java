@@ -6,15 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
+import br.edu.fatecriopreto.centralestagios.Entidades.RM;
 
 public class DBAdapter {
     private SQLiteDatabase database;
     private DBHelper dbHelper;
-    private String[] colunas = {DBHelper.RM,DBHelper.CURSOID,
-            DBHelper.CIDADE, DBHelper.TELEFONE, DBHelper.CEP,
-            DBHelper.ANO, DBHelper.UF,DBHelper.IMAGEM,DBHelper.BAIRRO,
-            DBHelper.LOGRADOURO,DBHelper.COMPLEMENTO,DBHelper.NOME,
-            DBHelper.EMAIL,DBHelper.SEMESTRE,DBHelper.REMEMBERRM};
+    private String[] colunas = {DBHelper.RM,DBHelper.STATUS};
 
     public  DBAdapter(Context context){
         dbHelper = new DBHelper(context);
@@ -34,104 +31,48 @@ public class DBAdapter {
     }
 
     public void adicionar(Integer rm,
-                          Integer cursoId, String cidade, String telefone, String cep,
-                          Integer ano, String uf, String bairro, String logradouro, String complemento,
-                          String nome, String email, String semestre, Integer rememberRm) {
+                          Integer status) {
         ContentValues contentValues =
                 new ContentValues();
 
         contentValues.put(DBHelper.RM, rm);
-        contentValues.put(DBHelper.CURSOID, cursoId);
-        contentValues.put(DBHelper.CIDADE, cidade);
-        contentValues.put(DBHelper.TELEFONE, telefone);
-        contentValues.put(DBHelper.CEP, cep);
-        contentValues.put(DBHelper.ANO, ano);
-        contentValues.put(DBHelper.UF, uf);
-        contentValues.put(DBHelper.BAIRRO, bairro);
-        contentValues.put(DBHelper.LOGRADOURO, logradouro);
-        contentValues.put(DBHelper.COMPLEMENTO, complemento);
-        contentValues.put(DBHelper.NOME, nome);
-        contentValues.put(DBHelper.EMAIL, email);
-        contentValues.put(DBHelper.SEMESTRE, semestre);
-        contentValues.put(DBHelper.REMEMBERRM, rememberRm);
+        contentValues.put(DBHelper.STATUS, status);
 
         database.insert(DBHelper.TABELA, null,
                 contentValues);
     }
 
-    public void apagar(long idPerfil)
+    public void apagar(long rm)
     {
-        database.delete(DBHelper.TABELA, DBHelper.RM + " = " + idPerfil, null);
+        database.delete(DBHelper.TABELA, DBHelper.RM + " = " + rm, null);
     }
 
-    public Cursor getPerfil(){
+    public Cursor getRM(){
         return database.rawQuery(
-                " select rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro, complemento, nome, email, semestre, rememberRm from "
+                " select rm, status from "
+                        + DBHelper.TABELA + "where status = 1", null);
+    }
+
+    public Cursor getCursorRM(){
+        return database.rawQuery(
+                " select rm from "
                         + DBHelper.TABELA, null);
     }
 
-    public Cursor getPerfilRememberRm(){
-        return database.rawQuery(
-                " select rememberRm from "
-                        + DBHelper.TABELA, null);
+    private RM cursorRM(Cursor cursor){
+        return new RM(cursor.getLong(0),cursor.getInt(1));
     }
 
-    private Perfil cursorPerfil(Cursor cursor){
-        return new Perfil(cursor.getLong(0),cursor.getLong(1),cursor.getString(3),
-                        cursor.getString(4),cursor.getString(5),cursor.getLong(6),cursor.getString(7),
-                        cursor.getString(8),cursor.getString(9),cursor.getString(10),
-                        cursor.getString(11),cursor.getString(12), cursor.getLong(13));
-    }
 
-    public Perfil getPerfil(long rm){
-        Cursor cursor =
-                database.query(DBHelper.TABELA,
-                        colunas, DBHelper.RM + " = " +
-                                rm, null,null, null, null);
-
-        cursor.moveToFirst();
-        return cursorPerfil(cursor);
-    }
-
-    /* Nao precisa listar perfis no app
-    public List<Perfil> listarPerfil(){
-        Cursor cursor = this.getPerfil();
-        List<Perfil> lista = new ArrayList<>();
-
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            Perfil perfil;
-
-            while(!cursor.isAfterLast()){
-                perfil = cursorPerfil(cursor);
-                lista.add(perfil);
-                cursor.moveToNext();
-            }
-        }
-        return lista;
-    }
-    */
-
-    public void editarPerfil(Perfil perfil){
+    public void editarRM(RM rm){
         ContentValues valores =
                 new ContentValues();
 
-        valores.put(DBHelper.RM, perfil.getRm());
-        valores.put(DBHelper.CURSOID, perfil.getCursoId());
-        valores.put(DBHelper.CIDADE, perfil.getCidade());
-        valores.put(DBHelper.ANO, perfil.getAno());
-        valores.put(DBHelper.CEP, perfil.getCEP());
-        valores.put(DBHelper.TELEFONE, perfil.getTelefone());
-        valores.put(DBHelper.UF, perfil.getUf());
-        valores.put(DBHelper.BAIRRO, perfil.getBairro());
-        valores.put(DBHelper.LOGRADOURO, perfil.getLogradouro());
-        valores.put(DBHelper.COMPLEMENTO, perfil.getComplemento());
-        valores.put(DBHelper.NOME, perfil.getNome());
-        valores.put(DBHelper.EMAIL, perfil.getEmail());
-        valores.put(DBHelper.SEMESTRE, perfil.getSemestre());
+        valores.put(DBHelper.RM, rm.getRm());
+        valores.put(DBHelper.STATUS, rm.getStatus());
 
         database.update(DBHelper.TABELA,valores,
-                DBHelper.RM + " = ?", new String[] {String.valueOf(perfil.getRm())});
+                DBHelper.RM + " = ?", new String[] {String.valueOf(rm.getRm())});
 
     }
 
