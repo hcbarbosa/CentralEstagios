@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,6 +24,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
@@ -43,6 +48,7 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
     EditText edtTelefone;
     EditText edtAno;
     EditText edtSemestre;
+    Spinner spnCurso;
 
     //variavel que guarda foto
     Bitmap fotoPerfil;
@@ -77,6 +83,17 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
         edtTelefone = (EditText)findViewById(R.id.edtTelefone);
         edtAno = (EditText)findViewById(R.id.edtAno);
         edtSemestre = (EditText)findViewById(R.id.edtSemestre);
+        spnCurso = (Spinner) findViewById(R.id.spnCurso);
+
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnCurso.setAdapter(dataAdapter);
+
 
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
         btnSalvar = (Button)findViewById(R.id.btnSalvar);
@@ -87,7 +104,7 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 String cep = edtCep.getText().toString();
-
+                if(!cep.equals("") && !cep.isEmpty()){
                 final String url = "http://viacep.com.br/ws/" + cep + "/json/";
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -99,7 +116,7 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                                     public void onResponse(JSONObject jsonObject) {
                                         try {
 
-                                            edtLogradouro.setText(jsonObject.getString("logradouro").toString());
+                                            edtLogradouro.setText(jsonObject.getString("logradouro"));
                                             edtBairro.setText(jsonObject.getString("bairro"));
                                             edtCidade.setText(jsonObject.getString("localidade"));
                                             edtUf.setText(jsonObject.getString("uf"));
@@ -116,6 +133,11 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                         });
 
                 queue.add(getRequest);
+                }else{
+                    edtCep.setError("Digite um cep corretamente");
+                    View focus = edtCep;
+                    focus.requestFocus();
+                }
             }
         });
 
@@ -124,13 +146,15 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 //variaveis que recebem os valores das edts
-                int rm, cursoId, ano, semestre, lembrarRm;
-                String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf;
+                int rm, cursoId, ano, lembrarRm;
+                String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf,  semestre;
+
+                rm = Integer.parseInt(variaveisGlobais.getUserRm());
 
                 //atribuicao do valor das edts para as variaveis
                 ano = Integer.parseInt(edtAno.getText().toString());
-                semestre = Integer.parseInt(edtSemestre.getText().toString());
-
+                semestre = edtSemestre.getText().toString();
+                cursoId = Integer.parseInt(spnCurso.getSelectedItemId()+"");
                 nome = edtNome.getText().toString();
                 email = edtEmail.getText().toString();
                 telefone = edtTelefone.getText().toString();
@@ -140,9 +164,18 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                 bairro = edtBairro.getText().toString();
                 cidade = edtCidade.getText().toString();
                 uf = edtUf.getText().toString();
+                lembrarRm = 0;
 
-                //database.adicionar(rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro,
-                // complemento, nome, email, semestre, lembrarRm);
+                database.adicionar(rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro,
+                 complemento, nome, email, semestre, lembrarRm);
+
+                //envia para webservice
+
+
+                //chama main se tudo ok
+                startActivity(new Intent(PerfilRequeridoActivity.this, MainActivity.class));
+                variaveisGlobais.deleteAnterior();
+                PerfilRequeridoActivity.this.finish();
             }
         });
     }

@@ -64,7 +64,7 @@ public class VagaActivity extends ActionBarActivity {
             }
         });
 
-        String url = "http://192.168.0.101:26046/webservices/vagas.aspx?rm=" + variaveisGlobais.getUserRm().toString();
+        String url = "http://"+variaveisGlobais.EndIPAPP+":/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
@@ -78,7 +78,7 @@ public class VagaActivity extends ActionBarActivity {
                             Vaga vaga = new Vaga();
 
                             for (int i = 0; i < response.length(); i++) {
-                                //achar um jeito de definir qual array dentro do response será utilizado para verificar um getJSONObject
+                                //achar um jeito de definir qual array dentro do response sera utilizado para verificar um getJSONObject
                                     vaga.setId(Integer.parseInt(response.getJSONObject(0).getString("Id")));
                                     //vaga.setBeneficio(Integer.parseInt(response.getJSONObject(1).toString();
                                     vaga.setBeneficioId(Integer.parseInt(response.getJSONObject(2).getString("BeneficioId")));

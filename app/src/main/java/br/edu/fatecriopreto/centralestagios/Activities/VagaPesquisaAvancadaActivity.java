@@ -78,8 +78,14 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
             HashMap<String,String> map = new HashMap<>();
             map.put(variaveisGlobais.KEY_ID,String.valueOf(i));
             map.put(variaveisGlobais.KEY_TITLE,"Nome vaga "+i);
-            map.put(variaveisGlobais.KEY_COMPANY,"Nome empresa "+i);
-            map.put(variaveisGlobais.KEY_SALARY,String.valueOf(i*20.0));
+            map.put(variaveisGlobais.KEY_COMPANY,"Empresa: "+"Nome empresa "+i);
+            map.put(variaveisGlobais.KEY_SALARY, getResources().getString(R.string.salario)+": "+String.valueOf(i*20.0));
+            //verifica se candidatou-se, tem q pegar da tabela candidatos se 1 = true
+            if(i%2 == 0) {
+                map.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+            }else{
+                map.put(variaveisGlobais.KEY_CANDIDATE, "");
+            }
             lista.add(map);
         }
 

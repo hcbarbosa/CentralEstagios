@@ -186,7 +186,7 @@ public class LoginActivity extends Activity  {
             //chama o webservice
             //respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
 
-            String url = "http://192.168.0.12:26046/WebServices/Login.aspx?rm="+rm+"&senha="+password;
+            String url = variaveisGlobais.EndIPAPP+"/Login.aspx?rm="+rm+"&senha="+password;
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
             JsonArrayRequest getRequest = new JsonArrayRequest(url,
@@ -257,6 +257,7 @@ public class LoginActivity extends Activity  {
                                         //armazena o rm se estiver checkado
                                         if (mRmRemember.isChecked()) {
                                             Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado", Toast.LENGTH_LONG).show();
+
                                         }
                                         //chama a main
                                         if (respostaws.equals("ok")) {
