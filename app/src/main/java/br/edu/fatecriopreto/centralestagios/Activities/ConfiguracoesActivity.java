@@ -73,7 +73,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
 
                 senha = edtSenha.getText().toString();
 
-                final String url = "http://192.168.0.101/webservices/trocarsenha.aspx?senha=" + senha + "&rm=" + variaveisGlobais.getUserRm();
+                final String url = variaveisGlobais.EndIPAPP+"/trocarsenha.aspx?senha=" + senha + "&rm=" + variaveisGlobais.getUserRm();
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
