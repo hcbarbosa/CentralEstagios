@@ -48,8 +48,7 @@
     <string name="title_activity_perfil_edit">Editar Perfil</string>
     <string name="title_activity_perfil_requerido">Perfil obrigatório</string>
 
-    <!--Configurações-->
-    <String name="salvar">Salvar</String>
+
 
     <!--Vagas-->
     <string name="pesqsimples">Padrão (Curso)</string>
@@ -70,6 +69,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="salvar">Salvar</string>
     <string name="confirmasenha">Confirmação Senha</string>
+    <string name="trocarfoto">trocarfoto</string>
 
 
 </resources>
