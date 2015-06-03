@@ -68,6 +68,8 @@
     <string name="salario">Salário</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="salvar">Salvar</string>
+    <string name="confirmasenha">Confirmação Senha</string>
 
 
 </resources>

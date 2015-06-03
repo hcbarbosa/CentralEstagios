@@ -23,37 +23,38 @@
             tools:context="br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/Senha"/>
+
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/edtSenha"
-                />
+                android:inputType="none" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Confirmação Senha"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirmasenha"/>
+
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/edtConfirmaSenha"
-                />
+                android:inputType="none" />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Salvar"
+                android:text="@string/salvar"
                 android:id="@+id/btnSalvar"
                 />
 
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"
