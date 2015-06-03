@@ -49,7 +49,7 @@
     <string name="title_activity_perfil_requerido">Perfil obrigatório</string>
 
     <!--Configurações-->
-    <String name="salvar">Salvar</String>
+    <string name="salvar">Salvar</string>
 
     <!--Vagas-->
     <string name="pesqsimples">Padrão (Curso)</string>
