@@ -37,6 +37,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
     private Toolbar appBar;
 
     EditText edtSenha;
+    EditText edtConfirmaSenha;
     Button btnSalvar;
 
     @Override
@@ -62,6 +63,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
 
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
+        edtConfirmaSenha = (EditText) findViewById(R.id.edtConfirmaSenha);
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +84,8 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                                     public void onResponse(JSONObject jsonObject) {
                                         try {
 
-                                            edtSenha.setText(jsonObject.getString("senha").toString());
+                                            edtSenha.setText(jsonObject.getString("Senha").toString());
+                                            edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
 
 
                                         } catch (JSONException ex){
@@ -106,6 +109,11 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+             String Senha;
+                String ConfirmaSenha;
+
+                Senha = edtSenha.getText().toString();
+                ConfirmaSenha = edtConfirmaSenha.getText().toString();
 
             }
         });
