@@ -257,6 +257,7 @@ public class LoginActivity extends Activity  {
                                         //armazena o rm se estiver checkado
                                         if (mRmRemember.isChecked()) {
                                             Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado", Toast.LENGTH_LONG).show();
+
                                         }
                                         //chama a main
                                         if (respostaws.equals("ok")) {

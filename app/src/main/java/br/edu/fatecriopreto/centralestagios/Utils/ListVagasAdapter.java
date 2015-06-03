@@ -52,6 +52,7 @@ public class ListVagasAdapter extends BaseAdapter {
 		TextView title = (TextView)vi.findViewById(R.id.titlevaga);
 		TextView company = (TextView)vi.findViewById(R.id.company);
 		TextView salary = (TextView)vi.findViewById(R.id.salary);
+		TextView candidate = (TextView)vi.findViewById(R.id.candidate);
 
 		HashMap<String, String> lista;
 		lista = data.get(position);
@@ -60,6 +61,7 @@ public class ListVagasAdapter extends BaseAdapter {
 		title.setText(lista.get(variaveisGlobais.KEY_TITLE));
 		company.setText(lista.get(variaveisGlobais.KEY_COMPANY));
 		salary.setText(lista.get(variaveisGlobais.KEY_SALARY));
+		candidate.setText(lista.get(variaveisGlobais.KEY_CANDIDATE));
 		return vi;
 	}
 }

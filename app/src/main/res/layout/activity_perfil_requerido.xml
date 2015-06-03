@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         layout="@layout/app_bar" />
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -129,6 +129,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Curso"
+                            android:id="@+id/txtCurso" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/spnCurso"
+                            android:spinnerMode="dropdown" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="Imagem:"
                             android:id="@+id/txtImagem"
                             android:layout_marginTop="10dp" />
@@ -161,11 +174,11 @@
                             android:layout_marginTop="10dp" />
 
                         <Button
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Buscar"
                             android:id="@+id/btnBuscar"
-                            android:gravity="center_horizontal"
+                            android:gravity="center_vertical|center_horizontal"
                             android:background="@drawable/botaoarredondado"/>
 
                         <TextView
@@ -234,12 +247,11 @@
                             android:id="@+id/edtUf" />
 
                         <Button
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Salvar"
-                            android:id="@+id/btnSalvar"
-                            android:layout_marginTop="20dp"
-                            android:gravity="center_horizontal"
+                            android:id="@+id/btnBuscar"
+                            android:gravity="center_vertical|center_horizontal"
                             android:background="@drawable/botaoarredondado"/>
 
                     </LinearLayout>

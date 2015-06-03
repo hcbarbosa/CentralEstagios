@@ -46,19 +46,32 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:text="company" />
 
-
     <TextView
-        android:id="@+id/salary"
+        android:id="@+id/candidate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/titlevaga"
         android:gravity="right"
-        android:text="5.45"
+        android:text="Candidatou-se"
         android:layout_marginRight="5dip"
         android:textSize="10dip"
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorGreen"
         android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/salary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/company"
+        android:textColor="@color/colorBlack"
+        android:textSize="10dip"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="5.45" />
+
+
+
       
      <!-- Rightend Arrow -->    
      <ImageView android:layout_width="wrap_content"
