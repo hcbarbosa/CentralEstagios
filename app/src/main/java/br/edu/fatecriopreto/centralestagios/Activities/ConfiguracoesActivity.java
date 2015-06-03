@@ -65,43 +65,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
         edtConfirmaSenha = (EditText) findViewById(R.id.edtConfirmaSenha);
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String senha;
-
-                senha = edtSenha.getText().toString();
-
-                final String url = variaveisGlobais.EndIPAPP+"/trocarsenha.aspx?senha=" + senha + "&rm=" + variaveisGlobais.getUserRm();
-
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-                JsonObjectRequest getRequest =
-                        new JsonObjectRequest(Request.Method.GET, url, null,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject jsonObject) {
-                                        try {
-
-                                            edtSenha.setText(jsonObject.getString("Senha").toString());
-                                            edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
-
-
-                                        } catch (JSONException ex){
-                                            ex.printStackTrace();
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Log.d("Error.Response", volleyError.getMessage());
-                            }
-                        });
-
-                queue.add(getRequest);
-            }
-        });
 
 
 
@@ -109,15 +73,55 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             String Senha;
+                String Senha;
                 String ConfirmaSenha;
 
                 Senha = edtSenha.getText().toString();
                 ConfirmaSenha = edtConfirmaSenha.getText().toString();
 
+                if (Senha != ConfirmaSenha) {
+                    edtConfirmaSenha.setError("Senhas não conferem");
+                    View erro = edtConfirmaSenha;
+                    erro.requestFocus();
+                } else {
+                    String senha;
+
+                    senha = edtSenha.getText().toString();
+
+                    final String url = variaveisGlobais.EndIPAPP + "/trocarsenha.aspx?senha=" + senha + "&rm=" + variaveisGlobais.getUserRm();
+
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                    JsonObjectRequest getRequest =
+                            new JsonObjectRequest(Request.Method.GET, url, null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject jsonObject) {
+                                            try {
+
+                                                edtSenha.setText(jsonObject.getString("Senha").toString());
+                                                // edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
+
+
+                                            } catch (JSONException ex) {
+                                                ex.printStackTrace();
+                                            }
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+                                    Log.d("Error.Response", volleyError.getMessage());
+                                }
+                            });
+
+                    queue.add(getRequest);
+                }
+
             }
-        });
-    }
+            }
+        );
+            }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
