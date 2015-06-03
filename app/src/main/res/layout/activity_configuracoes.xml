@@ -28,7 +28,7 @@
                 android:text="@string/Senha"/>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtSenha"
                 android:inputType="none" />
@@ -39,7 +39,7 @@
                 android:text="@string/confirmasenha"/>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtConfirmaSenha"
                 android:inputType="none" />
