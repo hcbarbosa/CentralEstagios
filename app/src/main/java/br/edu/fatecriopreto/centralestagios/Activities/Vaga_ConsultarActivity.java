@@ -63,6 +63,8 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga__consultar);
 
+        variaveisGlobais.setActivityAtual(this);
+
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior() - 1)) != Vaga_ConsultarActivity.class)
             variaveisGlobais.setActivityAnterior(Vaga_ConsultarActivity.class);

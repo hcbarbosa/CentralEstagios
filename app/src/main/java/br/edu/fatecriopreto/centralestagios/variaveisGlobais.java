@@ -7,7 +7,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,11 +116,19 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.userImg = userImg;
     }
 
-
     public static int getImageUser() {
         return imageUser;
     }
 
+    private static Activity ActivityAtual;
+
+    public static Activity getActivityAtual() {
+        return ActivityAtual;
+    }
+
+    public static void setActivityAtual(Activity activityAtual) {
+        ActivityAtual = activityAtual;
+    }
 }
 
 

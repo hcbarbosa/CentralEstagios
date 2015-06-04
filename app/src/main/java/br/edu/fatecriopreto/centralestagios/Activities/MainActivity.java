@@ -23,6 +23,7 @@ import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
+import br.edu.fatecriopreto.centralestagios.notificacao;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -34,6 +35,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        variaveisGlobais.setActivityAtual(this);
+
+        notificacao notificacao = new notificacao();
+
+        notificacao.comecarOuvidorNotificacoes();
+
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getSizeActivityAnterior()!=0 && variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != MainActivity.class)
             variaveisGlobais.setActivityAnterior(MainActivity.class);

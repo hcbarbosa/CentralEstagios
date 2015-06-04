@@ -51,6 +51,8 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga_recomendada);
 
+        variaveisGlobais.setActivityAtual(this);
+
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaRecomendadaActivity.class)
             variaveisGlobais.setActivityAnterior(VagaRecomendadaActivity.class);

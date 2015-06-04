@@ -59,6 +59,9 @@ public class PerfilEditActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_edit);
+
+        variaveisGlobais.setActivityAtual(this);
+
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setAlert(PerfilEditActivity.this);
 

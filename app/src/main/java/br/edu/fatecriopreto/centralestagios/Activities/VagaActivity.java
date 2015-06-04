@@ -14,13 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -51,6 +54,27 @@ public class VagaActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga);
+
+        variaveisGlobais.setActivityAtual(this);
+
+        final String urlNotificacao = variaveisGlobais.EndIPAPP + "/notificacoes.aspx?rm=" + variaveisGlobais.getUserRm() + "&acao=atualizar";
+
+        RequestQueue queueNotificacao = Volley.newRequestQueue(getApplicationContext());
+
+        JsonObjectRequest getRequestNotificacao =
+                new JsonObjectRequest(Request.Method.GET, urlNotificacao, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject jsonObject) {
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d("Error.Response", volleyError.getMessage());
+                    }
+                });
+
+        queueNotificacao.add(getRequestNotificacao);
 
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaActivity.class)

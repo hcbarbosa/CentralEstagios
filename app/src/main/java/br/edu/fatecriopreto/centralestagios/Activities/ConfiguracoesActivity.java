@@ -47,6 +47,8 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
 
+        variaveisGlobais.setActivityAtual(this);
+
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != ConfiguracoesActivity.class)
             variaveisGlobais.setActivityAnterior(ConfiguracoesActivity.class);

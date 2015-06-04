@@ -63,6 +63,9 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_requerido);
+
+        variaveisGlobais.setActivityAtual(this);
+
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setAlert(PerfilRequeridoActivity.this);
 
