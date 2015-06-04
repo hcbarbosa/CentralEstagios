@@ -62,12 +62,14 @@ public class LoginActivity extends Activity  {
 
         //se ja existe algum rm armazenado
         DBAdapter db = new DBAdapter(LoginActivity.this);
+        //db.refreshdb();
         db.open();
+
         if(db.getRM() != null){
             mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
             String lembraRm = String.valueOf(db.getRM().getColumnIndex("rm"));
             //String lembraRm = "123456789068";
-            if(!lembraRm.equals("") && !lembraRm.equals("0")){
+            if(!lembraRm.equals("0")){
                 mRmView.setText(lembraRm);
                 mRmRemember.setChecked(true);
             }else

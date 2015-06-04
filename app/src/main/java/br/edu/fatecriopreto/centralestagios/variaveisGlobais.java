@@ -7,12 +7,14 @@ import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
+import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 
 public class variaveisGlobais extends Application {
@@ -35,7 +37,7 @@ public class variaveisGlobais extends Application {
     public static String KEY_COMPANY = "company";
     public static String KEY_CANDIDATE = "candidate";
 
-    public static String EndIPAPP ="http://192.168.0.12:26046/WebServices";
+    public static String EndIPAPP ="http://192.168.0.101:26046/WebServices";
 
     public static View getViewNaView() {
         return viewNaView;
@@ -101,7 +103,9 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.userEmail = userEmail;
     }
 
-    public static List<Vaga> listVagas;
+    public static ArrayList<Vaga> listVagas;
+
+    public static ArrayList<Candidato> listCandidato;
 
     public static String getUserImg() {
         return userImg;

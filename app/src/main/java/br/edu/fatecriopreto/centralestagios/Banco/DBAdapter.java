@@ -50,7 +50,7 @@ public class DBAdapter {
     public Cursor getRM(){
         return database.rawQuery(
                 " select rm, status from "
-                        + DBHelper.TABELA + "where status = 1", null);
+                        + DBHelper.TABELA , null);
     }
 
     public Cursor getCursorRM(){

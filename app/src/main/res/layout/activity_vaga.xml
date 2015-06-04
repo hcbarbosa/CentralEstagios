@@ -16,27 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context="br.edu.fatecriopreto.centralestagios.Activities.VagaActivity">
-
-            <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/position" />
-
-        </LinearLayout>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Candidatar-se"
-                android:id="@+id/btnCandidatar"
-                android:layout_gravity="center" />
+                android:id="@+id/listViewVagas"
+                android:layout_gravity="left|top" />
         </FrameLayout>
 
         <fragment
