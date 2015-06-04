@@ -31,6 +31,7 @@ import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
@@ -63,7 +64,7 @@ public class VagaActivity extends ActionBarActivity {
 
 
         //DrawerFragment = menulateral
-        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+        final NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
@@ -104,6 +105,8 @@ public class VagaActivity extends ActionBarActivity {
                                     vaga.setRemuneracao(response.getJSONArray(0).getJSONObject(i).getDouble("Remuneracao"));
                                     vaga.setEmailEmpresa(response.getJSONArray(0).getJSONObject(i).getString("EmailEmpresa"));
                                     vaga.setObservacoes(response.getJSONArray(0).getJSONObject(i).getString("Observacoes"));
+
+
                                     //vaga.setDataCriacao(response.getJSONObject(13).toString());
                                     for(int j = 0; j < response.getJSONArray(1).length(); j++) {
                                         if(vaga.getBeneficioId() == response.getJSONArray(1).getJSONObject(j).getInt("Id")) {
@@ -119,6 +122,27 @@ public class VagaActivity extends ActionBarActivity {
                                     }
                                     variaveisGlobais.listVagas.add(vaga);
                                 }
+                            ArrayList<Vaga> AuxiliarListaVagas = new ArrayList<Vaga>();
+                                for(int i = 0; i < response.getJSONArray(3).length(); i++){
+                                    for (int j = 0; j < response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").length(); j++){
+                                        Vaga vaga = new Vaga();
+
+                                        int aux = response.getJSONArray(3).getJSONObject(i).getInt("Id");
+                                        vaga.setId(aux);
+                                        vaga.Conhecimentos = new ArrayList<Conhecimento>();
+                                        Conhecimento conhecimento = new Conhecimento();
+                                        conhecimento.setId(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getInt("Id"));
+                                        conhecimento.setDescricao(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getString("Descricao"));
+                                        conhecimento.setStatus(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getInt("Status"));
+                                        conhecimento.setEstaSelecionado(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getBoolean("EstaSelecionado"));
+                                        vaga.Conhecimentos.add(conhecimento);
+                                        AuxiliarListaVagas.add(vaga);
+                                        //Unir AuxiliarListaVagas com variaveisglobais.listVagas
+                                    }
+                                }
+                            // Log.d("AQUIIIIIIIIII", (response.getJSONArray(3).getJSONObject(0).getString("Id")));
+                            // Log.d("AQUIIIIIIIIII", (response.getJSONArray(3).getJSONObject(0).getJSONArray("listaConhecimentos").getJSONObject(0).getString("Descricao")));
+
                             for(int i = 0; i < response.getJSONArray(2).length(); i++) {
                                 Candidato candidato = new Candidato();
                                 candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
@@ -126,7 +150,7 @@ public class VagaActivity extends ActionBarActivity {
                             }
                             if(variaveisGlobais.listVagas != null && !variaveisGlobais.listVagas.isEmpty()) {
 
-                                popularVagas();
+                                //popularVagas();
                             }
 
                         } catch (Exception e) {

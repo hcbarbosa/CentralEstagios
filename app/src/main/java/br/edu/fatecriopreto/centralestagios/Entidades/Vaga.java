@@ -20,7 +20,7 @@ public class Vaga {
     public double Remuneracao;
     public String EmailEmpresa;
     public String Observacoes;
-    private ArrayList<Conhecimento> Conhecimentos;
+    public ArrayList<Conhecimento> Conhecimentos;
     public Date DataCriacao;
     private boolean Candidatado;
 
