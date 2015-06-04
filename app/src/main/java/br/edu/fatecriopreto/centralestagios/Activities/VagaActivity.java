@@ -172,11 +172,39 @@ public class VagaActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), Vaga_ConsultarActivity.class);
                 Bundle params = new Bundle();
-                params.putString("titlevaga", lista.get(position).get("titlevaga"));
-                params.putString("id", lista.get(position).get("id"));
-                params.putString("salary", lista.get(position).get("salary"));
-                params.putString("company", lista.get(position).get("company"));
-
+                params.putString("titlevaga", variaveisGlobais.listVagas.get(position).getDescricao());
+                params.putString("id", String.valueOf(variaveisGlobais.listVagas.get(position).getId()));
+                params.putString("salary", String.valueOf(variaveisGlobais.listVagas.get(position).getRemuneracao()));
+                params.putString("company",variaveisGlobais.listVagas.get(position).getEmpresa());
+                params.putString("contact", variaveisGlobais.listVagas.get(position).getPessoaContato());
+                params.putString("email", variaveisGlobais.listVagas.get(position).getEmailEmpresa());
+                params.putString("hour", variaveisGlobais.listVagas.get(position).getHorario());
+                if (variaveisGlobais.listVagas.get(position).getObservacoes() != "null") {
+                    params.putString("observation", variaveisGlobais.listVagas.get(position).getObservacoes());
+                }
+                else {
+                    params.putString("observation", "Sem observação");
+                }
+                params.putString("type", variaveisGlobais.listVagas.get(position).getTipoVaga());
+                params.putString("phone", variaveisGlobais.listVagas.get(position).getTelefoneEmpresa());
+                params.putString("periody", variaveisGlobais.listVagas.get(position).getPeriodo());
+                String beneficios = "";
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isAuxilioOdontologico()) {
+                    beneficios = "Auxilio Odontológico \n";
+                }
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isPlanoSaude()){
+                    beneficios  += "Plano de Saúde \n";
+                }
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeAlimentacao()){
+                    beneficios  += "Vale Alimentação \n";
+                }
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeTransporte()){
+                    beneficios  += "Vale Transporte \n";
+                }
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != "null"){
+                    beneficios  += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
+                }
+                params.putString("beneficts", beneficios);
                 intent.putExtras(params);
                 startActivity(intent);
                 finish();
