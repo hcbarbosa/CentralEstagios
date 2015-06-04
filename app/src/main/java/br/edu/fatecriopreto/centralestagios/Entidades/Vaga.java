@@ -1,6 +1,9 @@
 package br.edu.fatecriopreto.centralestagios.Entidades;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Vaga {
 
@@ -17,7 +20,9 @@ public class Vaga {
     public double Remuneracao;
     public String EmailEmpresa;
     public String Observacoes;
+    private ArrayList<Conhecimento> Conhecimentos;
     public Date DataCriacao;
+    private boolean Candidatado;
 
     public int getId() {
         return Id;
@@ -132,5 +137,19 @@ public class Vaga {
     }
 
 
+    public ArrayList<Conhecimento> getConhecimentos() {
+        return Conhecimentos;
+    }
 
+    public void setConhecimentos(ArrayList<Conhecimento> conhecimentos) {
+        Conhecimentos = conhecimentos;
+    }
+
+    public boolean isCandidatado() {
+        return Candidatado;
+    }
+
+    public void setCandidatado(boolean candidatado) {
+        Candidatado = candidatado;
+    }
 }

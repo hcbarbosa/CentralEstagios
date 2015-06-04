@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -26,6 +27,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
@@ -142,6 +144,7 @@ public class VagaActivity extends ActionBarActivity {
         queue.add(getRequest);
     }
     public void popularVagas() {
+        ArrayList<Vaga> vaga = new ArrayList<Vaga>();
         final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
         for(Vaga v : variaveisGlobais.listVagas){
             HashMap<String,String> map = new HashMap<>();
@@ -153,13 +156,19 @@ public class VagaActivity extends ActionBarActivity {
             for(Candidato c : variaveisGlobais.listCandidato){
                 if(v.getId() == c.getVagaId()) {
                     map.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                    v.setCandidatado(true);
                     break;
                 }else{
                     map.put(variaveisGlobais.KEY_CANDIDATE, "");
+                    v.setCandidatado(false);
+
                 }
             }
+            vaga.add(v);
             lista.add(map);
         }
+        variaveisGlobais.listVagas = new ArrayList<Vaga>();
+        variaveisGlobais.listVagas = vaga;
 
         listViewVagas = (ListView) findViewById(R.id.listViewVagas);
 
@@ -205,6 +214,8 @@ public class VagaActivity extends ActionBarActivity {
                     beneficios  += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
                 }
                 params.putString("beneficts", beneficios);
+                params.putString("skills", "inserir beneficios aqui");
+                params.putString("position", String.valueOf(position));
                 intent.putExtras(params);
                 startActivity(intent);
                 finish();

@@ -160,6 +160,20 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=""
                 android:id="@+id/txtBeneficios" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Conhecimentos:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/txtConhecimentos" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -171,9 +185,6 @@
 
         </LinearLayout>
         </ScrollView>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"

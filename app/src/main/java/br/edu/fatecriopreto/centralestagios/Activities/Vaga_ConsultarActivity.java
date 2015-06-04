@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
     private TextView txttelefone;
     private TextView txtobservacoes;
     private TextView txtbeneficios;
+    private TextView txtconhecimentos;
+    private Button btnCandidatar;
 
 
     @Override
@@ -71,9 +74,14 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         txttelefone = (TextView) findViewById(R.id.txtTelefone);
         txtobservacoes = (TextView) findViewById(R.id.txtObservacoes);
         txtbeneficios = (TextView) findViewById(R.id.txtBeneficios);
-
+        txtconhecimentos = (TextView) findViewById(R.id.txtConhecimentos);
+        btnCandidatar = (Button) findViewById(R.id.btnCandidatar);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+
+        if (variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).isCandidatado()) {
+            btnCandidatar.setVisibility(View.INVISIBLE);
+        }
         if(bundle != null){
             this.setTitle(bundle.getString("titlevaga"));
             txtnome.setText(bundle.getString("titlevaga"));
@@ -87,6 +95,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             txttelefone.setText(bundle.getString("phone"));
             txtperiodo.setText(bundle.getString("periody"));
             txtbeneficios.setText(bundle.getString("beneficts"));
+            txtconhecimentos.setText(bundle.getString("skills"));
 
         }
 
