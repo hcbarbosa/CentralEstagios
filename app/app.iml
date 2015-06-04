@@ -95,8 +95,8 @@
     <orderEntry type="library" exported="" name="volley" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
-    <orderEntry type="library" exported="" name="azure-notifications-handler-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="azure-mobile-services-android-sdk-2.0.2" level="project" />
+    <orderEntry type="library" exported="" name="azure-notifications-handler-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="ksoap2-android-assembly-3.4.0-jar-with-dependencies" level="project" />
     <orderEntry type="library" exported="" name="guava-18.0" level="project" />
   </component>

@@ -87,7 +87,7 @@ public class VagaActivity extends ActionBarActivity {
                     public void onResponse(JSONArray response) {
                         try {
 
-                            variaveisGlobais.listVagas = new ArrayList<Vaga>();
+                            ArrayList<Vaga> AuxiliarListaVagas = new ArrayList<Vaga>();
                             variaveisGlobais.listCandidato = new ArrayList<Candidato>();
                                 for (int i = 0; i < response.getJSONArray(0).length(); i++) {
                                     Vaga vaga = new Vaga();
@@ -105,8 +105,6 @@ public class VagaActivity extends ActionBarActivity {
                                     vaga.setRemuneracao(response.getJSONArray(0).getJSONObject(i).getDouble("Remuneracao"));
                                     vaga.setEmailEmpresa(response.getJSONArray(0).getJSONObject(i).getString("EmailEmpresa"));
                                     vaga.setObservacoes(response.getJSONArray(0).getJSONObject(i).getString("Observacoes"));
-
-
                                     //vaga.setDataCriacao(response.getJSONObject(13).toString());
                                     for(int j = 0; j < response.getJSONArray(1).length(); j++) {
                                         if(vaga.getBeneficioId() == response.getJSONArray(1).getJSONObject(j).getInt("Id")) {
@@ -120,15 +118,14 @@ public class VagaActivity extends ActionBarActivity {
                                             vaga.setBeneficio(beneficio);
                                         }
                                     }
-                                    variaveisGlobais.listVagas.add(vaga);
+                                    AuxiliarListaVagas.add(vaga);
                                 }
-                            ArrayList<Vaga> AuxiliarListaVagas = new ArrayList<Vaga>();
+                            ArrayList<Vaga> AuxiliarListaVagasConhecimento = new ArrayList<Vaga>();
                                 for(int i = 0; i < response.getJSONArray(3).length(); i++){
                                     for (int j = 0; j < response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").length(); j++){
                                         Vaga vaga = new Vaga();
 
-                                        int aux = response.getJSONArray(3).getJSONObject(i).getInt("Id");
-                                        vaga.setId(aux);
+                                        vaga.setId(response.getJSONArray(3).getJSONObject(i).getInt("Id"));
                                         vaga.Conhecimentos = new ArrayList<Conhecimento>();
                                         Conhecimento conhecimento = new Conhecimento();
                                         conhecimento.setId(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getInt("Id"));
@@ -136,21 +133,39 @@ public class VagaActivity extends ActionBarActivity {
                                         conhecimento.setStatus(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getInt("Status"));
                                         conhecimento.setEstaSelecionado(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getBoolean("EstaSelecionado"));
                                         vaga.Conhecimentos.add(conhecimento);
-                                        AuxiliarListaVagas.add(vaga);
-                                        //Unir AuxiliarListaVagas com variaveisglobais.listVagas
+                                        AuxiliarListaVagasConhecimento.add(vaga);
                                     }
                                 }
-                            // Log.d("AQUIIIIIIIIII", (response.getJSONArray(3).getJSONObject(0).getString("Id")));
-                            // Log.d("AQUIIIIIIIIII", (response.getJSONArray(3).getJSONObject(0).getJSONArray("listaConhecimentos").getJSONObject(0).getString("Descricao")));
+                            if (AuxiliarListaVagas != null && !AuxiliarListaVagas.isEmpty()){
+                                if (AuxiliarListaVagasConhecimento!= null && !AuxiliarListaVagasConhecimento.isEmpty()){
+                                    for (Vaga v : AuxiliarListaVagas) {
+                                        v.Conhecimentos = new ArrayList<Conhecimento>();
+                                        for (Vaga vConhecimento : AuxiliarListaVagasConhecimento) {
+                                            if (v.getId() == vConhecimento.getId()){
+                                                    for (Conhecimento cConhecimento : vConhecimento.Conhecimentos){
+                                                        if (cConhecimento != null) {
+                                                            v.Conhecimentos.add(cConhecimento);
+                                                        }
+                                                    }
+                                            }
+                                        }
+                                    }
+                                    variaveisGlobais.listVagas = new ArrayList<Vaga>();
+                                    variaveisGlobais.listVagas = AuxiliarListaVagas;
+                                }
+                                else{
+                                    variaveisGlobais.listVagas = new ArrayList<Vaga>();
+                                    variaveisGlobais.listVagas = AuxiliarListaVagas;
+                                }
 
+                            }
                             for(int i = 0; i < response.getJSONArray(2).length(); i++) {
                                 Candidato candidato = new Candidato();
                                 candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
                                 variaveisGlobais.listCandidato.add(candidato);
                             }
                             if(variaveisGlobais.listVagas != null && !variaveisGlobais.listVagas.isEmpty()) {
-
-                                //popularVagas();
+                                popularVagas();
                             }
 
                         } catch (Exception e) {
@@ -176,7 +191,6 @@ public class VagaActivity extends ActionBarActivity {
             map.put(variaveisGlobais.KEY_TITLE,v.getDescricao());
             map.put(variaveisGlobais.KEY_COMPANY,v.getEmpresa());
             map.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
-            //verifica se candidatou-se, tem q pegar da tabela candidatos se 1 = true
             for(Candidato c : variaveisGlobais.listCandidato){
                 if(v.getId() == c.getVagaId()) {
                     map.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
@@ -238,13 +252,20 @@ public class VagaActivity extends ActionBarActivity {
                     beneficios  += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
                 }
                 params.putString("beneficts", beneficios);
-                params.putString("skills", "inserir beneficios aqui");
+                String conhecimentos = "";
+                for (Conhecimento c : variaveisGlobais.listVagas.get(position).Conhecimentos) {
+                    conhecimentos += c.getDescricao() + "\n";
+                }
+                params.putString("skills",conhecimentos );
                 params.putString("position", String.valueOf(position));
                 intent.putExtras(params);
                 startActivity(intent);
                 finish();
             }
         });
+    }
+    public void filtrarVagasRecomendadas() {
+        //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais
     }
     public void candidatar(){
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
