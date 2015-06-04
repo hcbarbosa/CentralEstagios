@@ -1,5 +1,6 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -75,6 +76,11 @@ public class VagaActivity extends ActionBarActivity {
                 });
 
         queueNotificacao.add(getRequestNotificacao);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.cancel(001);
 
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != VagaActivity.class)
