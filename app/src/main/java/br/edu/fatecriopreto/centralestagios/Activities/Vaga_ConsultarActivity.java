@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +15,22 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
+import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
+import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
@@ -41,6 +53,9 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
     private TextView txtbeneficios;
     private TextView txtconhecimentos;
     private Button btnCandidatar;
+    private String emailEmpresa = "";
+    private String vagaId = "";
+    private String vagaDescricao = "";
 
 
     @Override
@@ -76,9 +91,18 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         txtbeneficios = (TextView) findViewById(R.id.txtBeneficios);
         txtconhecimentos = (TextView) findViewById(R.id.txtConhecimentos);
         btnCandidatar = (Button) findViewById(R.id.btnCandidatar);
+
+        btnCandidatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                candidatar();
+            }
+        });
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-
+        emailEmpresa = variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getEmailEmpresa();
+        vagaId = String.valueOf(variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getId());
+        vagaDescricao = variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getDescricao();
         if (variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).isCandidatado()) {
             btnCandidatar.setVisibility(View.INVISIBLE);
         }
@@ -98,7 +122,46 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             txtconhecimentos.setText(bundle.getString("skills"));
 
         }
+        String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
+        JsonArrayRequest getRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+
+
+
+                        } catch (Exception e) {
+                            Log.d("erro: ", e.getMessage());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
+
+        queue.add(getRequest);
+
+    }
+
+    public void candidatar(){
+
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailEmpresa});
+        emailIntent.putExtra(Intent.EXTRA_CC, new String[]{"estagiosfatecriopreto@gmail.com"});
+        //emailIntent.putExtra(Intent.EXTRA_BCC, new String[]{"emailcentralestagios@email.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, vagaId + " - " + vagaDescricao);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Segue abaixo o curriculo do candidato: nome do candidato");
+
+        emailIntent.setType("message/rfc822");
+        startActivity(Intent.createChooser(emailIntent,"Escolha seu aplicativo de email..."));
     }
 
     @Override

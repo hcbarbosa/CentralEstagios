@@ -267,19 +267,6 @@ public class VagaActivity extends ActionBarActivity {
     public void filtrarVagasRecomendadas() {
         //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais
     }
-    public void candidatar(){
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        //editar o email
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"emailcompany@email.com"});
-        emailIntent.putExtra(Intent.EXTRA_CC, new String[]{"emailcentralestagios@email.com"});
-        //emailIntent.putExtra(Intent.EXTRA_BCC, new String[]{"emailcentralestagios@email.com"});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Vaga number - nome da vaga");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Segue abaixo o curriculo do candidato: nome do candidato");
-
-        emailIntent.setType("message/rfc822");
-        startActivity(Intent.createChooser(emailIntent,"Escolha seu aplicativo de email..."));
-    }
 
 
     @Override
