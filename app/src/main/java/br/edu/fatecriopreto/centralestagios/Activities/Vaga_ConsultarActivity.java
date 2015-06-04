@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,8 +28,16 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
 
     private Toolbar appBar;
     private TextView txtnome;
-    private TextView txtsalario;
     private TextView txtempresa;
+    private TextView txtsalario;
+    private TextView txtperiodo;
+    private TextView txthorario;
+    private TextView txtemail;
+    private TextView txtcontato;
+    private TextView txttipovaga;
+    private TextView txttelefone;
+    private TextView txtobservacoes;
+    private TextView txtbeneficios;
 
 
     @Override
@@ -53,6 +63,14 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         txtnome = (TextView) findViewById(R.id.txtNomeVaga);
         txtempresa = (TextView) findViewById(R.id.txtEmpresa);
         txtsalario = (TextView) findViewById(R.id.txtSalario);
+        txtperiodo = (TextView) findViewById(R.id.txtPeriodo);
+        txthorario = (TextView) findViewById(R.id.txtHorario);
+        txtemail = (TextView) findViewById(R.id.txtEmail);
+        txtcontato = (TextView) findViewById(R.id.txtContato);
+        txttipovaga = (TextView) findViewById(R.id.txttipovaga);
+        txttelefone = (TextView) findViewById(R.id.txtTelefone);
+        txtobservacoes = (TextView) findViewById(R.id.txtObservacoes);
+        txtbeneficios = (TextView) findViewById(R.id.txtBeneficios);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -61,6 +79,14 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             txtnome.setText(bundle.getString("titlevaga"));
             txtempresa.setText(bundle.getString("company"));
             txtsalario.setText(bundle.getString("salary"));
+            txtcontato.setText(bundle.getString("contact"));
+            txtemail.setText(bundle.getString("email"));
+            txthorario.setText(bundle.getString("hour"));
+            txtobservacoes.setText(bundle.getString("observation"));
+            txttipovaga.setText(bundle.getString("type"));
+            txttelefone.setText(bundle.getString("phone"));
+            txtperiodo.setText(bundle.getString("periody"));
+            txtbeneficios.setText(bundle.getString("beneficts"));
 
         }
 
