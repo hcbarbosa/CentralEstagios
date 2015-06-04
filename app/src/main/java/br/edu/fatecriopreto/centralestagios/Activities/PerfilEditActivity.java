@@ -87,6 +87,50 @@ public class PerfilEditActivity extends ActionBarActivity {
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
         btnSalvar = (Button)findViewById(R.id.btnSalvar);
 
+       //-------------------------------------------------------------------------------------
+        int cursoId = 0, ano = 0 , semestre = 0, lembrarRm = 0;
+        String nome = "", email = "", telefone = "", cep = "", logradouro = "", complemento = "", bairro = "", cidade = "", uf = "";
+
+        final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome"
+                + nome + "&email" + email + "&telefone" + telefone + "&cep" + cep + "&logradouro" + logradouro + "&complemento"
+                + complemento + "&bairro" + bairro + "&cidade" + cidade + "&uf" + uf + "&rm" + variaveisGlobais.getUserRm();
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        JsonObjectRequest getRequest =
+                new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject jsonObject) {
+                                try {
+
+
+                                    edtAno.setText(jsonObject.getString("ano").toString());
+                                    edtSemestre.setText(jsonObject.getString("semestre").toString());
+                                    edtNome.setText(jsonObject.getString("nome").toString());
+                                    edtEmail.setText(jsonObject.getString("email").toString());
+                                    edtTelefone.setText(jsonObject.getString("telefone").toString());
+                                    edtCep.setText(jsonObject.getString("cep").toString());
+                                    edtLogradouro.setText(jsonObject.getString("logradouro").toString());
+                                    edtComplemento.setText(jsonObject.getString("complemento").toString());
+                                    edtBairro.setText(jsonObject.getString("bairro").toString());
+                                    edtCidade.setText(jsonObject.getString("cidade").toString());
+                                    edtUf.setText(jsonObject.getString("uf").toString());
+
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d("Error.Response", volleyError.getMessage());
+                    }
+                });
+
+        queue.add(getRequest);
+        //-----------------------------------------------------------------------------------
+
         //webservice de cep
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,19 +168,18 @@ public class PerfilEditActivity extends ActionBarActivity {
                 queue.add(getRequest);
             }
         });
-
+      //-------------------------------------------------------------------------------------------
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //variaveis que recebem os valores das edts
-                int rm, cursoId, ano, semestre, lembrarRm;
+                int  cursoId, ano, semestre, lembrarRm;
                 String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf;
 
                 //atribuição do valor das edts para as variaveis
                 ano = Integer.parseInt(edtAno.getText().toString());
                 semestre = Integer.parseInt(edtSemestre.getText().toString());
-
                 nome = edtNome.getText().toString();
                 email = edtEmail.getText().toString();
                 telefone = edtTelefone.getText().toString();
@@ -149,10 +192,49 @@ public class PerfilEditActivity extends ActionBarActivity {
 
                 //database.adicionar(rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro,
                 // complemento, nome, email, semestre, lembrarRm);
+                final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome"
+                        + nome + "&email" + email + "&telefone" + telefone + "&cep" + cep + "&logradouro" + logradouro + "&complemento"
+                         + complemento + "&bairro" + bairro + "&cidade" + cidade + "&uf" + uf + "&rm" + variaveisGlobais.getUserRm();
+
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                JsonObjectRequest getRequest =
+                        new JsonObjectRequest(Request.Method.GET, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject jsonObject) {
+                                        try {
+
+
+                                            edtAno.setText(jsonObject.getString("ano").toString());
+                                            edtSemestre.setText(jsonObject.getString("semestre").toString());
+                                            edtNome.setText(jsonObject.getString("nome").toString());
+                                            edtEmail.setText(jsonObject.getString("email").toString());
+                                            edtTelefone.setText(jsonObject.getString("telefone").toString());
+                                            edtCep.setText(jsonObject.getString("cep").toString());
+                                            edtLogradouro.setText(jsonObject.getString("logradouro").toString());
+                                            edtComplemento.setText(jsonObject.getString("complemento").toString());
+                                            edtBairro.setText(jsonObject.getString("bairro").toString());
+                                            edtCidade.setText(jsonObject.getString("cidade").toString());
+                                            edtUf.setText(jsonObject.getString("uf").toString());
+
+                                        } catch (JSONException ex) {
+                                            ex.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Log.d("Error.Response", volleyError.getMessage());
+                            }
+                        });
+
+                queue.add(getRequest);
+
             }
         });
     }
-
+ //-----------------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

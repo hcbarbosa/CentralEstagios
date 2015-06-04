@@ -86,11 +86,11 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                     View erro = edtConfirmaSenha;
                     erro.requestFocus();
                 } else {
-                    String senha;
+                   // String senha;
 
-                    senha = edtSenha.getText().toString();
+                   /// senha = edtSenha.getText().toString();
 
-                    final String url = variaveisGlobais.EndIPAPP + "/trocarsenha.aspx?senha=" + senha + "&rm=" + variaveisGlobais.getUserRm();
+                    final String url = variaveisGlobais.EndIPAPP + "/trocarsenha.aspx?senha=" + Senha + "&rm=" + variaveisGlobais.getUserRm();
 
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
