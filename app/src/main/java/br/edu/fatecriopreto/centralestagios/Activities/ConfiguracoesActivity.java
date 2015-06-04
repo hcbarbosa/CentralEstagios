@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -79,7 +81,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                 Senha = edtSenha.getText().toString();
                 ConfirmaSenha = edtConfirmaSenha.getText().toString();
 
-                if (Senha != ConfirmaSenha) {
+                if (!Senha.equals(ConfirmaSenha)) {
                     edtConfirmaSenha.setError("Senhas não conferem");
                     View erro = edtConfirmaSenha;
                     erro.requestFocus();
@@ -115,6 +117,11 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                             });
 
                     queue.add(getRequest);
+
+                    edtSenha.setText("");
+                    edtConfirmaSenha.setText("");
+                    Toast.makeText(ConfiguracoesActivity.this, "A senha foi alterada com sucesso", Toast.LENGTH_LONG).show();
+
                 }
 
             }
