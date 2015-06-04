@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,18 +23,26 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
+import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
+import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.Utils.ListVagasAdapter;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
+
 
 public class VagaActivity extends ActionBarActivity {
 
 
     private Toolbar appBar;
     private Button btnCandidatar;
+    private ListView listViewVagas;
+    private ListVagasAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +66,15 @@ public class VagaActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
 
-        btnCandidatar = (Button) findViewById(R.id.btnCandidatar);
+        /*btnCandidatar = (Button) findViewById(R.id.btnCandidatar);
         btnCandidatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 candidatar();
             }
         });
-
-        String url = "http://"+variaveisGlobais.EndIPAPP+":/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
+        */
+        String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
@@ -73,28 +83,50 @@ public class VagaActivity extends ActionBarActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            //variaveisGlobais.listVagas =
 
-                            Vaga vaga = new Vaga();
-
-                            for (int i = 0; i < response.length(); i++) {
-                                //achar um jeito de definir qual array dentro do response sera utilizado para verificar um getJSONObject
-                                    vaga.setId(Integer.parseInt(response.getJSONObject(0).getString("Id")));
+                            variaveisGlobais.listVagas = new ArrayList<Vaga>();
+                            variaveisGlobais.listCandidato = new ArrayList<Candidato>();
+                                for (int i = 0; i < response.getJSONArray(0).length(); i++) {
+                                    Vaga vaga = new Vaga();
+                                    //achar um jeito de definir qual array dentro do response sera utilizado para verificar um getJSONObject
+                                    vaga.setId(response.getJSONArray(0).getJSONObject(i).getInt("Id"));
                                     //vaga.setBeneficio(Integer.parseInt(response.getJSONObject(1).toString();
-                                    vaga.setBeneficioId(Integer.parseInt(response.getJSONObject(2).getString("BeneficioId")));
-                                    vaga.setDescricao(response.getJSONObject(3).getString("Descricao"));
-                                    vaga.setTelefoneEmpresa(response.getJSONObject(4).getString("TelefoneEmpresa"));
-                                    vaga.setHorario(response.getJSONObject(5).getString("Horario"));
-                                    vaga.setPessoaContato(response.getJSONObject(6).getString("PessoaContato"));
-                                    vaga.setPeriodo(response.getJSONObject(7).getString("Periodo"));
-                                    vaga.setTipoVaga(response.getJSONObject(8).getString("TipoVaga"));
-                                    vaga.setEmpresa(response.getJSONObject(9).getString("Empresa"));
-                                    vaga.setRemuneracao(Double.parseDouble(response.getJSONObject(10).getString("Remuneracao")));
-                                    vaga.setEmailEmpresa(response.getJSONObject(11).getString("EmailEmpresa"));
-                                    vaga.setObservacoes(response.getJSONObject(12).getString("Observacoes"));
+                                    vaga.setBeneficioId(response.getJSONArray(0).getJSONObject(i).getInt("BeneficioId"));
+                                    vaga.setDescricao(response.getJSONArray(0).getJSONObject(i).getString("Descricao"));
+                                    vaga.setTelefoneEmpresa(response.getJSONArray(0).getJSONObject(i).getString("TelefoneEmpresa"));
+                                    vaga.setHorario(response.getJSONArray(0).getJSONObject(i).getString("Horario"));
+                                    vaga.setPessoaContato(response.getJSONArray(0).getJSONObject(i).getString("PessoaContato"));
+                                    vaga.setPeriodo(response.getJSONArray(0).getJSONObject(i).getString("Periodo"));
+                                    vaga.setTipoVaga(response.getJSONArray(0).getJSONObject(i).getString("TipoVaga"));
+                                    vaga.setEmpresa(response.getJSONArray(0).getJSONObject(i).getString("Empresa"));
+                                    vaga.setRemuneracao(response.getJSONArray(0).getJSONObject(i).getDouble("Remuneracao"));
+                                    vaga.setEmailEmpresa(response.getJSONArray(0).getJSONObject(i).getString("EmailEmpresa"));
+                                    vaga.setObservacoes(response.getJSONArray(0).getJSONObject(i).getString("Observacoes"));
                                     //vaga.setDataCriacao(response.getJSONObject(13).toString());
+                                    for(int j = 0; j < response.getJSONArray(1).length(); j++) {
+                                        if(vaga.getBeneficioId() == response.getJSONArray(1).getJSONObject(j).getInt("Id")) {
+                                            Beneficio beneficio = new Beneficio();
+                                            beneficio.setId(response.getJSONArray(1).getJSONObject(j).getInt("Id"));
+                                            beneficio.setAuxilioOdontologico(response.getJSONArray(1).getJSONObject(j).getBoolean("AuxilioOdontologico"));
+                                            beneficio.setPlanoSaude(response.getJSONArray(1).getJSONObject(j).getBoolean("PlanoSaude"));
+                                            beneficio.setValeAlimentacao(response.getJSONArray(1).getJSONObject(j).getBoolean("ValeAlimentacao"));
+                                            beneficio.setValeTransporte(response.getJSONArray(1).getJSONObject(j).getBoolean("ValeTransporte"));
+                                            beneficio.setOutros(response.getJSONArray(1).getJSONObject(j).getString("Outros"));
+                                            vaga.setBeneficio(beneficio);
+                                        }
+                                    }
                                     variaveisGlobais.listVagas.add(vaga);
                                 }
+                            for(int i = 0; i < response.getJSONArray(2).length(); i++) {
+                                Candidato candidato = new Candidato();
+                                candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
+                                variaveisGlobais.listCandidato.add(candidato);
+                            }
+                            if(variaveisGlobais.listVagas != null && !variaveisGlobais.listVagas.isEmpty()) {
+
+                                popularVagas();
+                            }
+
                         } catch (Exception e) {
                             Log.d("erro: ", e.getMessage());
                         }
@@ -109,7 +141,48 @@ public class VagaActivity extends ActionBarActivity {
 
         queue.add(getRequest);
     }
+    public void popularVagas() {
+        final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
+        for(Vaga v : variaveisGlobais.listVagas){
+            HashMap<String,String> map = new HashMap<>();
+            map.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
+            map.put(variaveisGlobais.KEY_TITLE,v.getDescricao());
+            map.put(variaveisGlobais.KEY_COMPANY,v.getEmpresa());
+            map.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
+            //verifica se candidatou-se, tem q pegar da tabela candidatos se 1 = true
+            for(Candidato c : variaveisGlobais.listCandidato){
+                if(v.getId() == c.getVagaId()) {
+                    map.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                    break;
+                }else{
+                    map.put(variaveisGlobais.KEY_CANDIDATE, "");
+                }
+            }
+            lista.add(map);
+        }
 
+        listViewVagas = (ListView) findViewById(R.id.listViewVagas);
+
+        adapter = new ListVagasAdapter(this, lista);
+        listViewVagas.setAdapter(adapter);
+
+
+        listViewVagas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), Vaga_ConsultarActivity.class);
+                Bundle params = new Bundle();
+                params.putString("titlevaga", lista.get(position).get("titlevaga"));
+                params.putString("id", lista.get(position).get("id"));
+                params.putString("salary", lista.get(position).get("salary"));
+                params.putString("company", lista.get(position).get("company"));
+
+                intent.putExtras(params);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
     public void candidatar(){
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
