@@ -28,13 +28,12 @@ public class notificacao {
     private long delayOuvidor = 6000;
 
     public void criarNotificacao(Context context, String mensagemBarraStatus, String titulo,
-                                 String subtitulo, String mensagem, Class activity) {
+                                 String mensagem, Class activity) {
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.app_icon)
                 .setContentTitle(titulo)
                 .setContentText(mensagem)
-                .setSubText(subtitulo)
                 .setTicker(mensagemBarraStatus);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(variaveisGlobais.getAlert(), 0, new Intent
@@ -73,8 +72,8 @@ public class notificacao {
                                 if(response.getString("Conteudo").equals("vaga")) {
 
                                     criarNotificacao(variaveisGlobais.getAlert(),
-                                            "Nova vaga", "Nova vaga", "Nova vaga que combina com seu perfil",
-                                            "Clique para ver", VagaActivity.class);
+                                            "Nova(s) vaga(s)", "Nova(s) vaga(s)",
+                                            "Clique para visualizar esta(s) vaga(s)", VagaActivity.class);
                                 }
                             }
                             catch (Exception e){
