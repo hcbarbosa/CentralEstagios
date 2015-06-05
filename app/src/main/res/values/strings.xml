@@ -65,6 +65,10 @@
         <item>Pesquisa avançada</item>
         <item>Recomendadas</item>
     </string-array>
+    <string name="auxodont">Auxilio Odontológico</string>
+    <string name="semobs">Sem observações</string>
+    <string name="planosaude">Plano de Saúde</string>
+    <string name="valeal">Vale Alimentação </string>
     <string name="salario">Salário</string>
 
     <string name="hello_world">Hello world!</string>

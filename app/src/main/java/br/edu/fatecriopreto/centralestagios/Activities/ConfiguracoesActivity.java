@@ -75,7 +75,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Senha;
+                final String Senha;
                 String ConfirmaSenha;
 
                 Senha = edtSenha.getText().toString();
@@ -99,15 +99,10 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                                     new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject jsonObject) {
-                                            try {
 
-                                                edtSenha.setText(jsonObject.getString("Senha"));
-                                                // edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
-
-
-                                            } catch (JSONException ex) {
-                                                ex.printStackTrace();
-                                            }
+                                            Log.d("Senha : ", Senha);
+                                            //edtSenha.setText(jsonObject.getString("Senha"));
+                                            // edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
                                         }
                                     }, new Response.ErrorListener() {
                                 @Override

@@ -250,41 +250,40 @@ public class VagaActivity extends ActionBarActivity {
                 params.putString("titlevaga", variaveisGlobais.listVagas.get(position).getDescricao());
                 params.putString("id", String.valueOf(variaveisGlobais.listVagas.get(position).getId()));
                 params.putString("salary", String.valueOf(variaveisGlobais.listVagas.get(position).getRemuneracao()));
-                params.putString("company",variaveisGlobais.listVagas.get(position).getEmpresa());
+                params.putString("company", variaveisGlobais.listVagas.get(position).getEmpresa());
                 params.putString("contact", variaveisGlobais.listVagas.get(position).getPessoaContato());
                 params.putString("email", variaveisGlobais.listVagas.get(position).getEmailEmpresa());
                 params.putString("hour", variaveisGlobais.listVagas.get(position).getHorario());
                 if (variaveisGlobais.listVagas.get(position).getObservacoes() != null) {
                     params.putString("observation", variaveisGlobais.listVagas.get(position).getObservacoes());
-                }
-                else {
-                    params.putString("observation", "Sem observação");
+                } else {
+                    params.putString("observation", getResources().getString(R.string.semobs));
                 }
                 params.putString("type", variaveisGlobais.listVagas.get(position).getTipoVaga());
                 params.putString("phone", variaveisGlobais.listVagas.get(position).getTelefoneEmpresa());
                 params.putString("periody", variaveisGlobais.listVagas.get(position).getPeriodo());
                 String beneficios = "";
                 if (variaveisGlobais.listVagas.get(position).getBeneficio().isAuxilioOdontologico()) {
-                    beneficios = "Auxilio Odontológico \n";
+                    beneficios = getResources().getString(R.string.auxodont) + "\n";
                 }
-                if (variaveisGlobais.listVagas.get(position).getBeneficio().isPlanoSaude()){
-                    beneficios  += "Plano de Saúde \n";
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isPlanoSaude()) {
+                    beneficios += getResources().getString(R.string.planosaude)+ "\n";
                 }
-                if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeAlimentacao()){
-                    beneficios  += "Vale Alimentação \n";
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeAlimentacao()) {
+                    beneficios += getResources().getString(R.string.valeal)+"\n";
                 }
-                if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeTransporte()){
-                    beneficios  += "Vale Transporte \n";
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeTransporte()) {
+                    beneficios += "Vale Transporte \n";
                 }
-                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != null){
-                    beneficios  += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != null) {
+                    beneficios += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
                 }
                 params.putString("beneficts", beneficios);
                 String conhecimentos = "";
                 for (Conhecimento c : variaveisGlobais.listVagas.get(position).Conhecimentos) {
                     conhecimentos += c.getDescricao() + "\n";
                 }
-                params.putString("skills",conhecimentos );
+                params.putString("skills", conhecimentos);
                 params.putString("position", String.valueOf(position));
                 intent.putExtras(params);
                 startActivity(intent);

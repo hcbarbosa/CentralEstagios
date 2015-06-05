@@ -167,10 +167,11 @@
                             android:layout_marginTop="10dp" />
 
                         <Button
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Buscar"
-                            android:id="@+id/btnBuscar" />
+                            android:id="@+id/btnBuscar"
+                            android:background="@drawable/botaoarredondado"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -238,11 +239,12 @@
                             android:id="@+id/edtUf" />
 
                         <Button
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Salvar"
                             android:id="@+id/btnSalvar"
-                            android:layout_marginTop="20dp" />
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/botaoarredondado"/>
 
                     </LinearLayout>
 

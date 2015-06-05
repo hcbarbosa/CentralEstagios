@@ -93,9 +93,10 @@ public class PerfilEditActivity extends ActionBarActivity {
         int cursoId = 0, ano = 0 , semestre = 0, lembrarRm = 0;
         String nome = "", email = "", telefone = "", cep = "", logradouro = "", complemento = "", bairro = "", cidade = "", uf = "";
 
-        final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome"
-                + nome + "&email" + email + "&telefone" + telefone + "&cep" + cep + "&logradouro" + logradouro + "&complemento"
-                + complemento + "&bairro" + bairro + "&cidade" + cidade + "&uf" + uf + "&rm" + variaveisGlobais.getUserRm();
+        final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
+                + nome + "&email=" + email + "&telefone=" + telefone + "&cep=" + cep + "&logradouro=" + logradouro + "&complemento="
+                + complemento + "&bairro=" + bairro + "&cidade=" + cidade + "&uf=" + uf + "&rm=" + variaveisGlobais.getUserRm()+
+                "&acao=listar";
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -196,7 +197,8 @@ public class PerfilEditActivity extends ActionBarActivity {
                 // complemento, nome, email, semestre, lembrarRm);
                 final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome"
                         + nome + "&email" + email + "&telefone" + telefone + "&cep" + cep + "&logradouro" + logradouro + "&complemento"
-                         + complemento + "&bairro" + bairro + "&cidade" + cidade + "&uf" + uf + "&rm" + variaveisGlobais.getUserRm();
+                         + complemento + "&bairro" + bairro + "&cidade" + cidade + "&uf" + uf + "&rm" + variaveisGlobais.getUserRm()+
+                        "&acao=editar";
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
