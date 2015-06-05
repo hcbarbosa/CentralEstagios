@@ -14,14 +14,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -97,6 +102,35 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         btnCandidatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final String url = variaveisGlobais.EndIPAPP + "/candidatar.aspx?rm=" + variaveisGlobais.getUserRm()+ "&vaga=" + vagaId;
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                JsonObjectRequest getRequest =
+                        new JsonObjectRequest(Request.Method.GET, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject jsonObject) {
+                                        try {
+
+
+                                            // edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
+
+
+                                        } catch (Exception ex) {
+                                            ex.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Log.d("Error.Response", volleyError.getMessage());
+                            }
+                        });
+
+                queue.add(getRequest);
+
+                Toast.makeText(Vaga_ConsultarActivity.this, "Candidatado com sucesso!", Toast.LENGTH_LONG).show();
                 candidatar();
             }
         });
@@ -124,31 +158,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             txtconhecimentos.setText(bundle.getString("skills"));
 
         }
-        String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        JsonArrayRequest getRequest = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-
-
-
-                        } catch (Exception e) {
-                            Log.d("erro: ", e.getMessage());
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-            }
-        });
-
-        queue.add(getRequest);
 
     }
 

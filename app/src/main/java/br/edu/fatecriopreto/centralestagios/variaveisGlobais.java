@@ -36,7 +36,7 @@ public class variaveisGlobais extends Application {
     public static String KEY_COMPANY = "company";
     public static String KEY_CANDIDATE = "candidate";
 
-    public static String EndIPAPP ="http://192.168.0.101:26046/WebServices";
+    public static String EndIPAPP ="http://192.168.1.35:26046/WebServices";
 
     public static View getViewNaView() {
         return viewNaView;
