@@ -5,9 +5,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
@@ -38,6 +54,36 @@ public class CurriculoActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
+        final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm();
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        JsonArrayRequest getRequest =
+                new JsonArrayRequest( url,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray jsonObject) {
+                                try {
+
+                                    variaveisGlobais.listConhecimentoCurso = (List<Conhecimento>) jsonObject.get(0);
+                                    variaveisGlobais.listConhecimentoPerfil = (List<Conhecimento>) jsonObject.get(1);
+
+                                    //preencher checkbox
+
+
+
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d("Error.Response", volleyError.getMessage());
+                    }
+                });
+
+        queue.add(getRequest);
     }
 
     @Override

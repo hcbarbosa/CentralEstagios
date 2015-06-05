@@ -14,6 +14,7 @@ import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 
 public class variaveisGlobais extends Application {
@@ -39,6 +40,8 @@ public class variaveisGlobais extends Application {
     public static String EndIPAPP ="http://192.168.0.12:26046/WebServices";
     public static List<Candidato> listCandidato;
     public static List<Vaga> listVagas;
+    public static List<Conhecimento> listConhecimentoPerfil;
+    public static List<Conhecimento> listConhecimentoCurso;
 
     public static View getViewNaView() {
         return viewNaView;
