@@ -84,8 +84,9 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
         edtTelefone = (EditText)findViewById(R.id.edtTelefone);
         edtAno = (EditText)findViewById(R.id.edtAno);
         edtSemestre = (EditText)findViewById(R.id.edtSemestre);
-        spnCurso = (Spinner) findViewById(R.id.spnCurso);
+        //spnCurso = (Spinner) findViewById(R.id.spnCurso);
 
+        /*
         List<String> list = new ArrayList<>();
         list.add("1");
         list.add("2");
@@ -94,7 +95,7 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnCurso.setAdapter(dataAdapter);
-
+        */
 
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
         btnSalvar = (Button)findViewById(R.id.btnSalvar);
