@@ -25,7 +25,7 @@ import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
 
 public class notificacao {
 
-    private long delayOuvidor = 6000;
+    private long delayOuvidor = 60000;
 
     public void criarNotificacao(Context context, String mensagemBarraStatus, String titulo,
                                  String mensagem, Class activity) {

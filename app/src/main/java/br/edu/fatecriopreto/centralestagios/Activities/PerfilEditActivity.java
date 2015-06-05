@@ -93,10 +93,10 @@ public class PerfilEditActivity extends ActionBarActivity {
         int cursoId = 0, ano = 0 , semestre = 0, lembrarRm = 0;
         String nome = "", email = "", telefone = "", cep = "", logradouro = "", complemento = "", bairro = "", cidade = "", uf = "";
 
-        final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
+        final String url = variaveisGlobais.EndIPAPP + "/perfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
                 + nome + "&email=" + email + "&telefone=" + telefone + "&cep=" + cep + "&logradouro=" + logradouro + "&complemento="
                 + complemento + "&bairro=" + bairro + "&cidade=" + cidade + "&uf=" + uf + "&rm=" + variaveisGlobais.getUserRm()+
-                "&acao=listar";
+                "&acao=obter";
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
