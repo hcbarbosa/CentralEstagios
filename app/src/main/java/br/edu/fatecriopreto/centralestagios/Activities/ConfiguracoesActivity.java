@@ -47,8 +47,6 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
 
-        variaveisGlobais.setActivityAtual(this);
-
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != ConfiguracoesActivity.class)
             variaveisGlobais.setActivityAnterior(ConfiguracoesActivity.class);
@@ -103,7 +101,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                                         public void onResponse(JSONObject jsonObject) {
                                             try {
 
-                                                edtSenha.setText(jsonObject.getString("Senha").toString());
+                                                edtSenha.setText(jsonObject.getString("Senha"));
                                                 // edtConfirmaSenha.setText(jsonObject.getString("ConfirmaSenha").toString());
 
 

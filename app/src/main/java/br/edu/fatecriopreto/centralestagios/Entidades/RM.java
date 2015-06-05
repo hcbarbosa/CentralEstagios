@@ -5,7 +5,7 @@ public class RM {
         return rm;
     }
 
-    public void setRm(long rm) {
+    public void setRm(int rm) {
         this.rm = rm;
     }
 
@@ -17,10 +17,10 @@ public class RM {
         this.status = status;
     }
 
-    private long rm;
+    private int rm;
     private int status;
 
-    public RM(long rm, int status){
+    public RM(int rm, int status){
         this.rm = rm;
         this.status = status;
     }

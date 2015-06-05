@@ -22,8 +22,6 @@ public class MensagemActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensagem);
 
-        variaveisGlobais.setActivityAtual(this);
-
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != MensagemActivity.class)
             variaveisGlobais.setActivityAnterior(MensagemActivity.class);

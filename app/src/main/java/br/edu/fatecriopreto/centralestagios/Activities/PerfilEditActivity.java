@@ -60,7 +60,6 @@ public class PerfilEditActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_edit);
 
-        variaveisGlobais.setActivityAtual(this);
 
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setAlert(PerfilEditActivity.this);
@@ -108,17 +107,17 @@ public class PerfilEditActivity extends ActionBarActivity {
                                 try {
 
 
-                                    edtAno.setText(jsonObject.getString("ano").toString());
-                                    edtSemestre.setText(jsonObject.getString("semestre").toString());
-                                    edtNome.setText(jsonObject.getString("nome").toString());
-                                    edtEmail.setText(jsonObject.getString("email").toString());
-                                    edtTelefone.setText(jsonObject.getString("telefone").toString());
-                                    edtCep.setText(jsonObject.getString("cep").toString());
-                                    edtLogradouro.setText(jsonObject.getString("logradouro").toString());
-                                    edtComplemento.setText(jsonObject.getString("complemento").toString());
-                                    edtBairro.setText(jsonObject.getString("bairro").toString());
-                                    edtCidade.setText(jsonObject.getString("cidade").toString());
-                                    edtUf.setText(jsonObject.getString("uf").toString());
+                                    edtAno.setText(jsonObject.getString("ano"));
+                                    edtSemestre.setText(jsonObject.getString("semestre"));
+                                    edtNome.setText(jsonObject.getString("nome"));
+                                    edtEmail.setText(jsonObject.getString("email"));
+                                    edtTelefone.setText(jsonObject.getString("telefone"));
+                                    edtCep.setText(jsonObject.getString("cep"));
+                                    edtLogradouro.setText(jsonObject.getString("logradouro"));
+                                    edtComplemento.setText(jsonObject.getString("complemento"));
+                                    edtBairro.setText(jsonObject.getString("bairro"));
+                                    edtCidade.setText(jsonObject.getString("cidade"));
+                                    edtUf.setText(jsonObject.getString("uf"));
 
                                 } catch (JSONException ex) {
                                     ex.printStackTrace();
@@ -152,7 +151,7 @@ public class PerfilEditActivity extends ActionBarActivity {
                                     public void onResponse(JSONObject jsonObject) {
                                         try {
 
-                                            edtLogradouro.setText(jsonObject.getString("logradouro").toString());
+                                            edtLogradouro.setText(jsonObject.getString("logradouro"));
                                             edtBairro.setText(jsonObject.getString("bairro"));
                                             edtCidade.setText(jsonObject.getString("localidade"));
                                             edtUf.setText(jsonObject.getString("uf"));
@@ -209,17 +208,17 @@ public class PerfilEditActivity extends ActionBarActivity {
                                         try {
 
 
-                                            edtAno.setText(jsonObject.getString("ano").toString());
-                                            edtSemestre.setText(jsonObject.getString("semestre").toString());
-                                            edtNome.setText(jsonObject.getString("nome").toString());
-                                            edtEmail.setText(jsonObject.getString("email").toString());
-                                            edtTelefone.setText(jsonObject.getString("telefone").toString());
-                                            edtCep.setText(jsonObject.getString("cep").toString());
-                                            edtLogradouro.setText(jsonObject.getString("logradouro").toString());
-                                            edtComplemento.setText(jsonObject.getString("complemento").toString());
-                                            edtBairro.setText(jsonObject.getString("bairro").toString());
-                                            edtCidade.setText(jsonObject.getString("cidade").toString());
-                                            edtUf.setText(jsonObject.getString("uf").toString());
+                                            edtAno.setText(jsonObject.getString("ano"));
+                                            edtSemestre.setText(jsonObject.getString("semestre"));
+                                            edtNome.setText(jsonObject.getString("nome"));
+                                            edtEmail.setText(jsonObject.getString("email"));
+                                            edtTelefone.setText(jsonObject.getString("telefone"));
+                                            edtCep.setText(jsonObject.getString("cep"));
+                                            edtLogradouro.setText(jsonObject.getString("logradouro"));
+                                            edtComplemento.setText(jsonObject.getString("complemento"));
+                                            edtBairro.setText(jsonObject.getString("bairro"));
+                                            edtCidade.setText(jsonObject.getString("cidade"));
+                                            edtUf.setText(jsonObject.getString("uf"));
 
                                         } catch (JSONException ex) {
                                             ex.printStackTrace();

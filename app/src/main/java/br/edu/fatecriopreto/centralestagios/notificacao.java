@@ -1,5 +1,6 @@
 package br.edu.fatecriopreto.centralestagios;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -22,9 +23,6 @@ import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
 
-/**
- * Created by Victor on 03/06/2015.
- */
 public class notificacao {
 
     private long delayOuvidor = 6000;
@@ -39,8 +37,8 @@ public class notificacao {
                 .setSubText(subtitulo)
                 .setTicker(mensagemBarraStatus);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(variaveisGlobais.getActivityAtual(), 0, new Intent
-                (variaveisGlobais.getActivityAtual(), activity), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(variaveisGlobais.getAlert(), 0, new Intent
+                (variaveisGlobais.getAlert(), activity), 0);
 
         nBuilder.setContentIntent(pendingIntent);
 
@@ -49,8 +47,8 @@ public class notificacao {
         int idNotification = 001;
 
         NotificationManager notificationManager =
-                (NotificationManager) variaveisGlobais.getActivityAtual().getSystemService
-                        (variaveisGlobais.getActivityAtual().NOTIFICATION_SERVICE);
+                (NotificationManager) variaveisGlobais.getAlert().getSystemService
+                        (variaveisGlobais.getAlert().NOTIFICATION_SERVICE);
 
         notificationManager.notify(idNotification, nBuilder.build());
     }
@@ -63,7 +61,7 @@ public class notificacao {
 
             String url = variaveisGlobais.EndIPAPP+"/notificacoes.aspx?rm=" + variaveisGlobais.getUserRm() +
                     "&acao=listar";
-            RequestQueue queue = Volley.newRequestQueue(variaveisGlobais.getActivityAtual());
+            RequestQueue queue = Volley.newRequestQueue(variaveisGlobais.getAlert());
 
             JsonObjectRequest getRequest = new JsonObjectRequest(url, new JSONObject(),
                     new Response.Listener<JSONObject>() {
@@ -72,9 +70,9 @@ public class notificacao {
 
                             try {
 
-                                if(response.getString("Conteudo").toString().equals("vaga")) {
+                                if(response.getString("Conteudo").equals("vaga")) {
 
-                                    criarNotificacao(variaveisGlobais.getActivityAtual(),
+                                    criarNotificacao(variaveisGlobais.getAlert(),
                                             "Nova vaga", "Nova vaga", "Nova vaga que combina com seu perfil",
                                             "Clique para ver", VagaActivity.class);
                                 }
@@ -85,10 +83,11 @@ public class notificacao {
                             }
                         }
                     }, new Response.ErrorListener() {
+                @SuppressLint("LongLogTag")
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
 
-                    Log.d("Erro no webservice em notificacao: ", volleyError.getMessage());
+                    Log.d("Erro no ws em notificacao: ", volleyError.getMessage());
                 }
             });
 

@@ -56,8 +56,6 @@ public class VagaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga);
 
-        variaveisGlobais.setActivityAtual(this);
-
         final String urlNotificacao = variaveisGlobais.EndIPAPP + "/notificacoes.aspx?rm=" + variaveisGlobais.getUserRm() + "&acao=atualizar";
 
         RequestQueue queueNotificacao = Volley.newRequestQueue(getApplicationContext());
@@ -117,8 +115,8 @@ public class VagaActivity extends ActionBarActivity {
                     public void onResponse(JSONArray response) {
                         try {
 
-                            ArrayList<Vaga> AuxiliarListaVagas = new ArrayList<Vaga>();
-                            variaveisGlobais.listCandidato = new ArrayList<Candidato>();
+                            ArrayList<Vaga> AuxiliarListaVagas = new ArrayList<>();
+                            variaveisGlobais.listCandidato = new ArrayList<>();
                                 for (int i = 0; i < response.getJSONArray(0).length(); i++) {
                                     Vaga vaga = new Vaga();
                                     //achar um jeito de definir qual array dentro do response sera utilizado para verificar um getJSONObject
@@ -150,13 +148,13 @@ public class VagaActivity extends ActionBarActivity {
                                     }
                                     AuxiliarListaVagas.add(vaga);
                                 }
-                            ArrayList<Vaga> AuxiliarListaVagasConhecimento = new ArrayList<Vaga>();
+                            ArrayList<Vaga> AuxiliarListaVagasConhecimento = new ArrayList<>();
                                 for(int i = 0; i < response.getJSONArray(3).length(); i++){
                                     for (int j = 0; j < response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").length(); j++){
                                         Vaga vaga = new Vaga();
 
                                         vaga.setId(response.getJSONArray(3).getJSONObject(i).getInt("Id"));
-                                        vaga.Conhecimentos = new ArrayList<Conhecimento>();
+                                        vaga.Conhecimentos = new ArrayList<>();
                                         Conhecimento conhecimento = new Conhecimento();
                                         conhecimento.setId(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getInt("Id"));
                                         conhecimento.setDescricao(response.getJSONArray(3).getJSONObject(i).getJSONArray("listaConhecimentos").getJSONObject(j).getString("Descricao"));
@@ -169,7 +167,7 @@ public class VagaActivity extends ActionBarActivity {
                             if (AuxiliarListaVagas != null && !AuxiliarListaVagas.isEmpty()){
                                 if (AuxiliarListaVagasConhecimento!= null && !AuxiliarListaVagasConhecimento.isEmpty()){
                                     for (Vaga v : AuxiliarListaVagas) {
-                                        v.Conhecimentos = new ArrayList<Conhecimento>();
+                                        v.Conhecimentos = new ArrayList<>();
                                         for (Vaga vConhecimento : AuxiliarListaVagasConhecimento) {
                                             if (v.getId() == vConhecimento.getId()){
                                                     for (Conhecimento cConhecimento : vConhecimento.Conhecimentos){
@@ -180,11 +178,11 @@ public class VagaActivity extends ActionBarActivity {
                                             }
                                         }
                                     }
-                                    variaveisGlobais.listVagas = new ArrayList<Vaga>();
+                                    variaveisGlobais.listVagas = new ArrayList<>();
                                     variaveisGlobais.listVagas = AuxiliarListaVagas;
                                 }
                                 else{
-                                    variaveisGlobais.listVagas = new ArrayList<Vaga>();
+                                    variaveisGlobais.listVagas = new ArrayList<>();
                                     variaveisGlobais.listVagas = AuxiliarListaVagas;
                                 }
 
@@ -213,7 +211,7 @@ public class VagaActivity extends ActionBarActivity {
         queue.add(getRequest);
     }
     public void popularVagas() {
-        ArrayList<Vaga> vaga = new ArrayList<Vaga>();
+        ArrayList<Vaga> vaga = new ArrayList<>();
         final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
         for(Vaga v : variaveisGlobais.listVagas){
             HashMap<String,String> map = new HashMap<>();
@@ -235,7 +233,7 @@ public class VagaActivity extends ActionBarActivity {
             vaga.add(v);
             lista.add(map);
         }
-        variaveisGlobais.listVagas = new ArrayList<Vaga>();
+        variaveisGlobais.listVagas = new ArrayList<>();
         variaveisGlobais.listVagas = vaga;
 
         listViewVagas = (ListView) findViewById(R.id.listViewVagas);
@@ -256,7 +254,7 @@ public class VagaActivity extends ActionBarActivity {
                 params.putString("contact", variaveisGlobais.listVagas.get(position).getPessoaContato());
                 params.putString("email", variaveisGlobais.listVagas.get(position).getEmailEmpresa());
                 params.putString("hour", variaveisGlobais.listVagas.get(position).getHorario());
-                if (variaveisGlobais.listVagas.get(position).getObservacoes() != "null") {
+                if (variaveisGlobais.listVagas.get(position).getObservacoes() != null) {
                     params.putString("observation", variaveisGlobais.listVagas.get(position).getObservacoes());
                 }
                 else {
@@ -278,7 +276,7 @@ public class VagaActivity extends ActionBarActivity {
                 if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeTransporte()){
                     beneficios  += "Vale Transporte \n";
                 }
-                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != "null"){
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != null){
                     beneficios  += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
                 }
                 params.putString("beneficts", beneficios);

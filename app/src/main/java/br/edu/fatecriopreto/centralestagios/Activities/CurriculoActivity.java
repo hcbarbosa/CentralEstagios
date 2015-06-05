@@ -22,7 +22,6 @@ public class CurriculoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curriculo);
 
-        variaveisGlobais.setActivityAtual(this);
 
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != CurriculoActivity.class)

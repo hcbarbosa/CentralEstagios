@@ -13,6 +13,7 @@ import java.util.List;
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
+import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 
 public class variaveisGlobais extends Application {
@@ -36,6 +37,8 @@ public class variaveisGlobais extends Application {
     public static String KEY_CANDIDATE = "candidate";
 
     public static String EndIPAPP ="http://192.168.0.12:26046/WebServices";
+    public static List<Candidato> listCandidato;
+    public static List<Vaga> listVagas;
 
     public static View getViewNaView() {
         return viewNaView;
@@ -101,8 +104,6 @@ public class variaveisGlobais extends Application {
         variaveisGlobais.userEmail = userEmail;
     }
 
-    public static List<Vaga> listVagas;
-
     public static String getUserImg() {
         return userImg;
     }
@@ -110,7 +111,6 @@ public class variaveisGlobais extends Application {
     public static void setUserImg(String userImg) {
         variaveisGlobais.userImg = userImg;
     }
-
 
     public static int getImageUser() {
         return imageUser;

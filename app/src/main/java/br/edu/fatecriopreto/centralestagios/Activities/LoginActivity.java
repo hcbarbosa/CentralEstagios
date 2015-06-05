@@ -186,8 +186,6 @@ public class LoginActivity extends Activity  {
             respostaws = "Sem conexao";
 
             //chama o webservice
-            //respostaws = wsLogin.verificaLoginJson(rm, password, getApplicationContext());
-
             String url = variaveisGlobais.EndIPAPP+"/Login.aspx?rm="+rm+"&senha="+password;
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -242,9 +240,6 @@ public class LoginActivity extends Activity  {
                                             variaveisGlobais.setUserEmail(jo.getString("email"));
                                             variaveisGlobais.setUserRm(jo.getString("rm"));
                                             variaveisGlobais.setUserName(jo.getString("nome"));
-                                            if(jo.getString("img") != null && !jo.getString("img").isEmpty()){
-                                                variaveisGlobais.setUserImg(jo.getString("img"));
-                                            }
                                             break;
                                         case "requerido":
                                             cancel = false;

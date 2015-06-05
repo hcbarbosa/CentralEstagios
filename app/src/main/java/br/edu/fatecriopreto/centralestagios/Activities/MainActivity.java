@@ -36,12 +36,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        variaveisGlobais.setActivityAtual(this);
-
-        notificacao notificacao = new notificacao();
-
-        notificacao.comecarOuvidorNotificacoes();
-
         //Auxiliar na transicao de telas e pilha
         if(variaveisGlobais.getSizeActivityAnterior()!=0 && variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != MainActivity.class)
             variaveisGlobais.setActivityAnterior(MainActivity.class);
@@ -49,6 +43,9 @@ public class MainActivity extends ActionBarActivity {
             variaveisGlobais.setActivityAnterior(MainActivity.class);
         }
         variaveisGlobais.setAlert(MainActivity.this);
+
+        notificacao notificacao = new notificacao();
+        notificacao.comecarOuvidorNotificacoes();
 
         //AppBar
         appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);

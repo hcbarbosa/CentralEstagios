@@ -11,7 +11,7 @@ import br.edu.fatecriopreto.centralestagios.Entidades.RM;
 public class DBAdapter {
     private SQLiteDatabase database;
     private DBHelper dbHelper;
-    private String[] colunas = {DBHelper.RM,DBHelper.STATUS};
+    //private String[] colunas = {DBHelper.RM,DBHelper.STATUS};
 
     public  DBAdapter(Context context){
         dbHelper = new DBHelper(context);
@@ -42,7 +42,7 @@ public class DBAdapter {
                 contentValues);
     }
 
-    public void apagar(long rm)
+    public void apagar(int rm)
     {
         database.delete(DBHelper.TABELA, DBHelper.RM + " = " + rm, null);
     }
@@ -60,7 +60,7 @@ public class DBAdapter {
     }
 
     private RM cursorRM(Cursor cursor){
-        return new RM(cursor.getLong(0),cursor.getInt(1));
+        return new RM(cursor.getInt(0),cursor.getInt(1));
     }
 
 
