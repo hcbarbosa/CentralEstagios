@@ -101,7 +101,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final String url = variaveisGlobais.EndIPAPP + "/cadidatar.aspx?rm=" + variaveisGlobais.getUserRm()+ "&vaga=" + vagaId;
+                final String url = variaveisGlobais.EndIPAPP + "/candidatar.aspx?rm=" + variaveisGlobais.getUserRm()+ "&vaga=" + vagaId;
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                 JsonObjectRequest getRequest =
