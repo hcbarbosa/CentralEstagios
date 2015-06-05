@@ -275,7 +275,7 @@ public class VagaActivity extends ActionBarActivity {
                 if (variaveisGlobais.listVagas.get(position).getBeneficio().isValeTransporte()) {
                     beneficios += "Vale Transporte \n";
                 }
-                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != null) {
+                if (variaveisGlobais.listVagas.get(position).getBeneficio().getOutros() != "null") {
                     beneficios += variaveisGlobais.listVagas.get(position).getBeneficio().getOutros();
                 }
                 params.putString("beneficts", beneficios);
