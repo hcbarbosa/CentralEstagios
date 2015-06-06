@@ -53,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=""
-                android:id="@+id/txtEmpresa"
-                android:textColor="@color/colorLogo"/>
+                android:id="@+id/txtEmpresa"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

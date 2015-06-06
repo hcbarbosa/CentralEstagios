@@ -58,6 +58,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
     private TextView txtbeneficios;
     private TextView txtconhecimentos;
     private Button btnCandidatar;
+    private Button btnMensagem;
     private String emailEmpresa = "";
     private String vagaId = "";
     private String vagaDescricao = "";
@@ -96,6 +97,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         txtbeneficios = (TextView) findViewById(R.id.txtBeneficios);
         txtconhecimentos = (TextView) findViewById(R.id.txtConhecimentos);
         btnCandidatar = (Button) findViewById(R.id.btnCandidatar);
+        btnMensagem = (Button) findViewById(R.id.btnMensagem);
 
         btnCandidatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +128,9 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
                 queue.add(getRequest);
 
                 Toast.makeText(Vaga_ConsultarActivity.this, "Candidatou-se com sucesso!", Toast.LENGTH_LONG).show();
-                btnCandidatar.setVisibility(View.INVISIBLE);
+                btnCandidatar.setBackgroundColor(getResources().getColor(R.color.colorGrayWhite));
+                btnCandidatar.setEnabled(false);
+                //btnMensagem.set
                 candidatar();
             }
         });
@@ -136,7 +140,8 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         vagaId = String.valueOf(variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getId());
         vagaDescricao = variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getDescricao();
         if (variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).isCandidatado()) {
-            btnCandidatar.setVisibility(View.INVISIBLE);
+            btnCandidatar.setBackgroundColor(getResources().getColor(R.color.colorGrayWhite));
+            btnCandidatar.setEnabled(false);
         }
         if(bundle != null){
             this.setTitle(bundle.getString("titlevaga"));

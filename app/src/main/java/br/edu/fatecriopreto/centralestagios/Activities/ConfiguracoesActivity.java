@@ -85,7 +85,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                     edtConfirmaSenha.setError("Senhas não conferem");
                     View erro = edtConfirmaSenha;
                     erro.requestFocus();
-                } else {
+                } else if(Senha.length() >=6){
                    // String senha;
 
                    /// senha = edtSenha.getText().toString();
@@ -117,6 +117,11 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                     edtConfirmaSenha.setText("");
                     Toast.makeText(ConfiguracoesActivity.this, "A senha foi alterada com sucesso", Toast.LENGTH_LONG).show();
 
+                }
+                else{
+                    edtSenha.setError("Senha tem que ser maior ou igual a 6 digitos");
+                    View erro = edtSenha;
+                    erro.requestFocus();
                 }
 
             }

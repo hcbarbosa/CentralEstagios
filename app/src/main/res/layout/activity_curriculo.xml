@@ -36,6 +36,17 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/listViewConhecimento"
                     android:layout_gravity="left|top" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salvar"
+                    android:id="@+id/btnSalvar"
+                    android:background="@drawable/botaoarredondado"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="end"/>
+
             </LinearLayout>
 
         </LinearLayout>

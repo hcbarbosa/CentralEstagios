@@ -29,6 +29,8 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -184,6 +186,7 @@ public class VagaActivity extends ActionBarActivity {
                                     variaveisGlobais.listVagas = AuxiliarListaVagas;
                                 }
 
+
                             }
                             for(int i = 0; i < response.getJSONArray(2).length(); i++) {
                                 Candidato candidato = new Candidato();
@@ -193,6 +196,13 @@ public class VagaActivity extends ActionBarActivity {
                             if(variaveisGlobais.listVagas != null && !variaveisGlobais.listVagas.isEmpty()) {
                                 popularVagas();
                             }
+
+                            Collections.sort(variaveisGlobais.listVagas, new Comparator<Vaga>() {
+                                @Override
+                                public int compare(Vaga lhs, Vaga rhs) {
+                                    return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
+                                }
+                            });
 
                         } catch (Exception e) {
                             Log.d("erro: ", e.getMessage());

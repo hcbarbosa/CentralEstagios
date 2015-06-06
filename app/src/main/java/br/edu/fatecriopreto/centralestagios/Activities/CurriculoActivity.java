@@ -77,7 +77,6 @@ public class CurriculoActivity extends ActionBarActivity {
 
                                     listViewConhecimentos = (ListView) findViewById(R.id.listViewConhecimento);
 
-
                                     if(jsonObject != null) {
                                         Gson gson = new Gson();
                                         ConhecimentoList listaConhecimento = gson.fromJson(jsonObject.getString(0), ConhecimentoList.class);
