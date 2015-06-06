@@ -28,7 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
@@ -240,6 +244,55 @@ public class LoginActivity extends Activity  {
                                             variaveisGlobais.setUserEmail(jo.getString("email"));
                                             variaveisGlobais.setUserRm(jo.getString("rm"));
                                             variaveisGlobais.setUserName(jo.getString("nome"));
+
+                                            String url2 = variaveisGlobais.EndIPAPP+"/perfil.aspx?rm="+variaveisGlobais.getUserRm()+"&acao=obter";
+                                            RequestQueue fila = Volley.newRequestQueue(getApplicationContext());
+
+                                            JsonArrayRequest getRequesicao = new JsonArrayRequest(url2,
+                                                    new Response.Listener<JSONArray>() {
+
+                                                        @Override
+                                                        public void onResponse(JSONArray resposta) {
+
+                                                            try {
+                                                                    variaveisGlobais.perfilRm = new Perfil();
+                                                                    variaveisGlobais.perfilRm.Conhecimentos = new ArrayList<Conhecimento>();
+                                                                    variaveisGlobais.perfilRm.setRm(resposta.getJSONObject(0).getInt("LoginRm"));
+                                                                    variaveisGlobais.perfilRm.setCursoId(resposta.getJSONObject(0).getInt("CursoId"));
+                                                                    variaveisGlobais.perfilRm.setTelefone(resposta.getJSONObject(0).getString("Telefone"));
+                                                                    variaveisGlobais.perfilRm.setCEP(resposta.getJSONObject(0).getString("Cep"));
+                                                                    variaveisGlobais.perfilRm.setUf(resposta.getJSONObject(0).getString("Uf"));
+                                                                    variaveisGlobais.perfilRm.setCidade(resposta.getJSONObject(0).getString("Cidade"));
+                                                                    variaveisGlobais.perfilRm.setBairro(resposta.getJSONObject(0).getString("Bairro"));
+                                                                    variaveisGlobais.perfilRm.setLogradouro(resposta.getJSONObject(0).getString("Logradouro"));
+                                                                    variaveisGlobais.perfilRm.setComplemento(resposta.getJSONObject(0).getString("Complemento"));
+                                                                    variaveisGlobais.perfilRm.setAno(resposta.getJSONObject(0).getLong("Ano"));
+                                                                    variaveisGlobais.perfilRm.setSemestre(resposta.getJSONObject(0).getString("Semestre"));
+                                                                    variaveisGlobais.perfilRm.setNome(resposta.getJSONObject(0).getString("Nome"));
+                                                                    variaveisGlobais.perfilRm.setEmail(resposta.getJSONObject(0).getString("Email"));
+                                                                    for(int i = 0; i < resposta.getJSONArray(1).length(); i++) {
+                                                                        Conhecimento conhecimento = new Conhecimento();
+                                                                        conhecimento.setId(resposta.getJSONArray(1).getJSONObject(i).getInt("Id"));
+                                                                        conhecimento.setDescricao(resposta.getJSONArray(1).getJSONObject(i).getString("Descricao"));
+                                                                        conhecimento.setStatus(resposta.getJSONArray(1).getJSONObject(i).getInt("Status"));
+                                                                        conhecimento.setEstaSelecionado(resposta.getJSONArray(1).getJSONObject(i).getBoolean("EstaSelecionado"));
+                                                                        variaveisGlobais.perfilRm.Conhecimentos.add(conhecimento);
+                                                                        String a = "";
+                                                                    }
+
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    Log.d("Error.Response.Aki", "Erro no webservice");
+                                                }
+                                            });
+
+                                            fila.add(getRequesicao);
+
                                             break;
                                         case "requerido":
                                             cancel = false;

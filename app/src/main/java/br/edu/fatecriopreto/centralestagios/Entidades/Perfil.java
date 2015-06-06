@@ -1,21 +1,24 @@
 package br.edu.fatecriopreto.centralestagios.Entidades;
 
+import java.util.ArrayList;
+
 public class Perfil {
 
-    private long LoginRm;
-    private long CursoId;
-    private String Cidade;
-    private String Telefone;
-    private long Cep;
-    private long Ano;
-    private String Uf;
-    private String Bairro;
-    private String Logradouro;
-    private String Complemento;
-    private String Nome;
-    private String Email;
-    private String Semestre;
-    private String rememberRm;
+    public long LoginRm;
+    public long CursoId;
+    public String Cidade;
+    public String Telefone;
+    public String Cep;
+    public long Ano;
+    public String Uf;
+    public String Bairro;
+    public String Logradouro;
+    public String Complemento;
+    public String Nome;
+    public String Email;
+    public String Semestre;
+    public String rememberRm;
+    public ArrayList<Conhecimento> Conhecimentos;
 
 
     public Perfil(long aLong, long aLong1, String string, String string1, String string2, long aLong2, String string3, String string4, String string5, String string6, String string7, String string8, long string9) {
@@ -57,11 +60,11 @@ public class Perfil {
         this.Telefone = telefone;
     }
 
-    public long getCEP() {
+    public String getCEP() {
         return Cep;
     }
 
-    public void setCEP(long CEP) {
+    public void setCEP(String CEP) {
         this.Cep = CEP;
     }
 
@@ -137,5 +140,12 @@ public class Perfil {
         return rememberRm;
     }
 
+    public ArrayList<Conhecimento> getConhecimentos() {
+        return Conhecimentos;
+    }
+
+    public void setConhecimentos(ArrayList<Conhecimento> conhecimentos) {
+        Conhecimentos = conhecimentos;
+    }
 }
 
