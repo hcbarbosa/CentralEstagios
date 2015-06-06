@@ -289,12 +289,6 @@ public class VagaActivity extends ActionBarActivity {
             }
         });
     }
-    public void filtrarVagasRecomendadas() {
-        //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais
-
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

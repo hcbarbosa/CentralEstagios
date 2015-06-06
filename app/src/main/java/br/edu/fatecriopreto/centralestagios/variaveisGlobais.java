@@ -40,9 +40,10 @@ public class variaveisGlobais extends Application {
 
     public static Perfil perfilRm;
 
-    public static String EndIPAPP ="http://192.168.1.31:26046/WebServices";
+    public static String EndIPAPP ="http://177.103.59.113:26046/WebServices";
     public static ArrayList<Candidato> listCandidato;
     public static ArrayList<Vaga> listVagas;
+    public static  ArrayList<Vaga> listVagasRecomendadas;
 
 
     public static View getViewNaView() {

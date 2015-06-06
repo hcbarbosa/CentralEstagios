@@ -277,7 +277,6 @@ public class LoginActivity extends Activity  {
                                                                         conhecimento.setStatus(resposta.getJSONArray(1).getJSONObject(i).getInt("Status"));
                                                                         conhecimento.setEstaSelecionado(resposta.getJSONArray(1).getJSONObject(i).getBoolean("EstaSelecionado"));
                                                                         variaveisGlobais.perfilRm.Conhecimentos.add(conhecimento);
-                                                                        String a = "";
                                                                     }
 
                                                             } catch (JSONException e) {
