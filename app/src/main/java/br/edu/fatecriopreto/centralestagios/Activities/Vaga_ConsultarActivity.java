@@ -125,7 +125,8 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
 
                 queue.add(getRequest);
 
-                Toast.makeText(Vaga_ConsultarActivity.this, "Candidatado com sucesso!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Vaga_ConsultarActivity.this, "Candidatou-se com sucesso!", Toast.LENGTH_LONG).show();
+                btnCandidatar.setVisibility(View.INVISIBLE);
                 candidatar();
             }
         });

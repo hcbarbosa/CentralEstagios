@@ -31,13 +31,20 @@
                 android:id="@+id/Curriculo">
 
 
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listViewConhecimento"
+                    android:layout_gravity="left|top" />
             </LinearLayout>
 
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"

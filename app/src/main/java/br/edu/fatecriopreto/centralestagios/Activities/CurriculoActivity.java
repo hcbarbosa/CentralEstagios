@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,21 +17,29 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.common.collect.Collections2;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.Utils.ListConhecimentosAdapter;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class CurriculoActivity extends ActionBarActivity {
 
-
+    private ListView listViewConhecimentos;
+    private ListConhecimentosAdapter listAdapter;
     private Toolbar appBar;
 
     @Override
@@ -54,7 +63,8 @@ public class CurriculoActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
-        final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm();
+        final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
+                "&acao=listar";
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -65,12 +75,28 @@ public class CurriculoActivity extends ActionBarActivity {
                             public void onResponse(JSONArray jsonObject) {
                                 try {
 
-                                    variaveisGlobais.listConhecimentoCurso = (List<Conhecimento>) jsonObject.get(0);
-                                    variaveisGlobais.listConhecimentoPerfil = (List<Conhecimento>) jsonObject.get(1);
-
-                                    //preencher checkbox
+                                    listViewConhecimentos = (ListView) findViewById(R.id.listViewConhecimento);
 
 
+                                    if(jsonObject != null) {
+                                        Gson gson = new Gson();
+                                        ConhecimentoList listaConhecimento = gson.fromJson(jsonObject.getString(0), ConhecimentoList.class);
+                                        variaveisGlobais.listConhecimentoCurso = listaConhecimento.conhecimentosCurso;
+                                        Collections.sort(variaveisGlobais.listConhecimentoCurso, new Comparator<Conhecimento>() {
+                                            @Override
+                                            public int compare(Conhecimento lhs, Conhecimento rhs) {
+                                                return  lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
+                                            }
+                                        });
+                                        variaveisGlobais.listConhecimentoPerfil = listaConhecimento.conhecimentosPerfil;
+
+                                        listAdapter = new ListConhecimentosAdapter(getApplicationContext(), variaveisGlobais.listConhecimentoCurso);
+
+                                        listViewConhecimentos.setAdapter(listAdapter);
+
+
+
+                                    }
 
                                 } catch (JSONException ex) {
                                     ex.printStackTrace();
@@ -114,5 +140,13 @@ public class CurriculoActivity extends ActionBarActivity {
         variaveisGlobais.deleteAnterior();
         this.finish();
     }
+
+    public class ConhecimentoList
+    {
+        public List<Conhecimento> conhecimentosCurso;
+        public List<Conhecimento> conhecimentosPerfil;
+    }
+
+
 
 }
