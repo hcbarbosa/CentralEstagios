@@ -1,11 +1,14 @@
 package br.edu.fatecriopreto.centralestagios.Utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -75,8 +78,13 @@ public class ListConhecimentosAdapter extends BaseAdapter {
              * Seta os valores nos TextView
              */
             textConhecimento.setText("" + conhecimento.getDescricao());
-            if(variaveisGlobais.listConhecimentoPerfil.contains(conhecimento))
-                checMarcado.setChecked(true);
+            checMarcado.setTag(conhecimento.getId());
+
+            for(Conhecimento c : variaveisGlobais.listConhecimentoPerfil){
+                if(c.getDescricao().equals(conhecimento.getDescricao())){
+                    checMarcado.setChecked(true);
+                }
+            }
 
             return view;
         }

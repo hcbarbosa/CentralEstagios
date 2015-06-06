@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -25,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +44,7 @@ public class CurriculoActivity extends ActionBarActivity {
     private ListView listViewConhecimentos;
     private ListConhecimentosAdapter listAdapter;
     private Toolbar appBar;
+    private Button btnSalvar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +93,22 @@ public class CurriculoActivity extends ActionBarActivity {
                                         });
                                         variaveisGlobais.listConhecimentoPerfil = listaConhecimento.conhecimentosPerfil;
 
+
                                         listAdapter = new ListConhecimentosAdapter(getApplicationContext(), variaveisGlobais.listConhecimentoCurso);
 
                                         listViewConhecimentos.setAdapter(listAdapter);
-
-
-
                                     }
+
+                                    btnSalvar = (Button) findViewById(R.id.btnSalvar);
+
+                                    btnSalvar.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            List<Integer> listCon = new ArrayList<>();
+
+                                        }
+                                    });
+
 
                                 } catch (JSONException ex) {
                                     ex.printStackTrace();

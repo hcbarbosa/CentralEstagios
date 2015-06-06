@@ -38,7 +38,7 @@ public class variaveisGlobais extends Application {
     public static String KEY_COMPANY = "company";
     public static String KEY_CANDIDATE = "candidate";
 
-    public static String EndIPAPP ="http://177.103.59.113:26046/WebServices";
+    public static String EndIPAPP ="http://192.168.0.12:26046/WebServices";
     public static List<Candidato> listCandidato;
     public static List<Vaga> listVagas;
     public static List<Conhecimento> listConhecimentoCurso;
