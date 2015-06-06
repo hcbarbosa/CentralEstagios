@@ -14,6 +14,8 @@ import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 
 public class variaveisGlobais extends Application {
@@ -36,9 +38,14 @@ public class variaveisGlobais extends Application {
     public static String KEY_COMPANY = "company";
     public static String KEY_CANDIDATE = "candidate";
 
-    public static String EndIPAPP ="http://192.168.1.31:26046/WebServices";
+    public static String EndIPAPP ="http://192.168.0.12:26046/WebServices";
     public static List<Candidato> listCandidato;
     public static List<Vaga> listVagas;
+    public static List<Conhecimento> listConhecimentoCurso;
+    public static List<Conhecimento> listConhecimentoPerfil;
+    public static Perfil perfilRm;
+    public static List<Vaga> listVagasRecomendadas;
+
 
     public static View getViewNaView() {
         return viewNaView;

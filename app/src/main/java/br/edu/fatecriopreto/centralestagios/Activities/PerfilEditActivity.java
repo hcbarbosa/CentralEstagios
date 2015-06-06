@@ -93,7 +93,7 @@ public class PerfilEditActivity extends ActionBarActivity {
         int cursoId = 0, ano = 0 , semestre = 0, lembrarRm = 0;
         String nome = "", email = "", telefone = "", cep = "", logradouro = "", complemento = "", bairro = "", cidade = "", uf = "";
 
-        final String url = variaveisGlobais.EndIPAPP + "/perfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
+        final String url = variaveisGlobais.EndIPAPP + "/Perfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
                 + nome + "&email=" + email + "&telefone=" + telefone + "&cep=" + cep + "&logradouro=" + logradouro + "&complemento="
                 + complemento + "&bairro=" + bairro + "&cidade=" + cidade + "&uf=" + uf + "&rm=" + variaveisGlobais.getUserRm()+
                 "&acao=obter";
@@ -195,10 +195,10 @@ public class PerfilEditActivity extends ActionBarActivity {
 
                 //database.adicionar(rm, cursoId, cidade, telefone, cep, ano, uf, bairro, logradouro,
                 // complemento, nome, email, semestre, lembrarRm);
-                final String url = variaveisGlobais.EndIPAPP + "/EditarPerfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome"
+                final String url = variaveisGlobais.EndIPAPP + "/Perfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome"
                         + nome + "&email" + email + "&telefone" + telefone + "&cep" + cep + "&logradouro" + logradouro + "&complemento"
                          + complemento + "&bairro" + bairro + "&cidade" + cidade + "&uf" + uf + "&rm" + variaveisGlobais.getUserRm()+
-                        "&acao=editar";
+                        "&acao=atualizar";
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
