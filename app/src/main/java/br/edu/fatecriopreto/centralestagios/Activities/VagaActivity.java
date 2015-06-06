@@ -57,25 +57,6 @@ public class VagaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaga);
 
-        final String urlNotificacao = variaveisGlobais.EndIPAPP + "/notificacoes.aspx?rm=" + variaveisGlobais.getUserRm() + "&acao=atualizar";
-
-        RequestQueue queueNotificacao = Volley.newRequestQueue(getApplicationContext());
-
-        JsonObjectRequest getRequestNotificacao =
-                new JsonObjectRequest(Request.Method.GET, urlNotificacao, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject jsonObject) {
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d("Error.Response", volleyError.getMessage());
-                    }
-                });
-
-        queueNotificacao.add(getRequestNotificacao);
-
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
