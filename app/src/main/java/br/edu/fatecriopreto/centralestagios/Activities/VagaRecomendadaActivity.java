@@ -28,7 +28,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
+import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
+import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
@@ -67,7 +70,7 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
-
+        filtrarVagasRecomendadas();
         //Tabs
         /*
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -145,7 +148,29 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
             }
         });
     }
-
+    public void filtrarVagasRecomendadas() {
+        //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais
+        try{
+            variaveisGlobais.listVagasRecomendadas = new ArrayList<Vaga>();
+            for (Vaga v : variaveisGlobais.listVagas){
+                boolean verificaConhecimento = false;
+                for (Conhecimento c : v.Conhecimentos){
+                    for (Conhecimento cPerfil : variaveisGlobais.perfilRm.Conhecimentos){
+                        if(c.getId() == cPerfil.getId()){
+                            verificaConhecimento = true;
+                            break;
+                        }
+                    }
+                }
+                if (verificaConhecimento){
+                    variaveisGlobais.listVagasRecomendadas.add(v);
+                }
+            }
+        }
+        catch (Exception e){
+            Log.d("ERRO", e.getMessage());
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
