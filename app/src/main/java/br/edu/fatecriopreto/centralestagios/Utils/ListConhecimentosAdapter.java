@@ -16,6 +16,7 @@ import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class ListConhecimentosAdapter extends BaseAdapter {
 
@@ -68,14 +69,14 @@ public class ListConhecimentosAdapter extends BaseAdapter {
             TextView textConhecimento = (TextView) view.findViewById(R.id.txtConhecimento);
             CheckBox checMarcado = (CheckBox) view.findViewById(R.id.chec_seleciona_conhecimento);
 
-
             Conhecimento conhecimento = listaConhecimentos.get(posicao);
 
             /**
              * Seta os valores nos TextView
              */
             textConhecimento.setText("" + conhecimento.getDescricao());
-            checMarcado.setChecked(conhecimento.isEstaSelecionado());
+            if(variaveisGlobais.listConhecimentoPerfil.contains(conhecimento))
+                checMarcado.setChecked(true);
 
             return view;
         }
