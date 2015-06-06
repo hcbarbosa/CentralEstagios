@@ -47,7 +47,6 @@ public class VagaActivity extends ActionBarActivity {
 
 
     private Toolbar appBar;
-    private Button btnCandidatar;
     private ListView listViewVagas;
     private ListVagasAdapter adapter;
 
@@ -121,7 +120,6 @@ public class VagaActivity extends ActionBarActivity {
                                     Vaga vaga = new Vaga();
                                     //achar um jeito de definir qual array dentro do response sera utilizado para verificar um getJSONObject
                                     vaga.setId(response.getJSONArray(0).getJSONObject(i).getInt("Id"));
-                                    //vaga.setBeneficio(Integer.parseInt(response.getJSONObject(1).toString();
                                     vaga.setBeneficioId(response.getJSONArray(0).getJSONObject(i).getInt("BeneficioId"));
                                     vaga.setDescricao(response.getJSONArray(0).getJSONObject(i).getString("Descricao"));
                                     vaga.setTelefoneEmpresa(response.getJSONArray(0).getJSONObject(i).getString("TelefoneEmpresa"));
@@ -293,6 +291,7 @@ public class VagaActivity extends ActionBarActivity {
     }
     public void filtrarVagasRecomendadas() {
         //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais
+
     }
 
 

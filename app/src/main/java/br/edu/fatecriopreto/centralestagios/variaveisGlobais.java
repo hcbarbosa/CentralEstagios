@@ -7,6 +7,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,9 @@ public class variaveisGlobais extends Application {
     public static Perfil perfilRm;
 
     public static String EndIPAPP ="http://192.168.1.31:26046/WebServices";
-    public static List<Candidato> listCandidato;
-    public static List<Vaga> listVagas;
+    public static ArrayList<Candidato> listCandidato;
+    public static ArrayList<Vaga> listVagas;
+
 
     public static View getViewNaView() {
         return viewNaView;
