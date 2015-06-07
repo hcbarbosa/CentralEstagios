@@ -135,15 +135,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Imagem:"
-                            android:id="@+id/txtImagem"
+                            android:text="Curso:"
+                            android:id="@+id/txtCurso"
                             android:layout_marginTop="10dp" />
 
-                        <EditText
-                            android:layout_width="match_parent"
+                        <Spinner
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/editText"
-                            android:text="tem que descobri o elemento" />
+                            android:id="@+id/spnCursos" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -171,7 +170,11 @@
                             android:layout_height="wrap_content"
                             android:text="Buscar"
                             android:id="@+id/btnBuscar"
-                            android:background="@drawable/botaoarredondado"/>
+                            android:background="@drawable/botaoarredondado"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="20dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -244,7 +247,10 @@
                             android:text="Salvar"
                             android:id="@+id/btnSalvar"
                             android:layout_marginTop="20dp"
-                            android:background="@drawable/botaoarredondado"/>
+                            android:background="@drawable/botaoarredondado"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="30dp"
+                            android:layout_marginLeft="30dp" />
 
                     </LinearLayout>
 

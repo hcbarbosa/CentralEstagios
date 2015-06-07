@@ -16,6 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,59 +37,113 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/dadosPessoais"
-                    android:id="@+id/txtDadosPessoais" />
+                    android:id="@+id/txtDadosPessoais"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#ff000000" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/nomeCompleto"
-                    android:id="@+id/txtNomeCompleto" />
+                    android:id="@+id/txtNomeCompleto"
+                    android:singleLine="false"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="nomezinho" />
+                    android:text="nome"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/txtNome" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="E-mail:"
+                    android:id="@+id/temail"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="email"
+                    android:layout_marginBottom="5dp"
                     android:id="@+id/txtEmail" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="emailzinho" />
+                    android:text="Telefone:"
+                    android:id="@+id/ttelefone"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Telefone:"
+                    android:text="telefone"
+                    android:layout_marginBottom="5dp"
                     android:id="@+id/txtTelefone" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="telefonezinho" />
+                    android:text="Ano:"
+                    android:id="@+id/tano"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Imagem:"
-                    android:id="@+id/txtImagem" />
+                    android:text="ano"
+                    android:id="@+id/txtAno"
+                    android:layout_marginBottom="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="imagezinha" />
+                    android:text="Semestre:"
+                    android:id="@+id/textView2"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="semestre"
+                    android:id="@+id/txtSemestre"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Curso:"
+                    android:id="@+id/tcurso"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="curso"
+                    android:id="@+id/txtCurso"
+                    android:layout_marginBottom="15dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -98,20 +156,111 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Endereço"
-                    android:id="@+id/txtEndereco" />
+                    android:id="@+id/txtEndereco"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#ff000000" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Cep:"
-                    android:id="@+id/txtCep" />
+                    android:text="CEP:"
+                    android:id="@+id/tcep"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="cepinho" />
+                    android:text="cep"
+                    android:id="@+id/txtCep"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Logradouro:"
+                    android:id="@+id/tlogradouro"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="logradouro"
+                    android:id="@+id/txtLogradouro"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Complemento:"
+                    android:id="@+id/tcomplemento"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="complemento"
+                    android:id="@+id/txtComplemento"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Bairro:"
+                    android:id="@+id/tbairro"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="bairro"
+                    android:id="@+id/txtBairro"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Cidade:"
+                    android:id="@+id/tcidade"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="cidade"
+                    android:id="@+id/txtCidade"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="UF:"
+                    android:id="@+id/tuf"
+                    android:textColor="@color/colorLogo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="uf"
+                    android:id="@+id/txtUf"
+                    android:layout_marginBottom="5dp" />
             </LinearLayout>
 
             <FrameLayout
@@ -119,6 +268,8 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
+
+    </ScrollView>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"

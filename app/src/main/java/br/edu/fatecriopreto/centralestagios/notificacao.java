@@ -26,7 +26,7 @@ import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
 
 public class notificacao {
 
-    private long delayOuvidor = 6000;
+    private long delayOuvidor = 60000;
 
     public void criarNotificacao(Context context, String mensagemBarraStatus, String titulo,
                                  String mensagem, Class activity) {
@@ -74,7 +74,7 @@ public class notificacao {
 
                                     criarNotificacao(variaveisGlobais.getAlert(),
                                             "Nova(s) vaga(s)", "Nova(s) vaga(s)",
-                                            "Clique para visualizar esta(s) vaga(s)", VagaActivity.class);
+                                            "Toque para visualizar esta(s) vaga(s)", VagaActivity.class);
 
                                     final String urlNotificacao = variaveisGlobais.EndIPAPP + "/notificacoes.aspx?rm=" + variaveisGlobais.getUserRm() + "&acao=atualizar";
 
