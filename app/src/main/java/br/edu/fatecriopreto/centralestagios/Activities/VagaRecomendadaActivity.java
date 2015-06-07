@@ -70,6 +70,7 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
         filtrarVagasRecomendadas();
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
         popularVagasRecomendadas();
@@ -122,27 +123,27 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*
+
                 listaFiltrada.clear();
 
-                for(HashMap<String, String> map: lista){
+                for(Vaga v: variaveisGlobais.listVagasRecomendadas){
 
-                    if(map.get(variaveisGlobais.KEY_TITLE).contains(edtFiltroNome.getText().toString())){
+                    if(v.getDescricao().contains(edtFiltroNome.getText().toString())){
 
                         HashMap<String,String> mapValue = new HashMap<>();
-                        mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(map.get(variaveisGlobais.KEY_ID)));
-                        mapValue.put(variaveisGlobais.KEY_TITLE, map.get(variaveisGlobais.KEY_TITLE));
-                        mapValue.put(variaveisGlobais.KEY_COMPANY, map.get(variaveisGlobais.KEY_COMPANY));
-                        mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(Double.parseDouble(map.get(variaveisGlobais.KEY_SALARY))));
+                        mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
+                        mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
+                        mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
+                        mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
                         listaFiltrada.add(mapValue);
                     }
                 }
 
-                lsView.setAdapter(null);
+                listVagaRecomendada.setAdapter(null);
 
                 adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, listaFiltrada);
-                lsView.setAdapter(adapter);
-                */
+                listVagaRecomendada.setAdapter(adapter);
+
             }
 
             @Override
