@@ -47,6 +47,7 @@
     <string name="dadosPessoais">Dados Pessoais</string>
     <string name="title_activity_perfil_edit">Editar Perfil</string>
     <string name="title_activity_perfil_requerido">Perfil obrigatório</string>
+    <string name="cep_requerido">Cep obrigatório</string>
 
     <!--Configurações-->
     <string name="salvar">Salvar</string>

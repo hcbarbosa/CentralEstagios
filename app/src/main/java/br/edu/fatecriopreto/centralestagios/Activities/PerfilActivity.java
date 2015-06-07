@@ -173,7 +173,7 @@ public class PerfilActivity extends ActionBarActivity {
         //Ligas as variaveis com a tela
         txtDadosPessoais = (TextView) findViewById(R.id.txtDadosPessoais);
         //Animacao no txt
-        txtDadosPessoais.setAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+        //txtDadosPessoais.setAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
 
         //botao flutuante
         ImageView imageView = new ImageView(this);

@@ -140,34 +140,40 @@ public class PerfilEditActivity extends ActionBarActivity {
 
                 String cep = edtCep.getText().toString();
 
-                final String url = "http://viacep.com.br/ws/" + cep + "/json/";
+                if (cep != null && !cep.isEmpty()) {
+                    final String url = "http://viacep.com.br/ws/" + cep + "/json/";
 
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-                JsonObjectRequest getRequest =
-                        new JsonObjectRequest(Request.Method.GET, url, null,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject jsonObject) {
-                                        try {
+                    JsonObjectRequest getRequest =
+                            new JsonObjectRequest(Request.Method.GET, url, null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject jsonObject) {
+                                            try {
 
-                                            edtLogradouro.setText(jsonObject.getString("logradouro"));
-                                            edtBairro.setText(jsonObject.getString("bairro"));
-                                            edtCidade.setText(jsonObject.getString("localidade"));
-                                            edtUf.setText(jsonObject.getString("uf"));
+                                                edtLogradouro.setText(jsonObject.getString("logradouro"));
+                                                edtBairro.setText(jsonObject.getString("bairro"));
+                                                edtCidade.setText(jsonObject.getString("localidade"));
+                                                edtUf.setText(jsonObject.getString("uf"));
 
-                                        } catch (JSONException ex) {
-                                            ex.printStackTrace();
+                                            } catch (JSONException ex) {
+                                                ex.printStackTrace();
+                                            }
                                         }
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Log.d("Error.Response", volleyError.getMessage());
-                            }
-                        });
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+                                    Log.d("Error.Response", volleyError.getMessage());
+                                }
+                            });
 
-                queue.add(getRequest);
+                    queue.add(getRequest);
+                }else{
+                    edtCep.setError(getResources().getString(R.string.cep_requerido));
+                    View vFocus = edtCep;
+                    vFocus.requestFocus();
+                }
             }
         });
       //-------------------------------------------------------------------------------------------
@@ -192,7 +198,7 @@ public class PerfilEditActivity extends ActionBarActivity {
 
                 //variaveis que recebem os valores das edts
                 int  cursoId, ano, semestre, lembrarRm;
-                String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf;
+                final String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf;
 
                 //atribuição do valor das edts para as variaveis codificando-as para que a url de requisição as entenda
                 ano = Integer.parseInt(edtAno.getText().toString());
@@ -225,6 +231,8 @@ public class PerfilEditActivity extends ActionBarActivity {
                                         try {
                                             if(jsonObject.getString("Conteudo").equals("ok")) {
                                                 Toast.makeText(PerfilEditActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
+                                                variaveisGlobais.setUserName(nome);
+                                                variaveisGlobais.setUserEmail(email);
                                             }
                                             else {
                                                 Toast.makeText(PerfilEditActivity.this, "Erro ao salvar o perfil, tente mais tarde!", Toast.LENGTH_LONG).show();
@@ -264,6 +272,9 @@ public class PerfilEditActivity extends ActionBarActivity {
                 perfilAtualizado.setUf(Uri.decode(uf));
 
                 variaveisGlobais.perfilRm = perfilAtualizado;
+
+                startActivity(new Intent(PerfilEditActivity.this, PerfilActivity.class));
+                PerfilEditActivity.this.finish();
             }
         });
 
@@ -326,6 +337,8 @@ public class PerfilEditActivity extends ActionBarActivity {
 
                                     arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
+                                    spnCursos.setEnabled(false);
+                                    spnCursos.setClickable(false);
                                     spnCursos.setAdapter(arrayAdapter);
 
                                     spnCursos.setSelection(cursoPosition);

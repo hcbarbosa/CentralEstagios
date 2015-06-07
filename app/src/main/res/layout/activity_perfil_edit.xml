@@ -105,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Ano:"
+                            android:text="Ano  de início do curso:"
                             android:id="@+id/txtAno"
                             android:layout_marginTop="10dp" />
 
@@ -114,13 +114,14 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:ems="10"
-                            android:id="@+id/edtAno" />
+                            android:id="@+id/edtAno"
+                            android:enabled="false" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Semestre:"
+                            android:text="Semestre  de início do curso:"
                             android:id="@+id/txtSemestre"
                             android:layout_marginTop="10dp" />
 
@@ -129,7 +130,8 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:ems="10"
-                            android:id="@+id/edtSemestre" />
+                            android:id="@+id/edtSemestre"
+                            android:enabled="false" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -142,7 +144,8 @@
                         <Spinner
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/spnCursos" />
+                            android:id="@+id/spnCursos"
+                            android:clickable="false"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -260,9 +263,6 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"
