@@ -16,15 +16,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="br.edu.fatecriopreto.centralestagios.Activities.VagaRecomendadaActivity">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtFiltroNome"
+            android:hint="Digite uma vaga" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewVagas"
+            android:layout_gravity="left|top" />
+        </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/listViewVagas"
-                android:layout_gravity="left|top" />
         </FrameLayout>
 
         <fragment

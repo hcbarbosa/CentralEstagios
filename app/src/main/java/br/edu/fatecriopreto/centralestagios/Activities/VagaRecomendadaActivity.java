@@ -60,6 +60,7 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
     private ListVagasAdapter adapter;
     private ListView listVagaRecomendada;
 
+
     EditText edtFiltroNome;
 
     @Override
@@ -210,7 +211,7 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
 
         //evento de text changed na edt de filtro de nome de vaga
-        edtFiltroNome.addTextChangedListener(new TextWatcher() {
+            edtFiltroNome.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -218,13 +219,12 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (edtFiltroNome.getText().length() != 0){
                     final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
                     final ArrayList<Vaga> auxListaVagaRecomendada = new ArrayList<Vaga>();
                     filtrarVagasRecomendadas();
                     for(Vaga v: variaveisGlobais.listVagasRecomendadas){
 
-                        if(v.getDescricao().contains(edtFiltroNome.getText().toString())){
+                        if(v.getDescricao().toLowerCase().contains(edtFiltroNome.getText().toString().toLowerCase())){
 
                             HashMap<String,String> mapValue = new HashMap<>();
                             mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
@@ -250,14 +250,6 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
                     adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, listaFiltrada);
                     listVagaRecomendada.setAdapter(adapter);
                 }
-                else{
-                    filtrarVagasRecomendadas();
-                    popularVagasRecomendadas();
-                }
-
-
-            }
-
             @Override
             public void afterTextChanged(Editable s) {
 
