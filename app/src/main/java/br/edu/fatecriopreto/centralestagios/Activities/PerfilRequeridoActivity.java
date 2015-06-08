@@ -1,5 +1,7 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -152,13 +154,30 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
             }
         });
 
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        alertDialog.setTitle("Realizar cadastro?");
+        alertDialog.setIcon(R.drawable.app_icon);
+        alertDialog.setMessage("Deseja realmente realizar este cadastro?\n" +
+                "Verifique os valores de ano, semestre e o curso pois não poderão" +
+                " ser modificados posteriormente!");
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "FECHAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                alertDialog.dismiss();
+            }
+        });
+
+
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //variaveis que recebem os valores das edts
-                int rm, cursoId, ano, lembrarRm;
-                final String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf,  semestre;
+                final int rm, cursoId, ano, lembrarRm;
+                final String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf, semestre;
 
                 rm = Integer.parseInt(variaveisGlobais.getUserRm());
 
@@ -184,21 +203,20 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                         "&curso=" + cursoId;
 
                 //webservice que atualiza perfil
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-                JsonObjectRequest getRequest =
+                final JsonObjectRequest getRequest =
                         new JsonObjectRequest(Request.Method.GET, url, null,
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject jsonObject) {
 
                                         try {
-                                            if(jsonObject.getString("Conteudo").equals("ok")) {
+                                            if (jsonObject.getString("Conteudo").equals("ok")) {
                                                 Toast.makeText(PerfilRequeridoActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
                                                 variaveisGlobais.setUserName(Uri.decode(nome));
                                                 variaveisGlobais.setUserEmail(Uri.decode(email));
-                                            }
-                                            else {
+                                            } else {
                                                 Toast.makeText(PerfilRequeridoActivity.this, "Erro ao salvar o perfil, tente mais tarde!", Toast.LENGTH_LONG).show();
                                             }
                                         } catch (JSONException e) {
@@ -214,13 +232,39 @@ public class PerfilRequeridoActivity extends ActionBarActivity {
                             }
                         });
 
-                queue.add(getRequest);
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "CADASTRAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                        queue.add(getRequest);
 
-                //chama main se tudo ok
-                startActivity(new Intent(PerfilRequeridoActivity.this, MainActivity.class));
-                variaveisGlobais.deleteAnterior();
-                PerfilRequeridoActivity.this.finish();
+                        Perfil perfilAtualizado = new Perfil();
+
+                        perfilAtualizado.setAno(ano);
+                        perfilAtualizado.setBairro(Uri.decode(bairro));
+                        perfilAtualizado.setCEP(Uri.decode(cep));
+                        perfilAtualizado.setCidade(Uri.decode(cidade));
+                        perfilAtualizado.setComplemento(Uri.decode(complemento));
+                        perfilAtualizado.setCursoId(cursoId);
+                        perfilAtualizado.setEmail(Uri.decode(email));
+                        perfilAtualizado.setLogradouro(Uri.decode(logradouro));
+                        perfilAtualizado.setNome(Uri.decode(nome));
+                        variaveisGlobais.setUserName(Uri.decode(nome));
+                        variaveisGlobais.setUserEmail(Uri.decode(email));
+                        perfilAtualizado.setSemestre(String.valueOf(semestre));
+                        perfilAtualizado.setTelefone(Uri.decode(telefone));
+                        perfilAtualizado.setUf(Uri.decode(uf));
+
+                        variaveisGlobais.perfilRm = perfilAtualizado;
+
+                        //chama main se tudo ok
+                        startActivity(new Intent(PerfilRequeridoActivity.this, MainActivity.class));
+                        variaveisGlobais.deleteAnterior();
+                        PerfilRequeridoActivity.this.finish();
+                    }
+                });
+
+                alertDialog.show();
             }
         });
 
