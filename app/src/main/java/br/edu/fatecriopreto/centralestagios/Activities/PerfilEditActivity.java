@@ -231,8 +231,8 @@ public class PerfilEditActivity extends ActionBarActivity {
                                         try {
                                             if(jsonObject.getString("Conteudo").equals("ok")) {
                                                 Toast.makeText(PerfilEditActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
-                                                variaveisGlobais.setUserName(nome);
-                                                variaveisGlobais.setUserEmail(email);
+                                                variaveisGlobais.setUserName(Uri.decode(nome));
+                                                variaveisGlobais.setUserEmail(Uri.decode(email));
                                             }
                                             else {
                                                 Toast.makeText(PerfilEditActivity.this, "Erro ao salvar o perfil, tente mais tarde!", Toast.LENGTH_LONG).show();
@@ -267,9 +267,12 @@ public class PerfilEditActivity extends ActionBarActivity {
                 perfilAtualizado.setLogradouro(Uri.decode(logradouro));
                 perfilAtualizado.setNome(Uri.decode(nome));
                 variaveisGlobais.setUserName(Uri.decode(nome));
+                variaveisGlobais.setUserEmail(Uri.decode(email));
                 perfilAtualizado.setSemestre(String.valueOf(semestre));
                 perfilAtualizado.setTelefone(Uri.decode(telefone));
                 perfilAtualizado.setUf(Uri.decode(uf));
+
+                Log.d("Email: ", variaveisGlobais.getUserEmail());
 
                 variaveisGlobais.perfilRm = perfilAtualizado;
 
