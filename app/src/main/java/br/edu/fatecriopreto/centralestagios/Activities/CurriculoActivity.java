@@ -117,39 +117,47 @@ public class CurriculoActivity extends ActionBarActivity {
                                     btnSalvar.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
-                                                    "&acao=editar&conhecimentos="+variaveisGlobais.listConhecimentoMarcados;
+                                            String lista ="";
+                                            for(int i : variaveisGlobais.listConhecimentoMarcados){
+                                                lista += i+",";
+                                            }
+                                            if(lista.length() > 0){
+                                                lista = lista.substring(0, lista.length() -1);
 
-                                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-                                            JsonObjectRequest getRequest =
-                                                    new JsonObjectRequest(Request.Method.GET, url, null,
-                                                            new Response.Listener<JSONObject>() {
-                                                                @Override
-                                                                public void onResponse(JSONObject jsonObject) {
+                                                final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
+                                                        "&acao=editar&conhecimentos="+variaveisGlobais.listConhecimentoMarcados;
 
-                                                                    try {
-                                                                        if(jsonObject.getString("resposta").equals("ok")) {
-                                                                            Toast.makeText(CurriculoActivity.this, "Conhecimentos salvos com sucesso!", Toast.LENGTH_LONG).show();
+                                                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                                                JsonObjectRequest getRequest =
+                                                        new JsonObjectRequest(Request.Method.GET, url, null,
+                                                                new Response.Listener<JSONObject>() {
+                                                                    @Override
+                                                                    public void onResponse(JSONObject jsonObject) {
+
+                                                                        try {
+                                                                            if(jsonObject.getString("resposta").equals("ok")) {
+                                                                                Toast.makeText(CurriculoActivity.this, "Conhecimentos salvos com sucesso!", Toast.LENGTH_LONG).show();
+                                                                            }
+                                                                            else {
+                                                                                Toast.makeText(CurriculoActivity.this, "Erro ao salvar conhecimentos, tente mais tarde!", Toast.LENGTH_LONG).show();
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
                                                                         }
-                                                                        else {
-                                                                            Toast.makeText(CurriculoActivity.this, "Erro ao salvar conhecimentos, tente mais tarde!", Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    } catch (JSONException e) {
-                                                                        e.printStackTrace();
+
+
                                                                     }
+                                                                }, new Response.ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(VolleyError volleyError) {
+                                                                Log.d("Error.Response", "erro");
+                                                            }
+                                                        });
 
-
-                                                                }
-                                                            }, new Response.ErrorListener() {
-                                                        @Override
-                                                        public void onErrorResponse(VolleyError volleyError) {
-                                                            Log.d("Error.Response", "erro");
-                                                        }
-                                                    });
-
-                                            queue.add(getRequest);
-
+                                                queue.add(getRequest);
+                                            }
                                         }
                                     });
 

@@ -39,7 +39,7 @@ public class variaveisGlobais extends Application {
     public static String KEY_COMPANY = "company";
     public static String KEY_CANDIDATE = "candidate";
 
-    public static String EndIPAPP ="http://177.68.198.205:26046/WebServices";
+    public static String EndIPAPP ="http://192.168.1.196:26046/WebServices";
     public static ArrayList<Candidato> listCandidato;
     public static ArrayList<Vaga> listVagas;
     public static List<Conhecimento> listConhecimentoCurso;
@@ -47,7 +47,7 @@ public class variaveisGlobais extends Application {
     public static Perfil perfilRm;
     public static ArrayList<Vaga> listVagasRecomendadas;
     public static List<Curso> listCursos;
-    public static List<Conhecimento> listConhecimentoMarcados;
+    public static List<Integer> listConhecimentoMarcados;
 
 
     public static View getViewNaView() {

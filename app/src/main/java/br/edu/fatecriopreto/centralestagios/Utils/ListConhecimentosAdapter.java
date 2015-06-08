@@ -86,7 +86,8 @@ public class ListConhecimentosAdapter extends BaseAdapter {
                 if(c.getDescricao().equals(conhecimento.getDescricao()) && c.getId() == conhecimento.getId()
                         && c.getStatus() == conhecimento.getStatus() && c.isEstaSelecionado() == conhecimento.isEstaSelecionado()){
                    checMarcado.setChecked(true);
-                    variaveisGlobais.listConhecimentoMarcados.add(conhecimento);
+                    if(!variaveisGlobais.listConhecimentoMarcados.contains(conhecimento.getId()))
+                            variaveisGlobais.listConhecimentoMarcados.add(conhecimento.getId());
                 }
             }
 
@@ -95,9 +96,9 @@ public class ListConhecimentosAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     CheckBox chk = (CheckBox) v;
                     if(chk.isChecked()) {
-                        variaveisGlobais.listConhecimentoMarcados.add(conhecimento);
+                        variaveisGlobais.listConhecimentoMarcados.add(conhecimento.getId());
                     } else {
-                           variaveisGlobais.listConhecimentoMarcados.remove(conhecimento);
+                           variaveisGlobais.listConhecimentoMarcados.remove((Object)conhecimento.getId());
                     }
                 }
             });
