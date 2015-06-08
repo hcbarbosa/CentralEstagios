@@ -22,12 +22,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.common.base.Converter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -114,7 +117,8 @@ public class VagaActivity extends ActionBarActivity {
                                     vaga.setRemuneracao(response.getJSONArray(0).getJSONObject(i).getDouble("Remuneracao"));
                                     vaga.setEmailEmpresa(response.getJSONArray(0).getJSONObject(i).getString("EmailEmpresa"));
                                     vaga.setObservacoes(response.getJSONArray(0).getJSONObject(i).getString("Observacoes"));
-                                    //vaga.setDataCriacao(response.getJSONObject(13).toString());
+
+                                   //vaga.setDataCriacao(convertDate(response.getJSONArray(0).getJSONObject(i).getString("DataCriacao"),"dd/MM/yyyy"));
                                     for(int j = 0; j < response.getJSONArray(1).length(); j++) {
                                         if(vaga.getBeneficioId() == response.getJSONArray(1).getJSONObject(j).getInt("Id")) {
                                             Beneficio beneficio = new Beneficio();
@@ -169,10 +173,15 @@ public class VagaActivity extends ActionBarActivity {
 
 
                             }
-                            for(int i = 0; i < response.getJSONArray(2).length(); i++) {
-                                Candidato candidato = new Candidato();
-                                candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
-                                variaveisGlobais.listCandidato.add(candidato);
+                            if (response.getJSONArray(2).length() != 0){
+                                for(int i = 0; i < response.getJSONArray(2).length(); i++) {
+                                    Candidato candidato = new Candidato();
+                                    candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
+                                    variaveisGlobais.listCandidato.add(candidato);
+                                }
+                            }
+                            else{
+                                variaveisGlobais.listCandidato.clear();
                             }
                             if(variaveisGlobais.listVagas != null && !variaveisGlobais.listVagas.isEmpty()) {
                                 popularVagas();
@@ -273,12 +282,23 @@ public class VagaActivity extends ActionBarActivity {
                     conhecimentos += c.getDescricao() + "\n";
                 }
                 params.putString("skills", conhecimentos);
-                params.putString("position", String.valueOf(position));
+                params.putString("Candidate", String.valueOf(variaveisGlobais.listVagas.get(position).isCandidatado()));
+                //params.putString("position", String.valueOf(position));
                 intent.putExtras(params);
                 startActivity(intent);
                 finish();
             }
         });
+    }
+    public static Date convertDate(String date, String format)
+            throws ParseException {
+        if(date != null) {
+            SimpleDateFormat sdf = format != null ? new SimpleDateFormat(format) : new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            return sdf.parse(date);
+        } else {
+            return null;
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

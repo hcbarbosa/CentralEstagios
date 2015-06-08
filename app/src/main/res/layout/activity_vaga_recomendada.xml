@@ -23,10 +23,20 @@
             tools:context="br.edu.fatecriopreto.centralestagios.Activities.VagaRecomendadaActivity">
 
             <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtFiltroNome"
+            android:hint="Digite uma vaga" />
+
+            <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtFiltroNome"
-                android:hint="Digite uma vaga" />
+                android:id="@+id/listVagaRecomendada"
+                android:scrollX="0px"
+                android:scrollY="0px"
+                android:scrollbars="vertical"
+                android:divider="@color/colorLogo"
+                android:fastScrollEnabled="true"/>
 
             <br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout
                 android:id="@+id/tabs"
@@ -40,18 +50,6 @@
                 android:layout_height="0dp"
                 android:layout_below="@+id/materialTabHost"
                 android:layout_weight="1" />
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listVagaRecomendada"
-                android:scrollX="0px"
-                android:scrollY="0px"
-                android:scrollbars="vertical"
-                android:divider="@color/colorLogo"
-                android:fastScrollEnabled="true"/>
-
-
 
         </LinearLayout>
 
