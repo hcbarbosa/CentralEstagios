@@ -136,10 +136,10 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         });
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        emailEmpresa = variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getEmailEmpresa();
-        vagaId = String.valueOf(variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getId());
-        vagaDescricao = variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).getDescricao();
-        if (variaveisGlobais.listVagas.get(Integer.parseInt(bundle.getString("position"))).isCandidatado()) {
+        emailEmpresa = bundle.getString("email");
+        vagaId =  bundle.getString("id");
+        vagaDescricao = bundle.getString("titlevaga");
+        if (Boolean.parseBoolean(bundle.getString("Candidate"))) {
             btnCandidatar.setBackgroundColor(getResources().getColor(R.color.colorGrayWhite));
             btnCandidatar.setEnabled(false);
         }

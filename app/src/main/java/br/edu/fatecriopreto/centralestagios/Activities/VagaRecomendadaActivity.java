@@ -24,12 +24,23 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
@@ -70,10 +81,44 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+        String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        filtrarVagasRecomendadas();
+        JsonArrayRequest getRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            if (response.getJSONArray(2).length() != 0){
+                                for(int i = 0; i < response.getJSONArray(2).length(); i++) {
+                                    Candidato candidato = new Candidato();
+                                    candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
+                                    variaveisGlobais.listCandidato.add(candidato);
+                                }
+                            }
+                            else{
+                                variaveisGlobais.listCandidato.clear();
+                            }
+                            filtrarVagasRecomendadas();
+                            popularVagasRecomendadas();
+                        } catch (Exception e) {
+                            Log.d("erro: ", e.getMessage());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
+
+        queue.add(getRequest);
+        listVagaRecomendada = (ListView) findViewById(R.id.listVagaRecomendada);
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
-        popularVagasRecomendadas();
+
+
         //Tabs
         /*
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -112,78 +157,6 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
             }
         });
         */
-        final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
-
-        //evento de text changed na edt de filtro de nome de vaga
-        edtFiltroNome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                listaFiltrada.clear();
-
-                for(Vaga v: variaveisGlobais.listVagasRecomendadas){
-
-                    if(v.getDescricao().contains(edtFiltroNome.getText().toString())){
-
-                        HashMap<String,String> mapValue = new HashMap<>();
-                        mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
-                        mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
-                        mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
-                        mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
-                        listaFiltrada.add(mapValue);
-                    }
-                }
-
-                listVagaRecomendada.setAdapter(null);
-
-                adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, listaFiltrada);
-                listVagaRecomendada.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-    public void popularVagasRecomendadas() {
-        ArrayList<Vaga> vaga = new ArrayList<>();
-        final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
-        for(Vaga v : variaveisGlobais.listVagasRecomendadas){
-            HashMap<String,String> map = new HashMap<>();
-            map.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
-            map.put(variaveisGlobais.KEY_TITLE,v.getDescricao());
-            map.put(variaveisGlobais.KEY_COMPANY,v.getEmpresa());
-            map.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
-            for(Candidato c : variaveisGlobais.listCandidato){
-                if(v.getId() == c.getVagaId()) {
-                    map.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
-                    v.setCandidatado(true);
-                    break;
-                }else{
-                    map.put(variaveisGlobais.KEY_CANDIDATE, "");
-                    v.setCandidatado(false);
-
-                }
-            }
-            vaga.add(v);
-            lista.add(map);
-        }
-        variaveisGlobais.listVagasRecomendadas = new ArrayList<>();
-        variaveisGlobais.listVagasRecomendadas = vaga;
-
-        listVagaRecomendada = (ListView) findViewById(R.id.listVagaRecomendada);
-
-        adapter = new ListVagasAdapter(this, lista);
-        listVagaRecomendada.setAdapter(adapter);
-
-
         listVagaRecomendada.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -226,12 +199,95 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
                     conhecimentos += c.getDescricao() + "\n";
                 }
                 params.putString("skills", conhecimentos);
-                params.putString("position", String.valueOf(position));
+                params.putString("Candidate", String.valueOf(variaveisGlobais.listVagasRecomendadas.get(position).isCandidatado()));
+                //params.putString("position", String.valueOf(position));
                 intent.putExtras(params);
                 startActivity(intent);
                 finish();
             }
         });
+
+
+
+        //evento de text changed na edt de filtro de nome de vaga
+        edtFiltroNome.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edtFiltroNome.getText().length() != 0){
+                    final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
+                    final ArrayList<Vaga> auxListaVagaRecomendada = new ArrayList<Vaga>();
+                    filtrarVagasRecomendadas();
+                    for(Vaga v: variaveisGlobais.listVagasRecomendadas){
+
+                        if(v.getDescricao().contains(edtFiltroNome.getText().toString())){
+
+                            HashMap<String,String> mapValue = new HashMap<>();
+                            mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
+                            mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
+                            mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
+                            mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
+                            for(Candidato c : variaveisGlobais.listCandidato){
+                                if(v.getId() == c.getVagaId()) {
+                                    mapValue.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                                    v.setCandidatado(true);
+                                    break;
+                                }else{
+                                    mapValue.put(variaveisGlobais.KEY_CANDIDATE, "");
+                                    v.setCandidatado(false);
+                                }
+                            }
+                            auxListaVagaRecomendada.add(v);
+                            listaFiltrada.add(mapValue);
+                        }
+                    }
+                    variaveisGlobais.listVagasRecomendadas.clear();
+                    variaveisGlobais.listVagasRecomendadas = auxListaVagaRecomendada;
+                    adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, listaFiltrada);
+                    listVagaRecomendada.setAdapter(adapter);
+                }
+                else{
+                    filtrarVagasRecomendadas();
+                    popularVagasRecomendadas();
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+    public void popularVagasRecomendadas() {
+        final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
+        for(Vaga v : variaveisGlobais.listVagasRecomendadas){
+            HashMap<String,String> map = new HashMap<>();
+            map.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
+            map.put(variaveisGlobais.KEY_TITLE,v.getDescricao());
+            map.put(variaveisGlobais.KEY_COMPANY,v.getEmpresa());
+            map.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
+            for(Candidato c : variaveisGlobais.listCandidato){
+                if(v.getId() == c.getVagaId()) {
+                    map.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                    v.setCandidatado(true);
+                    break;
+                }else{
+                    map.put(variaveisGlobais.KEY_CANDIDATE, "");
+                    v.setCandidatado(false);
+
+                }
+            }
+            lista.add(map);
+        }
+
+        adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, lista);
+        listVagaRecomendada.setAdapter(adapter);
     }
     public void filtrarVagasRecomendadas() {
         //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais
