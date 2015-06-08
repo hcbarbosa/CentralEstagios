@@ -1,6 +1,8 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,8 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -97,6 +101,15 @@ public class CurriculoActivity extends ActionBarActivity {
                                         listAdapter = new ListConhecimentosAdapter(getApplicationContext(), variaveisGlobais.listConhecimentoCurso);
 
                                         listViewConhecimentos.setAdapter(listAdapter);
+                                        variaveisGlobais.listConhecimentoMarcados = new ArrayList<>();
+
+                                    }else{
+                                        btnSalvar.setVisibility(View.INVISIBLE);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(CurriculoActivity.this);
+                                        builder.setTitle("Alerta");
+                                        builder.setMessage("Nenhum conhecimento encontrado para o curso");
+                                        AlertDialog alerta = builder.create();
+                                        alerta.show();
                                     }
 
                                     btnSalvar = (Button) findViewById(R.id.btnSalvar);
@@ -104,7 +117,38 @@ public class CurriculoActivity extends ActionBarActivity {
                                     btnSalvar.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            List<Integer> listCon = new ArrayList<>();
+                                            final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
+                                                    "&acao=editar&conhecimentos="+variaveisGlobais.listConhecimentoMarcados;
+
+                                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                                            JsonObjectRequest getRequest =
+                                                    new JsonObjectRequest(Request.Method.GET, url, null,
+                                                            new Response.Listener<JSONObject>() {
+                                                                @Override
+                                                                public void onResponse(JSONObject jsonObject) {
+
+                                                                    try {
+                                                                        if(jsonObject.getString("resposta").equals("ok")) {
+                                                                            Toast.makeText(CurriculoActivity.this, "Conhecimentos salvos com sucesso!", Toast.LENGTH_LONG).show();
+                                                                        }
+                                                                        else {
+                                                                            Toast.makeText(CurriculoActivity.this, "Erro ao salvar conhecimentos, tente mais tarde!", Toast.LENGTH_LONG).show();
+                                                                        }
+                                                                    } catch (JSONException e) {
+                                                                        e.printStackTrace();
+                                                                    }
+
+
+                                                                }
+                                                            }, new Response.ErrorListener() {
+                                                        @Override
+                                                        public void onErrorResponse(VolleyError volleyError) {
+                                                            Log.d("Error.Response", "erro");
+                                                        }
+                                                    });
+
+                                            queue.add(getRequest);
 
                                         }
                                     });

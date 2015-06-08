@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 
@@ -17,6 +18,7 @@ import org.json.JSONArray;
 
 import java.util.List;
 
+import br.edu.fatecriopreto.centralestagios.Activities.CurriculoActivity;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
@@ -44,7 +46,7 @@ public class ListConhecimentosAdapter extends BaseAdapter {
 
 
         @Override
-        public Object getItem(int posicao) {
+        public Conhecimento getItem(int posicao) {
             return this.listaConhecimentos.get(posicao);
         }
 
@@ -72,7 +74,7 @@ public class ListConhecimentosAdapter extends BaseAdapter {
             TextView textConhecimento = (TextView) view.findViewById(R.id.txtConhecimento);
             CheckBox checMarcado = (CheckBox) view.findViewById(R.id.chec_seleciona_conhecimento);
 
-            Conhecimento conhecimento = listaConhecimentos.get(posicao);
+            final Conhecimento conhecimento = listaConhecimentos.get(posicao);
 
             /**
              * Seta os valores nos TextView
@@ -81,10 +83,24 @@ public class ListConhecimentosAdapter extends BaseAdapter {
             checMarcado.setTag(conhecimento.getId());
 
             for(Conhecimento c : variaveisGlobais.listConhecimentoPerfil){
-                if(c.getDescricao().equals(conhecimento.getDescricao())){
-                    checMarcado.setChecked(true);
+                if(c.getDescricao().equals(conhecimento.getDescricao()) && c.getId() == conhecimento.getId()
+                        && c.getStatus() == conhecimento.getStatus() && c.isEstaSelecionado() == conhecimento.isEstaSelecionado()){
+                   checMarcado.setChecked(true);
+                    variaveisGlobais.listConhecimentoMarcados.add(conhecimento);
                 }
             }
+
+            checMarcado.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CheckBox chk = (CheckBox) v;
+                    if(chk.isChecked()) {
+                        variaveisGlobais.listConhecimentoMarcados.add(conhecimento);
+                    } else {
+                           variaveisGlobais.listConhecimentoMarcados.remove(conhecimento);
+                    }
+                }
+            });
 
             return view;
         }
