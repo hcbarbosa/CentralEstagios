@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
     private String emailEmpresa = "";
     private String vagaId = "";
     private String vagaDescricao = "";
+
 
 
     @Override
