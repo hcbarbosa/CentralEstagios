@@ -70,9 +70,11 @@ public class MainActivity extends ActionBarActivity {
             mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                 @Override
                 public int getIndicatorColor(int position) {
-                    return getResources().getColor(R.color.colorGray);
+                    return getResources().getColor(R.color.colorLogo);
                 }
             });
+            mTabs.setBackgroundColor(getResources().getColor(R.color.colorLogo));
+            
         mTabs.setViewPager(mPager);
 
         }

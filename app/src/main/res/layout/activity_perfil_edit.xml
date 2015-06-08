@@ -177,7 +177,8 @@
                             android:layout_marginLeft="30dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="30dp"
-                            android:layout_marginBottom="20dp" />
+                            android:layout_marginBottom="20dp"
+                            android:textColor="@color/colorWhite"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -253,7 +254,8 @@
                             android:background="@drawable/botaoarredondado"
                             android:layout_marginRight="30dp"
                             android:layout_marginBottom="30dp"
-                            android:layout_marginLeft="30dp" />
+                            android:layout_marginLeft="30dp"
+                            android:textColor="@color/colorWhite"/>
 
                     </LinearLayout>
 

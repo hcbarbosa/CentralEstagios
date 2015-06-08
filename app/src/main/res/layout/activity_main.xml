@@ -26,7 +26,8 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorGrayWhite"/>
+                android:background="@color/colorWhite"
+                />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
@@ -35,10 +36,6 @@
             android:layout_below="@+id/materialTabHost"
             android:layout_weight="1" />
     </LinearLayout>
-
-    <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"

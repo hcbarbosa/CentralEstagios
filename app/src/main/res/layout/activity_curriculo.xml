@@ -75,10 +75,10 @@
                 android:layout_height="wrap_content"
                 android:text="Salvar"
                 android:id="@+id/btnSalvar"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/botaoarredondado"
                 android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp" />
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/colorWhite"/>
 
         </RelativeLayout>
 
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="50dp"
             android:layout_above="@id/footer"
             android:layout_below="@id/toolbar"

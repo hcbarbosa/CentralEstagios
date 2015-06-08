@@ -173,7 +173,8 @@
                             android:text="Buscar"
                             android:id="@+id/btnBuscar"
                             android:gravity="center_vertical|center_horizontal"
-                            android:background="@drawable/botaoarredondado"/>
+                            android:background="@drawable/botaoarredondado"
+                            android:textColor="@color/colorWhite"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -246,7 +247,8 @@
                             android:text="Salvar"
                             android:id="@+id/btnSalvar"
                             android:gravity="center_vertical|center_horizontal"
-                            android:background="@drawable/botaoarredondado"/>
+                            android:background="@drawable/botaoarredondado"
+                            android:textColor="@color/colorWhite"/>
 
                     </LinearLayout>
 
