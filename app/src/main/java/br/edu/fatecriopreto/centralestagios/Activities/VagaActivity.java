@@ -166,7 +166,7 @@ public class VagaActivity extends ActionBarActivity {
                                     vaga.setEmailEmpresa(response.getJSONArray(0).getJSONObject(i).getString("EmailEmpresa"));
                                     vaga.setObservacoes(response.getJSONArray(0).getJSONObject(i).getString("Observacoes"));
 
-                                   //vaga.setDataCriacao(convertDate(response.getJSONArray(0).getJSONObject(i).getString("DataCriacao"),"dd/MM/yyyy"));
+                                   vaga.setDataCriacao(convertDate(response.getJSONArray(0).getJSONObject(i).getString("DataString"),"dd/MM/yyyy"));
                                     for(int j = 0; j < response.getJSONArray(1).length(); j++) {
                                         if(vaga.getBeneficioId() == response.getJSONArray(1).getJSONObject(j).getInt("Id")) {
                                             Beneficio beneficio = new Beneficio();
@@ -237,15 +237,15 @@ public class VagaActivity extends ActionBarActivity {
                                     auxCloneListVagas.add(v);
                                 }
 
+                                /*Collections.sort(variaveisGlobais.listVagas, new Comparator<Vaga>() {
+                                    @Override
+                                    public int compare(Vaga lhs, Vaga rhs) {
+                                        return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
+                                    }
+                                });*/
+
                                 popularVagas();
                             }
-/*
-                            Collections.sort(variaveisGlobais.listVagas, new Comparator<Vaga>() {
-                                @Override
-                                public int compare(Vaga lhs, Vaga rhs) {
-                                    return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
-                                }
-                            });*/
 
                         } catch (Exception e) {
                             Log.d("erro: ", e.getMessage());

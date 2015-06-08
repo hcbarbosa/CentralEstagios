@@ -80,7 +80,6 @@ public class PerfilEditActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_edit);
 
-
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setAlert(PerfilEditActivity.this);
 
@@ -110,6 +109,9 @@ public class PerfilEditActivity extends ActionBarActivity {
 
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
         btnSalvar = (Button)findViewById(R.id.btnSalvar);
+
+        spnCursos.setEnabled(false);
+        spnCursos.setClickable(false);
 
        //-------------------------------------------------------------------------------------
         final Perfil perfil = variaveisGlobais.perfilRm;
