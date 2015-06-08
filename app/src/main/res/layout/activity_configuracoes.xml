@@ -56,14 +56,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
-                android:textColor="@color/colorWhite"/>
-
-
-
-
+                android:textColor="@color/colorBlack"/>
         </LinearLayout>
-
-
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"

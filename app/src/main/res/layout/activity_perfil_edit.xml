@@ -58,7 +58,13 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@string/dadosPessoais"
                             android:id="@+id/textView"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/colorLogo"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorLogo" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -153,7 +159,13 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Endereço"
                             android:id="@+id/txtEndereco"
-                            android:layout_marginTop="20dp" />
+                            android:layout_marginTop="20dp"
+                            android:textColor="@color/colorLogo"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorLogo" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -178,7 +190,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="30dp"
                             android:layout_marginBottom="20dp"
-                            android:textColor="@color/colorWhite"/>
+                            android:textColor="@color/colorBlack"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -255,7 +267,7 @@
                             android:layout_marginRight="30dp"
                             android:layout_marginBottom="30dp"
                             android:layout_marginLeft="30dp"
-                            android:textColor="@color/colorWhite"/>
+                            android:textColor="@color/colorBlack"/>
 
                     </LinearLayout>
 

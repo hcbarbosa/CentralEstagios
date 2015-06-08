@@ -4,7 +4,7 @@
     tools:context="br.edu.fatecriopreto.centralestagios.Activities.VagaActivity">
 
     <item android:id="@+id/pesqsimples" android:title="@string/pesqsimples"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="100" app:showAsAction="never"/>
     <item android:id="@+id/pesqavancada" android:title="@string/pesqavancada"
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/pesqrecomendada" android:title="@string/pesqrecomendada"

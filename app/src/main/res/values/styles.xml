@@ -9,6 +9,6 @@
     </style>
 
     <style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:textColorPrimary">@color/colorBlack</item>
     </style>
 </resources>

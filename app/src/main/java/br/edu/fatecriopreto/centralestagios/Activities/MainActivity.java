@@ -73,8 +73,7 @@ public class MainActivity extends ActionBarActivity {
                     return getResources().getColor(R.color.colorLogo);
                 }
             });
-            mTabs.setBackgroundColor(getResources().getColor(R.color.colorLogo));
-            
+
         mTabs.setViewPager(mPager);
 
         }
