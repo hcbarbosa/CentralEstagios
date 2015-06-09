@@ -246,6 +246,12 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
                             }
                         }
                         auxListVagaAvancada = auxListaVagaFiltro;
+                        Collections.sort(auxListVagaAvancada, new Comparator<Vaga>() {
+                            @Override
+                            public int compare(Vaga lhs, Vaga rhs) {
+                                return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
+                            }
+                        });
                         adapter = new ListVagasAdapter(VagaPesquisaAvancadaActivity.this, listaFiltrada);
                         lsViewAvancada.setAdapter(adapter);
                     }
@@ -277,6 +283,12 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
                                 }
                             }
                         auxListVagaAvancada = auxListaVagaFiltro;
+                        Collections.sort(auxListVagaAvancada, new Comparator<Vaga>() {
+                            @Override
+                            public int compare(Vaga lhs, Vaga rhs) {
+                                return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
+                            }
+                        });
                         adapter = new ListVagasAdapter(VagaPesquisaAvancadaActivity.this, listaFiltrada);
                         lsViewAvancada.setAdapter(adapter);
                     }
