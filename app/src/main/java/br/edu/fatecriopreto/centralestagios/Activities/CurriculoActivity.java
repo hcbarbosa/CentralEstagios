@@ -124,6 +124,8 @@ public class CurriculoActivity extends ActionBarActivity {
                                                 final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
                                                         "&acao=editar&conhecimentos="+Uri.encode(lista);
 
+                                                Log.d("Url: ", url);
+
                                                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                                                 JsonObjectRequest getRequest =
