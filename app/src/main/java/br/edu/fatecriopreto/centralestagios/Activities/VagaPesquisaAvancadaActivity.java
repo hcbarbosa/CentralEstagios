@@ -34,12 +34,14 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
@@ -92,7 +94,6 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
         lsViewAvancada = (ListView) findViewById(R.id.listVagaAvancada);
         String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
 
@@ -178,15 +179,20 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rdbBeneficio.isChecked()){
                     edtFiltro.setHint("Digite um beneficio");
+                    edtFiltro.setEnabled(true);
+                    popularVagas();
                 }
                 else if (rdbConhecimento.isChecked()){
                     edtFiltro.setHint("Digite um conhecimento");
+                    edtFiltro.setEnabled(true);
+                    popularVagas();
                 }
 
 
             }
         });
-        edtFiltroNome.addTextChangedListener(new TextWatcher() {
+
+        edtFiltro.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -195,46 +201,92 @@ public class VagaPesquisaAvancadaActivity extends ActionBarActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 auxListVagaAvancada = new ArrayList<Vaga>();
-                for(Vaga v : variaveisGlobais.listVagas){
+                for (Vaga v : variaveisGlobais.listVagas){
                     auxListVagaAvancada.add(v);
                 }
-                final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
-                final ArrayList<Vaga> auxListaVagaFiltro = new ArrayList<Vaga>();
-                for(Vaga v: auxListVagaAvancada){
+                    if (rdbBeneficio.isChecked()){
+                        final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
+                        final ArrayList<Vaga> auxListaVagaFiltro = new ArrayList<Vaga>();
 
-                    if(v.getDescricao().toLowerCase().contains(edtFiltroNome.getText().toString().toLowerCase())){
-
-                        HashMap<String,String> mapValue = new HashMap<>();
-                        mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
-                        mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
-                        mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
-                        mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
-                        for(Candidato c : variaveisGlobais.listCandidato){
-                            if(v.getId() == c.getVagaId()) {
-                                mapValue.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
-                                v.setCandidatado(true);
-                                break;
-                            }else{
-                                mapValue.put(variaveisGlobais.KEY_CANDIDATE, "");
-                                v.setCandidatado(false);
+                        for(Vaga v: auxListVagaAvancada){
+                            String beneficio = "";
+                            if(v.getBeneficio().isAuxilioOdontologico()) {
+                                beneficio += "auxilio odontologico ";
+                            }
+                            if (v.getBeneficio().isPlanoSaude()){
+                                beneficio+="plano de saude ";
+                            }
+                            if (v.getBeneficio().isValeAlimentacao()){
+                                beneficio+="vale alimentacao ";
+                            }
+                            if (v.getBeneficio().isValeTransporte()){
+                                beneficio+="vale transporte ";
+                            }
+                            if (v.getBeneficio().getOutros() != "null"){
+                                beneficio+=v.getBeneficio().getOutros();
+                            }
+                            if (beneficio.contains(edtFiltro.getText().toString().toLowerCase())){
+                                HashMap<String,String> mapValue = new HashMap<>();
+                                mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
+                                mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
+                                mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
+                                mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
+                                for(Candidato c : variaveisGlobais.listCandidato){
+                                    if(v.getId() == c.getVagaId()) {
+                                        mapValue.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                                        v.setCandidatado(true);
+                                        break;
+                                    }else{
+                                        mapValue.put(variaveisGlobais.KEY_CANDIDATE, "");
+                                        v.setCandidatado(false);
+                                    }
+                                }
+                                auxListaVagaFiltro.add(v);
+                                listaFiltrada.add(mapValue);
                             }
                         }
-                        auxListaVagaFiltro.add(v);
-                        listaFiltrada.add(mapValue);
+                        auxListVagaAvancada = auxListaVagaFiltro;
+                        adapter = new ListVagasAdapter(VagaPesquisaAvancadaActivity.this, listaFiltrada);
+                        lsViewAvancada.setAdapter(adapter);
                     }
-                }
-                if (auxListVagaAvancada != null){
-                    auxListVagaAvancada.clear();
-                }
-                auxListVagaAvancada = auxListaVagaFiltro;
-                adapter = new ListVagasAdapter(VagaPesquisaAvancadaActivity.this, listaFiltrada);
-                lsViewAvancada.setAdapter(adapter);
+                    else if (rdbConhecimento.isChecked()){
+                        final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
+                        final ArrayList<Vaga> auxListaVagaFiltro = new ArrayList<Vaga>();
+                        for(Vaga v: auxListVagaAvancada){
+                            for (Conhecimento vConhecimento : v.Conhecimentos){
+                                if (vConhecimento.getDescricao().toLowerCase().contains(edtFiltro.getText().toString().toLowerCase())){
+                                    HashMap<String,String> mapValue = new HashMap<>();
+                                    mapValue.put(variaveisGlobais.KEY_ID,String.valueOf(v.getId()));
+                                    mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
+                                    mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
+                                    mapValue.put(variaveisGlobais.KEY_SALARY,String.valueOf(v.getRemuneracao()));
+                                    for(Candidato c : variaveisGlobais.listCandidato){
+                                        if(v.getId() == c.getVagaId()) {
+                                            mapValue.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                                            v.setCandidatado(true);
+                                            break;
+                                        }else{
+                                            mapValue.put(variaveisGlobais.KEY_CANDIDATE, "");
+                                            v.setCandidatado(false);
+                                        }
+                                    }
+                                    auxListaVagaFiltro.add(v);
+                                    listaFiltrada.add(mapValue);
+                                    break;
+                                   }
+                                }
+                            }
+                        auxListVagaAvancada = auxListaVagaFiltro;
+                        adapter = new ListVagasAdapter(VagaPesquisaAvancadaActivity.this, listaFiltrada);
+                        lsViewAvancada.setAdapter(adapter);
+                    }
             }
             @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
+
 
 
 

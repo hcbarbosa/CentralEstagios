@@ -21,20 +21,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:context="br.edu.fatecriopreto.centralestagios.Activities.VagaPesquisaAvancadaActivity">
-
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtFiltroNome"
-                android:hint="Digite uma vaga" />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edtFiltro"/>
+                android:id="@+id/edtFiltro"
+                android:enabled="false"
+                android:hint="Selecione um filtro abaixo"/>
 
 
             <RadioGroup
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top"
                 android:orientation="horizontal"
@@ -45,13 +41,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/beneficios"
                     android:id="@+id/rdbBeneficio"
-                    android:layout_gravity="left|top" />
+                    android:layout_gravity="left|top"
+                    android:layout_marginLeft="0dp"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/conhecimentos"
                     android:id="@+id/rdbConhecimento"
-                    android:layout_gravity="left|top" />
+                    android:layout_gravity="left|top"
+                    android:layout_marginRight="0dp"/>
             </RadioGroup>
 
             <ListView
