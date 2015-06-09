@@ -21,17 +21,17 @@ import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 public class ChatAdapter extends BaseAdapter {
 
     private Activity context;
-    private  List<Observacao> chatMessages;
+    private  List<Observacao> listaMesgs;
 
     public ChatAdapter(Activity context, List<Observacao> chatMessages) {
         this.context = context;
-        this.chatMessages = chatMessages;
+        this.listaMesgs = chatMessages;
     }
 
     @Override
     public int getCount() {
-        if (chatMessages != null) {
-            return chatMessages.size();
+        if (listaMesgs != null) {
+            return listaMesgs.size();
         } else {
             return 0;
         }
@@ -39,8 +39,8 @@ public class ChatAdapter extends BaseAdapter {
 
     @Override
     public Observacao getItem(int position) {
-        if (chatMessages != null) {
-            return chatMessages.get(position);
+        if (listaMesgs != null) {
+            return listaMesgs.get(position);
         } else {
             return null;
         }
@@ -54,11 +54,11 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        Observacao chatMessage = getItem(position);
+        Observacao mensagem = getItem(position);
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            convertView = vi.inflate(R.layout.list_item_message, null);
+            convertView = vi.inflate(R.layout.list_item_chat, null);
             holder = createViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -66,11 +66,11 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         Perfil currentUser = variaveisGlobais.perfilRm;
-        boolean isOutgoing = chatMessage.getDonoMsg() == null || chatMessage.getDonoMsg().equals(currentUser.getRm());
+        boolean isOutgoing = mensagem.getDonoMsg() == null || mensagem.getDonoMsg().equals(currentUser.getRm());
         setAlignment(holder, isOutgoing);
-        holder.txtMessage.setText(chatMessage.getDescricao());
-        if (chatMessage.getDonoMsg() != null) {
-            holder.txtInfo.setText(chatMessage.getDonoMsg());
+        holder.txtMessage.setText(mensagem.getDescricao());
+        if (mensagem.getDonoMsg() != null) {
+            holder.txtInfo.setText(mensagem.getDonoMsg());
         } else {
             holder.txtInfo.setText("oi aki");
         }
@@ -79,11 +79,11 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     public void add(Observacao message) {
-        chatMessages.add(message);
+        listaMesgs.add(message);
     }
 
     public void add(List<Observacao> messages) {
-        chatMessages.addAll(messages);
+        listaMesgs.addAll(messages);
     }
 
     private void setAlignment(ViewHolder holder, boolean isOutgoing) {

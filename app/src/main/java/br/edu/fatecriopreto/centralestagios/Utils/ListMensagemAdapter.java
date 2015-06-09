@@ -12,16 +12,16 @@ import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.R;
 
 public class ListMensagemAdapter extends BaseAdapter {
-        private List<Vaga> dataSource;
+        private List<Vaga> listaVaga;
         private LayoutInflater inflater;
 
-        public ListMensagemAdapter(List<Vaga> dataSource, Activity ctx) {
-            this.dataSource = dataSource;
+        public ListMensagemAdapter(List<Vaga> listaVaga, Activity ctx) {
+            this.listaVaga = listaVaga;
             this.inflater = LayoutInflater.from(ctx);
         }
 
         public List<Vaga> getDataSource() {
-            return dataSource;
+            return listaVaga;
         }
 
         @Override
@@ -31,12 +31,12 @@ public class ListMensagemAdapter extends BaseAdapter {
 
         @Override
         public Object getItem(int position) {
-            return dataSource.get(position);
+            return listaVaga.get(position);
         }
 
         @Override
         public int getCount() {
-            return dataSource.size();
+            return listaVaga.size();
         }
 
         @Override
@@ -46,9 +46,9 @@ public class ListMensagemAdapter extends BaseAdapter {
             // initIfNeed view
             //
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.list_item_chat, null);
+                convertView = inflater.inflate(R.layout.list_item_message, null);
                 holder = new ViewHolder();
-                holder.name = (TextView)convertView.findViewById(R.id.roomName);
+                holder.nome = (TextView)convertView.findViewById(R.id.roomName);
                 holder.naolidas = (TextView)convertView.findViewById(R.id.naolidas);
                 convertView.setTag(holder);
             } else {
@@ -56,14 +56,14 @@ public class ListMensagemAdapter extends BaseAdapter {
             }
 
             // populando
-            Vaga dialog = dataSource.get(position);
-            holder.name.setText(dialog.getDescricao());
+            Vaga dialog = listaVaga.get(position);
+            holder.nome.setText(dialog.getDescricao());
             holder.naolidas.setText(R.string.qtdnlidas + "2");
             return convertView;
         }
 
         private static class ViewHolder{
-            TextView name;
+            TextView nome;
             TextView naolidas;
         }
     }

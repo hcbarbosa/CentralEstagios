@@ -311,7 +311,6 @@ public class LoginActivity extends Activity  {
 
                                             DBAdapter db = new DBAdapter(LoginActivity.this);
                                             db.open();
-
                                             if(db.retornarRm().getRm() == 0) {
 
                                                 Toast.makeText(LoginActivity.this, "O RM '" + rm + "' foi armazenado", Toast.LENGTH_LONG).show();
@@ -327,7 +326,6 @@ public class LoginActivity extends Activity  {
                                             db.open();
 
                                             if (db.getRM() != null) {
-
                                                 db.apagarRms();
                                                 db.close();
                                             }
