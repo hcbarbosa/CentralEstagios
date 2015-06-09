@@ -68,12 +68,16 @@ public class LoginActivity extends Activity  {
         DBAdapter db = new DBAdapter(LoginActivity.this);
         db.open();
 
+        //Log.d("rm: ", String.valueOf(db.getRM().getInt()));
+
         if(db.getRM() != null){
             mRmRemember = (CheckBox) findViewById(R.id.chkLembraRm);
-            String lembraRm = String.valueOf(db.getRM().getColumnIndex("rm"));
+            String lembraRm = String.valueOf(db.retornarRm().getRm());
             //String lembraRm = "123456789068";
             if(!lembraRm.equals("0")){
                 mRmView.setText(lembraRm);
+                focusView = mPasswordView;
+                focusView.requestFocus();
                 mRmRemember.setChecked(true);
             }else
             {
@@ -304,13 +308,29 @@ public class LoginActivity extends Activity  {
                                     } else {
                                         //armazena o rm se estiver checkado
                                         if (mRmRemember.isChecked()) {
-                                            Toast.makeText(LoginActivity.this, "Rm:" + rm + " foi armazenado", Toast.LENGTH_LONG).show();
 
                                             DBAdapter db = new DBAdapter(LoginActivity.this);
                                             db.open();
-                                            db.apagarRms();
-                                            db.adicionar(Integer.parseInt(rm),1);
-                                            db.close();
+
+                                            if(db.retornarRm().getRm() == 0) {
+
+                                                Toast.makeText(LoginActivity.this, "O RM '" + rm + "' foi armazenado", Toast.LENGTH_LONG).show();
+
+                                                db.apagarRms();
+                                                db.adicionar(Integer.parseInt(rm), 1);
+                                                db.close();
+                                            }
+                                        }
+                                        else {
+
+                                            DBAdapter db = new DBAdapter(LoginActivity.this);
+                                            db.open();
+
+                                            if (db.getRM() != null) {
+
+                                                db.apagarRms();
+                                                db.close();
+                                            }
                                         }
                                         //chama a main
                                         if (respostaws.equals("ok")) {

@@ -64,8 +64,6 @@ public class ListConhecimentosAdapter extends BaseAdapter {
         @Override
         public View getView(final int posicao, View convertView, ViewGroup parent) {
 
-            Log.d("tamanho lista: ", String.valueOf(estaSelecionado.length));
-
             View view = convertView;
 
             if (view == null) {
