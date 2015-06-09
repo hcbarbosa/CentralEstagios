@@ -71,6 +71,10 @@
             android:name=".Activities.PerfilRequeridoActivity"
             android:label="@string/title_activity_perfil_requerido" >
         </activity>
+        <activity
+            android:name=".Activities.ChatActivity"
+            android:label="@string/title_activity_chat" >
+        </activity>
     </application>
 
 </manifest>

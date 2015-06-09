@@ -73,7 +73,9 @@
     <string name="salario">Salário</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="confirmasenha">confirmasenha</string>
+    <string name="confirmasenha">Confirma senha</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="qtdnlidas">Total de mensagens não lidas:</string>
 
 
 </resources>
