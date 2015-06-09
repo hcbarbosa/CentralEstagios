@@ -66,7 +66,6 @@ public class LoginActivity extends Activity  {
 
         //se ja existe algum rm armazenado
         DBAdapter db = new DBAdapter(LoginActivity.this);
-        //db.refreshdb();
         db.open();
 
         if(db.getRM() != null){
@@ -309,7 +308,7 @@ public class LoginActivity extends Activity  {
 
                                             DBAdapter db = new DBAdapter(LoginActivity.this);
                                             db.open();
-                                            db.refreshdb();
+                                            db.apagarRms();
                                             db.adicionar(Integer.parseInt(rm),1);
                                             db.close();
                                         }

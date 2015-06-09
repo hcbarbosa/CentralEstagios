@@ -30,6 +30,10 @@ public class DBAdapter {
         dbHelper.onCreate(database);
     }
 
+    public void apagarRms(){
+        database.execSQL("delete from " + DBHelper.TABELA);
+    }
+
     public void adicionar(Integer rm,
                           Integer status) {
         ContentValues contentValues =
@@ -42,40 +46,16 @@ public class DBAdapter {
                 contentValues);
     }
 
-    public void apagar(int rm)
-    {
-        database.delete(DBHelper.TABELA, DBHelper.RM + " = " + rm, null);
-    }
-
     public Cursor getRM(){
         return database.rawQuery(
-                " select rm, status from "
+                " select rm from "
                         + DBHelper.TABELA , null);
     }
 
-    public Cursor getCursorRM(){
-        return database.rawQuery(
-                " select rm from "
-                        + DBHelper.TABELA, null);
-    }
 
     private RM cursorRM(Cursor cursor){
         return new RM(cursor.getInt(0),cursor.getInt(1));
     }
-
-
-    public void editarRM(RM rm){
-        ContentValues valores =
-                new ContentValues();
-
-        valores.put(DBHelper.RM, rm.getRm());
-        valores.put(DBHelper.STATUS, rm.getStatus());
-
-        database.update(DBHelper.TABELA,valores,
-                DBHelper.RM + " = ?", new String[] {String.valueOf(rm.getRm())});
-
-    }
-
 
 
 
