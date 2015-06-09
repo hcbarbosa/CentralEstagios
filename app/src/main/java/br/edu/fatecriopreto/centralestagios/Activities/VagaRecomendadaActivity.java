@@ -299,6 +299,12 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
                     variaveisGlobais.listVagasRecomendadas.add(v);
                 }
             }
+            Collections.sort(variaveisGlobais.listVagasRecomendadas, new Comparator<Vaga>() {
+                @Override
+                public int compare(Vaga lhs, Vaga rhs) {
+                    return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
+                }
+            });
         }
         catch (Exception e){
             Log.d("ERRO", e.getMessage());

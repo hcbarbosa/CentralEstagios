@@ -166,7 +166,7 @@ public class VagaActivity extends ActionBarActivity {
                                     vaga.setEmailEmpresa(response.getJSONArray(0).getJSONObject(i).getString("EmailEmpresa"));
                                     vaga.setObservacoes(response.getJSONArray(0).getJSONObject(i).getString("Observacoes"));
 
-                                   vaga.setDataCriacao(convertDate(response.getJSONArray(0).getJSONObject(i).getString("DataString"),"dd/MM/yyyy"));
+                                    vaga.setDataCriacao(convertDate(response.getJSONArray(0).getJSONObject(i).getString("DataString"),"dd/MM/yyyy"));
                                     for(int j = 0; j < response.getJSONArray(1).length(); j++) {
                                         if(vaga.getBeneficioId() == response.getJSONArray(1).getJSONObject(j).getInt("Id")) {
                                             Beneficio beneficio = new Beneficio();
@@ -232,18 +232,16 @@ public class VagaActivity extends ActionBarActivity {
                                 variaveisGlobais.listCandidato.clear();
                             }
                             if(variaveisGlobais.listVagas != null && !variaveisGlobais.listVagas.isEmpty()) {
-                                auxCloneListVagas = new ArrayList<Vaga>();
-                                for (Vaga v : variaveisGlobais.listVagas){
-                                    auxCloneListVagas.add(v);
-                                }
-
-                                /*Collections.sort(variaveisGlobais.listVagas, new Comparator<Vaga>() {
+                                Collections.sort(variaveisGlobais.listVagas, new Comparator<Vaga>() {
                                     @Override
                                     public int compare(Vaga lhs, Vaga rhs) {
                                         return rhs.getDataCriacao().compareTo(lhs.getDataCriacao());
                                     }
-                                });*/
-
+                                });
+                                auxCloneListVagas = new ArrayList<Vaga>();
+                                for (Vaga v : variaveisGlobais.listVagas){
+                                    auxCloneListVagas.add(v);
+                                }
                                 popularVagas();
                             }
 
@@ -270,7 +268,7 @@ public class VagaActivity extends ActionBarActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                     final ArrayList<HashMap<String,String>> listaFiltrada = new ArrayList<>();
-                    auxCloneListVagas.clear();
+                    auxCloneListVagas = new ArrayList<Vaga>();
                     for (Vaga x : variaveisGlobais.listVagas){
                         auxCloneListVagas.add(x);
                     }
