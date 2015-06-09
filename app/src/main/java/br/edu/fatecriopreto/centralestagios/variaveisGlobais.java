@@ -16,6 +16,7 @@ import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Curso;
+import br.edu.fatecriopreto.centralestagios.Entidades.Observacao;
 import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 
@@ -48,6 +49,7 @@ public class variaveisGlobais extends Application {
     public static ArrayList<Vaga> listVagasRecomendadas;
     public static List<Curso> listCursos;
     public static List<Integer> listConhecimentoMarcados;
+    public static List<Observacao> listMensagem;
 
 
     public static View getViewNaView() {
