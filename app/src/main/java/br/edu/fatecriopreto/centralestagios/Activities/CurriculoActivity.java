@@ -122,7 +122,7 @@ public class CurriculoActivity extends ActionBarActivity {
 
 
                                                 final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
-                                                        "&acao=editar&conhecimentos="+variaveisGlobais.listConhecimentoMarcados;
+                                                        "&acao=editar&conhecimentos="+Uri.encode(lista);
 
                                                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -149,6 +149,7 @@ public class CurriculoActivity extends ActionBarActivity {
                                                             @Override
                                                             public void onErrorResponse(VolleyError volleyError) {
                                                                 Log.d("Error.Response", "erro");
+
                                                             }
                                                         });
 
