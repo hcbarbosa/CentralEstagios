@@ -97,11 +97,10 @@ public class CurriculoActivity extends ActionBarActivity {
                                         });
                                         variaveisGlobais.listConhecimentoPerfil = listaConhecimento.conhecimentosPerfil;
 
-
+                                        variaveisGlobais.listConhecimentoMarcados = new ArrayList<>();
                                         listAdapter = new ListConhecimentosAdapter(getApplicationContext(), variaveisGlobais.listConhecimentoCurso);
 
                                         listViewConhecimentos.setAdapter(listAdapter);
-                                        variaveisGlobais.listConhecimentoMarcados = new ArrayList<>();
 
                                     }else{
                                         btnSalvar.setVisibility(View.INVISIBLE);

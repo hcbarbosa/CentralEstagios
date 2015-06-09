@@ -38,6 +38,7 @@ public class ListConhecimentosAdapter extends BaseAdapter {
             this.listaConhecimentos.add(conhecimento);
         }
 
+    Conhecimento conhecimento;
 
         @Override
         public int getCount() {
@@ -74,7 +75,8 @@ public class ListConhecimentosAdapter extends BaseAdapter {
             TextView textConhecimento = (TextView) view.findViewById(R.id.txtConhecimento);
             CheckBox checMarcado = (CheckBox) view.findViewById(R.id.chec_seleciona_conhecimento);
 
-            final Conhecimento conhecimento = listaConhecimentos.get(posicao);
+            conhecimento = new Conhecimento();
+            conhecimento = listaConhecimentos.get(posicao);
 
             /**
              * Seta os valores nos TextView
@@ -82,12 +84,20 @@ public class ListConhecimentosAdapter extends BaseAdapter {
             textConhecimento.setText("" + conhecimento.getDescricao());
             checMarcado.setTag(conhecimento.getId());
 
+            boolean jaExiste = false;
+
             for(Conhecimento c : variaveisGlobais.listConhecimentoPerfil){
-                if(c.getDescricao().equals(conhecimento.getDescricao()) && c.getId() == conhecimento.getId()
-                        && c.getStatus() == conhecimento.getStatus() && c.isEstaSelecionado() == conhecimento.isEstaSelecionado()){
-                   checMarcado.setChecked(true);
-                    if(!variaveisGlobais.listConhecimentoMarcados.contains(conhecimento.getId()))
+                if(!jaExiste) {
+                    if (c.getDescricao().equals(conhecimento.getDescricao()) && c.getId() == conhecimento.getId()
+                            && c.getStatus() == conhecimento.getStatus()) {
+                        checMarcado.setChecked(true);
+                        jaExiste = true;
+                        if (!variaveisGlobais.listConhecimentoMarcados.contains(conhecimento.getId())) {
                             variaveisGlobais.listConhecimentoMarcados.add(conhecimento.getId());
+                        }
+                    } else {
+                        checMarcado.setChecked(false);
+                    }
                 }
             }
 
