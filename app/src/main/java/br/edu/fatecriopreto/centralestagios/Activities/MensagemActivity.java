@@ -36,6 +36,7 @@ import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Observacao;
+import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Utils.ListConhecimentosAdapter;
@@ -85,81 +86,21 @@ public class MensagemActivity extends ActionBarActivity {
 
                                     if(jsonObject != null) {
                                         Gson gson = new Gson();
-                                        List<Observacao> listaMensagem = gson.fromJson(jsonObject.getString(0), (Type) Observacao.class);
-                                        variaveisGlobais.listMensagem = listaMensagem;
-                                        Collections.sort(variaveisGlobais.listMensagem, new Comparator<Observacao>() {
+                                        List<Vaga> listaRooms = gson.fromJson(jsonObject.getString(0), (Type) Vaga.class);
+                                        variaveisGlobais.listRooms = listaRooms;
+                                        Collections.sort(variaveisGlobais.listRooms, new Comparator<Vaga>() {
                                             @Override
-                                            public int compare(Observacao lhs, Observacao rhs) {
+                                            public int compare(Vaga lhs, Vaga rhs) {
                                                 return lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
                                             }
                                         });
-                                        variaveisGlobais.listMensagem = listaMensagem;
+                                        variaveisGlobais.listRooms = listaRooms;
 
-                                        listAdapter = new ListMensagemAdapter(getApplicationContext(), variaveisGlobais.listMensagem);
+                                        listAdapter = new ListMensagemAdapter(variaveisGlobais.listRooms, MensagemActivity.this);
 
-                                        listViewConhecimentos.setAdapter(listAdapter);
+                                        listViewMensagens.setAdapter(listAdapter);
 
-                                    }else{
-                                        btnSalvar.setVisibility(View.INVISIBLE);
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(CurriculoActivity.this);
-                                        builder.setTitle("Alerta");
-                                        builder.setMessage("Nenhum conhecimento encontrado para o curso");
-                                        AlertDialog alerta = builder.create();
-                                        alerta.show();
                                     }
-
-                                    btnSalvar = (Button) findViewById(R.id.btnSalvar);
-
-                                    btnSalvar.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            String lista ="";
-                                            for(int i : variaveisGlobais.listConhecimentoMarcados){
-                                                lista += i+",";
-                                            }
-                                            if(lista.length() > 0){
-                                                lista = lista.substring(0, lista.length() -1);
-
-
-                                                final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
-                                                        "&acao=editar&conhecimentos="+ Uri.encode(lista);
-
-                                                Log.d("Url: ", url);
-
-                                                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-                                                JsonObjectRequest getRequest =
-                                                        new JsonObjectRequest(Request.Method.GET, url, null,
-                                                                new Response.Listener<JSONObject>() {
-                                                                    @Override
-                                                                    public void onResponse(JSONObject jsonObject) {
-
-                                                                        try {
-                                                                            if(jsonObject.getString("resposta").equals("ok")) {
-                                                                                Toast.makeText(CurriculoActivity.this, "Conhecimentos salvos com sucesso!", Toast.LENGTH_LONG).show();
-                                                                            }
-                                                                            else {
-                                                                                Toast.makeText(CurriculoActivity.this, "Erro ao salvar conhecimentos, tente mais tarde!", Toast.LENGTH_LONG).show();
-                                                                            }
-                                                                        } catch (JSONException e) {
-                                                                            e.printStackTrace();
-                                                                        }
-
-
-                                                                    }
-                                                                }, new Response.ErrorListener() {
-                                                            @Override
-                                                            public void onErrorResponse(VolleyError volleyError) {
-                                                                Log.d("Error.Response", "erro");
-
-                                                            }
-                                                        });
-
-                                                queue.add(getRequest);
-                                            }
-                                        }
-                                    });
-
 
                                 } catch (JSONException ex) {
                                     ex.printStackTrace();

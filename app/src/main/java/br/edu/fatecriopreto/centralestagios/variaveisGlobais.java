@@ -49,7 +49,7 @@ public class variaveisGlobais extends Application {
     public static ArrayList<Vaga> listVagasRecomendadas;
     public static List<Curso> listCursos;
     public static List<Integer> listConhecimentoMarcados;
-    public static List<Observacao> listMensagem;
+    public static List<Vaga> listRooms;
 
 
     public static View getViewNaView() {
