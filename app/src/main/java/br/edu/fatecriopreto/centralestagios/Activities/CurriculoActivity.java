@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -47,6 +48,8 @@ public class CurriculoActivity extends ActionBarActivity {
     private Toolbar appBar;
     private Button btnSalvar;
 
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,11 @@ public class CurriculoActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
+        // chama progress bar
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(ProgressBar.GONE);
+        mProgressBar.setVisibility(ProgressBar.VISIBLE);
 
         final String url = variaveisGlobais.EndIPAPP + "/Curriculo.aspx?rm=" + variaveisGlobais.getUserRm() +
                 "&acao=listar";
@@ -93,6 +101,10 @@ public class CurriculoActivity extends ActionBarActivity {
                                             }
                                         });
                                         variaveisGlobais.listConhecimentoPerfil = listaConhecimento.conhecimentosPerfil;
+
+
+                                        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                                        listViewConhecimentos.setVisibility(View.VISIBLE);
 
                                         variaveisGlobais.listConhecimentoMarcados = new ArrayList<>();
                                         listAdapter = new ListConhecimentosAdapter(getApplicationContext(), variaveisGlobais.listConhecimentoCurso);
