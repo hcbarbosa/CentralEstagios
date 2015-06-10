@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -60,7 +61,8 @@ public class VagaActivity extends ActionBarActivity {
     private ListVagasAdapter adapter;
     EditText edtFiltroNome;
     ArrayList<Vaga> auxCloneListVagas;
-    
+
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,12 @@ public class VagaActivity extends ActionBarActivity {
         final NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
+        // chama progress bar
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(ProgressBar.GONE);
+        mProgressBar.setVisibility(ProgressBar.VISIBLE);
+
         atualizarConhecimentoPerfil();
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
         listViewVagas = (ListView) findViewById(R.id.listViewVagas);
@@ -305,6 +313,7 @@ public class VagaActivity extends ActionBarActivity {
                     }
                     adapter = new ListVagasAdapter(VagaActivity.this, listaFiltrada);
                     listViewVagas.setAdapter(adapter);
+
             }
 
             @Override
@@ -336,6 +345,8 @@ public class VagaActivity extends ActionBarActivity {
 
         adapter = new ListVagasAdapter(this, lista);
         listViewVagas.setAdapter(adapter);
+        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+        listViewVagas.setVisibility(View.VISIBLE);
     }
     public void atualizarConhecimentoPerfil(){
         String url2 = variaveisGlobais.EndIPAPP+"/perfil.aspx?rm="+variaveisGlobais.getUserRm()+"&acao=obter";
