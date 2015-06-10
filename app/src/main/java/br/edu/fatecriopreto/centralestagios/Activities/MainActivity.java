@@ -148,6 +148,7 @@ public class MainActivity extends ActionBarActivity {
             View layout = null;
             Bundle bundle = getArguments();
             int position;
+            //posicao da tab
             if (bundle!=null){
                 position = bundle.getInt("position");
                 if(position==0){

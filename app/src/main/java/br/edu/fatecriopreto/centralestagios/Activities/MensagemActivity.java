@@ -70,8 +70,8 @@ public class MensagemActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
 
-        final String url = variaveisGlobais.EndIPAPP + "/Mensagens.aspx?rm=" + variaveisGlobais.getUserRm() +
-                "&acao=listarMensagens";
+        final String url = variaveisGlobais.EndIPAPP + "/Mensagem.aspx?rm=" + variaveisGlobais.getUserRm() +
+                "&acao=listarRooms";
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -91,7 +91,7 @@ public class MensagemActivity extends ActionBarActivity {
                                         Collections.sort(variaveisGlobais.listRooms, new Comparator<Vaga>() {
                                             @Override
                                             public int compare(Vaga lhs, Vaga rhs) {
-                                                return lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
+                                                return lhs.getDataCriacao().compareTo(rhs.getDataCriacao());
                                             }
                                         });
                                         variaveisGlobais.listRooms = listaRooms;
