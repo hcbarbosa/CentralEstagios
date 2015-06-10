@@ -43,8 +43,6 @@ public class ListMensagemAdapter extends BaseAdapter {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
 
-            // initIfNeed view
-            //
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.list_item_message, null);
                 holder = new ViewHolder();
@@ -58,7 +56,7 @@ public class ListMensagemAdapter extends BaseAdapter {
             // populando
             Vaga dialog = listaVaga.get(position);
             holder.nome.setText(dialog.getDescricao());
-            holder.naolidas.setText(R.string.qtdnlidas + "2");
+            holder.naolidas.setText("Mensagens para serem visualizadas: " + "2");
             return convertView;
         }
 

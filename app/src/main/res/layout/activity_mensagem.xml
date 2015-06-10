@@ -29,7 +29,7 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginBottom="10dp"
-            android:text="Selecione um chat de uma vaga:"
+            android:text="Selecione um dos seus chats:"
             android:textSize="20dp"
             android:padding="5dp"/>
 

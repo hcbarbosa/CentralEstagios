@@ -1,21 +1,49 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class ChatActivity extends ActionBarActivity {
+
+    private Toolbar appBar;
+    public String vagaId;
+    public String vagaDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        //Auxiliar na transicao de telas e pilha
+        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior() - 1)) != ChatActivity.class)
+            variaveisGlobais.setActivityAnterior(ChatActivity.class);
+        variaveisGlobais.setAlert(ChatActivity.this);
 
+        //AppBar
+        appBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(appBar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //DrawerFragment = menulateral
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        vagaId =  bundle.getString("id");
+        vagaDescricao = bundle.getString("titlevaga");
+
+        setTitle(vagaDescricao);
 
 
 
@@ -41,5 +69,12 @@ public class ChatActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Pega o evento de voltar do celular e volta para a activity anterior
+    public void onBackPressed(){
+        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        variaveisGlobais.deleteAnterior();
+        this.finish();
     }
 }

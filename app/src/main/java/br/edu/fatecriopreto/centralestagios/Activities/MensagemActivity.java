@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,11 +45,14 @@ import br.edu.fatecriopreto.centralestagios.Utils.ListConhecimentosAdapter;
 import br.edu.fatecriopreto.centralestagios.Utils.ListMensagemAdapter;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
+import static br.edu.fatecriopreto.centralestagios.Activities.VagaActivity.convertDate;
+
 public class MensagemActivity extends ActionBarActivity {
 
     private ListView listViewMensagens;
     private ListMensagemAdapter listAdapter;
     private Toolbar appBar;
+    List<Vaga> listaRooms = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,20 @@ public class MensagemActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
 
+        listViewMensagens = (ListView) findViewById(R.id.roomsList);
+        listViewMensagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), ChatActivity.class);
+                Bundle params = new Bundle();
+                params.putString("titlevaga", listaRooms.get(position).getDescricao());
+                params.putString("id", String.valueOf(listaRooms.get(position).getId()));
+                intent.putExtras(params);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         final String url = variaveisGlobais.EndIPAPP + "/Mensagem.aspx?rm=" + variaveisGlobais.getUserRm() +
                 "&acao=listarRooms";
 
@@ -79,32 +98,33 @@ public class MensagemActivity extends ActionBarActivity {
                 new JsonArrayRequest( url,
                         new Response.Listener<JSONArray>() {
                             @Override
-                            public void onResponse(JSONArray jsonObject) {
-                                try {
+                            public void onResponse(JSONArray jsonArray) {
 
-                                    listViewMensagens = (ListView) findViewById(R.id.roomsList);
+                                if(jsonArray != null) {
+                                    try {
+                                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                                    if(jsonObject != null) {
-                                        Gson gson = new Gson();
-                                        List<Vaga> listaRooms = gson.fromJson(jsonObject.getString(0), (Type) Vaga.class);
-                                        variaveisGlobais.listRooms = listaRooms;
-                                        Collections.sort(variaveisGlobais.listRooms, new Comparator<Vaga>() {
-                                            @Override
-                                            public int compare(Vaga lhs, Vaga rhs) {
-                                                return lhs.getDataCriacao().compareTo(rhs.getDataCriacao());
-                                            }
-                                        });
-                                        variaveisGlobais.listRooms = listaRooms;
-
-                                        listAdapter = new ListMensagemAdapter(variaveisGlobais.listRooms, MensagemActivity.this);
-
-                                        listViewMensagens.setAdapter(listAdapter);
-
+                                        Vaga vaga = new Vaga();
+                                        vaga.setId(jsonArray.getJSONObject(i).getInt("Id"));
+                                        vaga.setDescricao(jsonArray.getJSONObject(i).getString("Descricao"));
+                                        listaRooms.add(vaga);
                                     }
+                                    Collections.sort(listaRooms, new Comparator<Vaga>() {
+                                        @Override
+                                        public int compare(Vaga lhs, Vaga rhs) {
+                                            return lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
+                                        }
+                                    });
+                                    variaveisGlobais.listRooms = listaRooms;
 
-                                } catch (JSONException ex) {
-                                    ex.printStackTrace();
+                                    listAdapter = new ListMensagemAdapter(variaveisGlobais.listRooms, MensagemActivity.this);
+                                    listViewMensagens.setAdapter(listAdapter);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -143,5 +163,9 @@ public class MensagemActivity extends ActionBarActivity {
         startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
         variaveisGlobais.deleteAnterior();
         this.finish();
+    }
+
+    public class AuxListaVaga{
+        public List<Vaga> lista;
     }
 }
