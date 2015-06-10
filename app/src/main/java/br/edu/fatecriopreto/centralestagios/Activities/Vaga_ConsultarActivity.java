@@ -137,6 +137,10 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
                 candidatar();
             }
         });
+
+
+
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         emailEmpresa = bundle.getString("email");
@@ -162,6 +166,21 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             txtconhecimentos.setText(bundle.getString("skills"));
 
         }
+
+        btnMensagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                Bundle params = new Bundle();
+                params.putString("titlevaga", vagaDescricao);
+                params.putString("id", vagaId );
+                intent.putExtras(params);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
 
 
     }
