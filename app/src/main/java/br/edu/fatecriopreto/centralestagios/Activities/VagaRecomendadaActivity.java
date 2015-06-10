@@ -31,6 +31,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +44,7 @@ import java.util.concurrent.ExecutionException;
 import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
@@ -82,82 +84,11 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
-        String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-        JsonArrayRequest getRequest = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            if (response.getJSONArray(2).length() != 0){
-                                for(int i = 0; i < response.getJSONArray(2).length(); i++) {
-                                    Candidato candidato = new Candidato();
-                                    candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
-                                    variaveisGlobais.listCandidato.add(candidato);
-                                }
-                            }
-                            else{
-                                variaveisGlobais.listCandidato.clear();
-                            }
-                            filtrarVagasRecomendadas();
-                            popularVagasRecomendadas();
-                        } catch (Exception e) {
-                            Log.d("erro: ", e.getMessage());
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-            }
-        });
-
-        queue.add(getRequest);
+        atualizarConhecimentoPerfil();
+        atualizarCandidato();
         listVagaRecomendada = (ListView) findViewById(R.id.listVagaRecomendada);
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
 
-
-        //Tabs
-        /*
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        //Customizando as tabs
-        mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        mTabs.setDistributeEvenly(true);
-        mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorLogo);
-            }
-        });
-        mTabs.setViewPager(mPager);
-        */
-
-        /*final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
-        for(int i=0; i < 10; i++){
-            HashMap<String,String> map = new HashMap<>();
-            map.put(variaveisGlobais.KEY_ID,String.valueOf(i));
-            map.put(variaveisGlobais.KEY_TITLE,"Nome vaga "+i);
-            map.put(variaveisGlobais.KEY_COMPANY,"Nome empresa "+i);
-            map.put(variaveisGlobais.KEY_SALARY,String.valueOf(i*20.0));
-            lista.add(map);
-        }
-
-        lsView = (ListView) findViewById(R.id.listVagaRecomendada);
-
-        adapter = new ListVagasAdapter(this, lista);
-        lsView.setAdapter(adapter);
-
-        lsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-        */
         listVagaRecomendada.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -207,9 +138,6 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
                 finish();
             }
         });
-
-
-
         //evento de text changed na edt de filtro de nome de vaga
             edtFiltroNome.addTextChangedListener(new TextWatcher() {
             @Override
@@ -256,6 +184,42 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
             }
         });
     }
+    public void atualizarCandidato(){
+        String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        JsonArrayRequest getRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            if (response.getJSONArray(2).length() != 0){
+                                for(int i = 0; i < response.getJSONArray(2).length(); i++) {
+                                    Candidato candidato = new Candidato();
+                                    candidato.setVagaId(response.getJSONArray(2).getJSONObject(i).getInt("VagaId"));
+                                    variaveisGlobais.listCandidato.add(candidato);
+                                }
+                            }
+                            else{
+                                variaveisGlobais.listCandidato.clear();
+                            }
+                            filtrarVagasRecomendadas();
+                            popularVagasRecomendadas();
+                        } catch (Exception e) {
+                            Log.d("erro: ", e.getMessage());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
+
+        queue.add(getRequest);
+    }
     public void popularVagasRecomendadas() {
         final ArrayList<HashMap<String,String>> lista = new ArrayList<>();
         for(Vaga v : variaveisGlobais.listVagasRecomendadas){
@@ -280,6 +244,56 @@ public class VagaRecomendadaActivity extends ActionBarActivity {
 
         adapter = new ListVagasAdapter(VagaRecomendadaActivity.this, lista);
         listVagaRecomendada.setAdapter(adapter);
+    }
+    public void atualizarConhecimentoPerfil(){
+        String url2 = variaveisGlobais.EndIPAPP+"/perfil.aspx?rm="+variaveisGlobais.getUserRm()+"&acao=obter";
+        RequestQueue fila = Volley.newRequestQueue(getApplicationContext());
+
+        JsonArrayRequest getRequesicao = new JsonArrayRequest(url2,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+
+                        try {
+                            variaveisGlobais.perfilRm = new Perfil();
+                            variaveisGlobais.perfilRm.Conhecimentos = new ArrayList<Conhecimento>();
+                            variaveisGlobais.perfilRm.setRm(resposta.getJSONObject(0).getInt("LoginRm"));
+                            variaveisGlobais.perfilRm.setCursoId(resposta.getJSONObject(0).getInt("CursoId"));
+                            variaveisGlobais.perfilRm.setTelefone(resposta.getJSONObject(0).getString("Telefone"));
+                            variaveisGlobais.perfilRm.setCEP(resposta.getJSONObject(0).getString("Cep"));
+                            variaveisGlobais.perfilRm.setUf(resposta.getJSONObject(0).getString("Uf"));
+                            variaveisGlobais.perfilRm.setCidade(resposta.getJSONObject(0).getString("Cidade"));
+                            variaveisGlobais.perfilRm.setBairro(resposta.getJSONObject(0).getString("Bairro"));
+                            variaveisGlobais.perfilRm.setLogradouro(resposta.getJSONObject(0).getString("Logradouro"));
+                            variaveisGlobais.perfilRm.setComplemento(resposta.getJSONObject(0).getString("Complemento"));
+                            variaveisGlobais.perfilRm.setAno(resposta.getJSONObject(0).getLong("Ano"));
+                            variaveisGlobais.perfilRm.setSemestre(resposta.getJSONObject(0).getString("Semestre"));
+                            variaveisGlobais.perfilRm.setNome(resposta.getJSONObject(0).getString("Nome"));
+                            variaveisGlobais.perfilRm.setEmail(resposta.getJSONObject(0).getString("Email"));
+                            for(int i = 0; i < resposta.getJSONArray(1).length(); i++) {
+                                Conhecimento conhecimento = new Conhecimento();
+                                conhecimento.setId(resposta.getJSONArray(1).getJSONObject(i).getInt("Id"));
+                                conhecimento.setDescricao(resposta.getJSONArray(1).getJSONObject(i).getString("Descricao"));
+                                conhecimento.setStatus(resposta.getJSONArray(1).getJSONObject(i).getInt("Status"));
+                                conhecimento.setEstaSelecionado(resposta.getJSONArray(1).getJSONObject(i).getBoolean("EstaSelecionado"));
+                                variaveisGlobais.perfilRm.Conhecimentos.add(conhecimento);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response.Aki", "Erro no webservice");
+            }
+        });
+
+        fila.add(getRequesicao);
+
+
     }
     public void filtrarVagasRecomendadas() {
         //Construir aqui o metodos que realiza o filtro em cima da lista de vagas globais

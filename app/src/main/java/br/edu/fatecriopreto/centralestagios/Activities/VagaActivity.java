@@ -44,6 +44,7 @@ import java.util.List;
 import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
+import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
@@ -86,6 +87,7 @@ public class VagaActivity extends ActionBarActivity {
         final NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+        atualizarConhecimentoPerfil();
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
         listViewVagas = (ListView) findViewById(R.id.listViewVagas);
         listViewVagas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,10 +115,10 @@ public class VagaActivity extends ActionBarActivity {
                     beneficios = getResources().getString(R.string.auxodont) + "\n";
                 }
                 if (auxCloneListVagas.get(position).getBeneficio().isPlanoSaude()) {
-                    beneficios += getResources().getString(R.string.planosaude)+ "\n";
+                    beneficios += getResources().getString(R.string.planosaude) + "\n";
                 }
                 if (auxCloneListVagas.get(position).getBeneficio().isValeAlimentacao()) {
-                    beneficios += getResources().getString(R.string.valeal)+"\n";
+                    beneficios += getResources().getString(R.string.valeal) + "\n";
                 }
                 if (auxCloneListVagas.get(position).getBeneficio().isValeTransporte()) {
                     beneficios += "Vale Transporte \n";
@@ -137,6 +139,7 @@ public class VagaActivity extends ActionBarActivity {
                 finish();
             }
         });
+
 
         String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -333,6 +336,54 @@ public class VagaActivity extends ActionBarActivity {
 
         adapter = new ListVagasAdapter(this, lista);
         listViewVagas.setAdapter(adapter);
+    }
+    public void atualizarConhecimentoPerfil(){
+        String url2 = variaveisGlobais.EndIPAPP+"/perfil.aspx?rm="+variaveisGlobais.getUserRm()+"&acao=obter";
+        RequestQueue fila = Volley.newRequestQueue(getApplicationContext());
+
+        JsonArrayRequest getRequesicao = new JsonArrayRequest(url2,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+
+                        try {
+                            variaveisGlobais.perfilRm = new Perfil();
+                            variaveisGlobais.perfilRm.Conhecimentos = new ArrayList<Conhecimento>();
+                            variaveisGlobais.perfilRm.setRm(resposta.getJSONObject(0).getInt("LoginRm"));
+                            variaveisGlobais.perfilRm.setCursoId(resposta.getJSONObject(0).getInt("CursoId"));
+                            variaveisGlobais.perfilRm.setTelefone(resposta.getJSONObject(0).getString("Telefone"));
+                            variaveisGlobais.perfilRm.setCEP(resposta.getJSONObject(0).getString("Cep"));
+                            variaveisGlobais.perfilRm.setUf(resposta.getJSONObject(0).getString("Uf"));
+                            variaveisGlobais.perfilRm.setCidade(resposta.getJSONObject(0).getString("Cidade"));
+                            variaveisGlobais.perfilRm.setBairro(resposta.getJSONObject(0).getString("Bairro"));
+                            variaveisGlobais.perfilRm.setLogradouro(resposta.getJSONObject(0).getString("Logradouro"));
+                            variaveisGlobais.perfilRm.setComplemento(resposta.getJSONObject(0).getString("Complemento"));
+                            variaveisGlobais.perfilRm.setAno(resposta.getJSONObject(0).getLong("Ano"));
+                            variaveisGlobais.perfilRm.setSemestre(resposta.getJSONObject(0).getString("Semestre"));
+                            variaveisGlobais.perfilRm.setNome(resposta.getJSONObject(0).getString("Nome"));
+                            variaveisGlobais.perfilRm.setEmail(resposta.getJSONObject(0).getString("Email"));
+                            for(int i = 0; i < resposta.getJSONArray(1).length(); i++) {
+                                Conhecimento conhecimento = new Conhecimento();
+                                conhecimento.setId(resposta.getJSONArray(1).getJSONObject(i).getInt("Id"));
+                                conhecimento.setDescricao(resposta.getJSONArray(1).getJSONObject(i).getString("Descricao"));
+                                conhecimento.setStatus(resposta.getJSONArray(1).getJSONObject(i).getInt("Status"));
+                                conhecimento.setEstaSelecionado(resposta.getJSONArray(1).getJSONObject(i).getBoolean("EstaSelecionado"));
+                                variaveisGlobais.perfilRm.Conhecimentos.add(conhecimento);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response.Aki", "Erro no webservice");
+            }
+        });
+
+        fila.add(getRequesicao);
     }
     public static Date convertDate(String date, String format)
             throws ParseException {
