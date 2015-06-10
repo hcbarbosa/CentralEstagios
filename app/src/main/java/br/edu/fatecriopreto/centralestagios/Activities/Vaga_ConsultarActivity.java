@@ -86,6 +86,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+        atualizarConhecimentoPerfil();
 
         txtnome = (TextView) findViewById(R.id.txtNomeVaga);
         txtempresa = (TextView) findViewById(R.id.txtEmpresa);
@@ -244,8 +245,8 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         emailIntent.putExtra(Intent.EXTRA_CC, new String[]{"estagiosfatecriopreto@gmail.com"});
         //emailIntent.putExtra(Intent.EXTRA_BCC, new String[]{"emailcentralestagios@email.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, vagaId + " - " + vagaDescricao);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Segue abaixo o curriculo do candidato: "+variaveisGlobais.perfilRm.getNome()
-        +"\n" + conhecimentos);
+        emailIntent.putExtra(Intent.EXTRA_TEXT,"Segue abaixo o curriculo do candidato: "+"Nome:\n" + variaveisGlobais.perfilRm.getNome()
+        +"\nTelefone:\n" + variaveisGlobais.perfilRm.getTelefone() +"\nCidade:\n" +variaveisGlobais.perfilRm.getCidade() + "\nConhecimentos:\n" + conhecimentos);
 
         emailIntent.setType("message/rfc822");
         startActivity(Intent.createChooser(emailIntent,"Escolha seu aplicativo de email..."));
