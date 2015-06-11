@@ -13,6 +13,7 @@ import java.util.List;
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.MainActivity;
+import br.edu.fatecriopreto.centralestagios.Activities.MensagemActivity;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Curso;
@@ -50,6 +51,8 @@ public class variaveisGlobais extends Application {
     public static List<Curso> listCursos;
     public static List<Integer> listConhecimentoMarcados;
     public static List<Vaga> listRooms;
+    public static List<MensagemActivity.Qtd> listqdt;
+    public static List<Observacao> Mensagem;
 
 
     public static View getViewNaView() {

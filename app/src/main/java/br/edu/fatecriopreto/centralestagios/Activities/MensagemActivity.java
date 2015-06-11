@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -101,21 +102,20 @@ public class MensagemActivity extends ActionBarActivity {
                             public void onResponse(JSONArray jsonArray) {
 
                                 if(jsonArray != null) {
-                                    try {
-                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        Gson gson = new Gson();
 
-                                        Vaga vaga = new Vaga();
-                                        vaga.setId(jsonArray.getJSONObject(i).getInt("Id"));
-                                        vaga.setDescricao(jsonArray.getJSONObject(i).getString("Descricao"));
-                                        listaRooms.add(vaga);
-                                    }
+                                    try {
+                                        AuxListaVaga auxiliar = gson.fromJson(jsonArray.getString(0), AuxListaVaga.class);
+                                        listaRooms.addAll(auxiliar.listaVaga);
+
                                     Collections.sort(listaRooms, new Comparator<Vaga>() {
                                         @Override
                                         public int compare(Vaga lhs, Vaga rhs) {
                                             return lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
                                         }
                                     });
-                                    variaveisGlobais.listRooms = listaRooms;
+                                        variaveisGlobais.listRooms = listaRooms;
+                                        variaveisGlobais.listqdt = auxiliar.listaQtd;
 
                                     listAdapter = new ListMensagemAdapter(variaveisGlobais.listRooms, MensagemActivity.this);
                                     listViewMensagens.setAdapter(listAdapter);
@@ -166,6 +166,14 @@ public class MensagemActivity extends ActionBarActivity {
     }
 
     public class AuxListaVaga{
-        public List<Vaga> lista;
+        public List<Vaga> listaVaga;
+        public List<Qtd> listaQtd;
     }
+
+    public class  Qtd{
+        public int idVaga;
+        public int qtd;
+    }
+
+
 }

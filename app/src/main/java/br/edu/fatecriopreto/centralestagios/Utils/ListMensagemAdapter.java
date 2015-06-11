@@ -8,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.List;
 
+import br.edu.fatecriopreto.centralestagios.Activities.MensagemActivity;
 import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.R;
+import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
 public class ListMensagemAdapter extends BaseAdapter {
         private List<Vaga> listaVaga;
@@ -56,7 +58,18 @@ public class ListMensagemAdapter extends BaseAdapter {
             // populando
             Vaga dialog = listaVaga.get(position);
             holder.nome.setText(dialog.getDescricao());
-            holder.naolidas.setText("Mensagens para serem visualizadas: " + "2");
+
+            boolean existe = false;
+            for(MensagemActivity.Qtd qtd : variaveisGlobais.listqdt){
+                if(qtd.idVaga == dialog.Id){
+                    holder.naolidas.setText("Mensagens para serem visualizadas: " + qtd.qtd);
+                    holder.naolidas.setEnabled(true);
+                }
+                else{
+                    holder.naolidas.setText("");
+                }
+            }
+
             return convertView;
         }
 

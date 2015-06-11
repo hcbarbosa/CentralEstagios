@@ -66,13 +66,18 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         Perfil currentUser = variaveisGlobais.perfilRm;
-        boolean isOutgoing = mensagem.getDonoMsg() == null || mensagem.getDonoMsg().equals(currentUser.getRm());
+        int dono = Integer.parseInt(mensagem.getDonoMsg());
+        int user = Integer.parseInt(currentUser.getRm() + "");
+        boolean isOutgoing =  (user == dono);
         setAlignment(holder, isOutgoing);
         holder.txtMessage.setText(mensagem.getDescricao());
         if (mensagem.getDonoMsg() != null) {
-            holder.txtInfo.setText(mensagem.getDonoMsg());
-        } else {
-            holder.txtInfo.setText("oi aki");
+            if(user == dono){
+                holder.txtInfo.setText(variaveisGlobais.getUserName());
+            }else {
+                holder.txtInfo.setText("Central");
+            }
+
         }
 
         return convertView;
@@ -88,7 +93,7 @@ public class ChatAdapter extends BaseAdapter {
 
     private void setAlignment(ViewHolder holder, boolean isOutgoing) {
         if (!isOutgoing) {
-            holder.contentWithBG.setBackgroundResource(R.drawable.incoming_message_bg);
+            //holder.contentWithBG.setBackgroundResource(R.drawable.incoming_message_bg);
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
@@ -106,7 +111,7 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtInfo.setLayoutParams(layoutParams);
         } else {
-            holder.contentWithBG.setBackgroundResource(R.drawable.outgoing_message_bg);
+           // holder.contentWithBG.setBackgroundResource(R.drawable.outgoing_message_bg);
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
             layoutParams.gravity = Gravity.LEFT;
