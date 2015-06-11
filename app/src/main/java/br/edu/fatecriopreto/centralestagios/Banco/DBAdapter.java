@@ -27,12 +27,16 @@ public class DBAdapter {
     }
 
     public void refreshdb(){
-        database.execSQL(dbHelper.DROP_DATABASE);
+        database.execSQL(dbHelper.DROP_DATABASE_RM);
+        database.execSQL(dbHelper.DROP_DATABASE_NOTIFICACAO);
         dbHelper.onCreate(database);
     }
 
+    //------------------------------------------------------------------
+    //ações do dbRM
+
     public void apagarRms(){
-        database.execSQL("delete from " + DBHelper.TABELA);
+        database.execSQL("delete from " + DBHelper.TABELARM);
     }
 
     public void adicionar(Integer rm,
@@ -43,7 +47,7 @@ public class DBAdapter {
         contentValues.put(DBHelper.RM, rm);
         contentValues.put(DBHelper.STATUS, status);
 
-        database.insert(DBHelper.TABELA, null,
+        database.insert(DBHelper.TABELARM, null,
                 contentValues);
     }
 
@@ -53,7 +57,7 @@ public class DBAdapter {
 
         database.rawQuery(
                 " select rm from "
-                        + DBHelper.TABELA , null);
+                        + DBHelper.TABELARM , null);
 
         return cursor;
     }
@@ -88,6 +92,55 @@ public class DBAdapter {
         return new RM(cursor.getInt(0),cursor.getInt(1));
     }
 
+    //-------------------------------------------------------------------------
+    //ações do dbNotificacao
 
+    public void adicionarNotificaco(Long tempo) {
+        ContentValues contentValues =
+                new ContentValues();
 
+        contentValues.put("tempo", tempo);
+
+        database.insert("notificacoes", null,
+                contentValues);
+    }
+
+    public Cursor getTempoNotificacao(){
+
+        Cursor cursor =
+
+                database.rawQuery("select tempo from notificacoes", null);
+
+        return cursor;
+    }
+
+    public long cursorNotificacao(Cursor cursor){
+
+        long tempo = cursor.getLong(0);
+
+        return tempo;
+    }
+
+    public long retornarNotificacaoTempo() {
+
+        Cursor cursor = this.getTempoNotificacao();
+        long tempo = 0;
+
+        if (cursor.getCount() > 0) {
+
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+
+                tempo = cursorNotificacao(cursor);
+                cursor.moveToNext();
+            }
+        }
+
+        return tempo;
+    }
+
+    public void zerarNotificacoes(){
+        database.execSQL("delete from notificacoes");
+    }
 }

@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
+import br.edu.fatecriopreto.centralestagios.Banco.DBHelper;
 import br.edu.fatecriopreto.centralestagios.Entidades.Conhecimento;
 import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.R;
@@ -67,6 +68,8 @@ public class LoginActivity extends Activity  {
         //se ja existe algum rm armazenado
         DBAdapter db = new DBAdapter(LoginActivity.this);
         db.open();
+
+        Log.d("create: ", String.valueOf(db.retornarNotificacaoTempo()));
 
         //Log.d("rm: ", String.valueOf(db.getRM().getInt()));
 
@@ -319,6 +322,14 @@ public class LoginActivity extends Activity  {
                                                 db.adicionar(Integer.parseInt(rm), 1);
                                                 db.close();
                                             }
+                                            else if(!String.valueOf(db.retornarRm().getRm()).equals(rm)) {
+
+                                                Toast.makeText(LoginActivity.this, "O RM '" + rm + "' foi armazenado", Toast.LENGTH_LONG).show();
+
+                                                db.apagarRms();
+                                                db.adicionar(Integer.parseInt(rm), 1);
+                                                db.close();
+                                            }
                                         }
                                         else {
 
@@ -365,7 +376,7 @@ public class LoginActivity extends Activity  {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("Error.Response.Aki", "Erro no webservice");
+                    Log.d("Error.Response.Aki", "erro");
                 }
             });
 

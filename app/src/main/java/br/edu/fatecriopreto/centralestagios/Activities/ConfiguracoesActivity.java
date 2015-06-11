@@ -30,9 +30,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
+import br.edu.fatecriopreto.centralestagios.notificacao;
 
 public class ConfiguracoesActivity extends ActionBarActivity {
 
@@ -40,7 +42,9 @@ public class ConfiguracoesActivity extends ActionBarActivity {
 
     EditText edtSenha;
     EditText edtConfirmaSenha;
+    EditText edtTempoNotificacao;
     Button btnSalvar;
+    Button btnSalvarTempo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +70,16 @@ public class ConfiguracoesActivity extends ActionBarActivity {
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
         edtConfirmaSenha = (EditText) findViewById(R.id.edtConfirmaSenha);
+        edtTempoNotificacao = (EditText) findViewById(R.id.edtTempoNotificacao);
+        btnSalvarTempo = (Button) findViewById(R.id.btnSalvarTempo);
 
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        if(db.retornarNotificacaoTempo() != 0){
 
-
-
-
+            edtTempoNotificacao.setText(String.valueOf(db.retornarNotificacaoTempo()));
+        }
+        db.close();
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,9 +134,36 @@ public class ConfiguracoesActivity extends ActionBarActivity {
                 }
 
             }
+            });
+
+        btnSalvarTempo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                long tempo = Long.parseLong(edtTempoNotificacao.getText().toString());
+
+                if(tempo < 1 || tempo > 120){
+
+                    edtTempoNotificacao.setError("");
+                    edtTempoNotificacao.setError("O tempo deve estar entre 1 e 120 minutos!");
+                }
+                else {
+
+                    DBAdapter db = new DBAdapter(ConfiguracoesActivity.this);
+                    db.open();
+                    db.zerarNotificacoes();
+                    db.adicionarNotificaco(tempo);
+                    db.close();
+
+                    notificacao notificacao = new notificacao();
+                    notificacao.setDelayOuvidor();
+
+                    Toast.makeText(ConfiguracoesActivity.this, "Intervalo salvo com sucesso!", Toast.LENGTH_LONG).show();
+                    Log.d("tempo: ", String.valueOf(notificacao.delayOuvidor));
+                }
             }
-        );
-            }
+        });
+    }
 
 
     @Override

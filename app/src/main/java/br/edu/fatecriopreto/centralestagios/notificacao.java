@@ -23,10 +23,29 @@ import org.json.JSONObject;
 import br.edu.fatecriopreto.centralestagios.Activities.ConfiguracoesActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.LoginActivity;
 import br.edu.fatecriopreto.centralestagios.Activities.VagaActivity;
+import br.edu.fatecriopreto.centralestagios.Banco.DBAdapter;
 
 public class notificacao {
 
-    private long delayOuvidor = 60000;
+    DBAdapter db = new DBAdapter(variaveisGlobais.getAlert());
+
+    public long delayOuvidor;
+
+    public void setDelayOuvidor(){
+
+        db.open();
+
+        if(db.retornarNotificacaoTempo() == 0){
+
+            delayOuvidor = 600000;
+        }
+        else {
+
+            delayOuvidor = db.retornarNotificacaoTempo() * 60000;
+        }
+
+        db.close();
+    }
 
     public void criarNotificacao(Context context, String mensagemBarraStatus, String titulo,
                                  String mensagem, Class activity) {
@@ -112,11 +131,16 @@ public class notificacao {
 
             queue.add(getRequest);
 
+            setDelayOuvidor();
             handler.postDelayed(ouvidorNotificacoes, delayOuvidor);
+            Log.d("aqui: ", "entro");
+            Log.d("osudhasihdfh: ", String.valueOf(delayOuvidor));
         }
     };
 
     public void comecarOuvidorNotificacoes(){
+
+        setDelayOuvidor();
 
         handler.postDelayed(ouvidorNotificacoes, delayOuvidor);
     }

@@ -17,6 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,7 +30,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Senha"/>
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Alterar senha"
+                android:id="@+id/alterarSenhaTitle"
+                android:textSize="20dp"
+                android:textColor="#ff000000"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Senha"
+                android:layout_marginTop="25dp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -57,7 +73,56 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Verificação de novas vagas"
+                android:id="@+id/tempoNotificacao"
+                android:layout_marginTop="50dp"
+                android:textSize="20dp"
+                android:textColor="#ff000000"
+                android:layout_marginLeft="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="* O tempo é dado em minutos"
+                android:id="@+id/textView3"
+                android:textSize="15dp"
+                android:layout_marginLeft="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Tempo:"
+                android:id="@+id/tempo"
+                android:layout_marginTop="25dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/edtTempoNotificacao" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/salvar"
+                android:id="@+id/btnSalvarTempo"
+                android:background="@drawable/botaoarredondado"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorBlack" />
         </LinearLayout>
+
+        </ScrollView>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"
@@ -68,6 +133,7 @@
             app:layout="@layout/fragment_navigation_drawer"
             tools:layout="@layout/fragment_navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>
 
 
