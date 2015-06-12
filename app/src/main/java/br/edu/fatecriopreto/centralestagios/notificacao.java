@@ -133,8 +133,6 @@ public class notificacao {
 
             setDelayOuvidor();
             handler.postDelayed(ouvidorNotificacoes, delayOuvidor);
-            Log.d("aqui: ", "entro");
-            Log.d("osudhasihdfh: ", String.valueOf(delayOuvidor));
         }
     };
 

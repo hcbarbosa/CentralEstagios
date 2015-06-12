@@ -322,7 +322,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                     });
                     String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
-                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    RequestQueue queueVagas = Volley.newRequestQueue(getActivity().getApplicationContext());
                     //RequestQueue queue = Volley.newRequestQueue(layout.getContext());
 
                     JsonArrayRequest getRequest = new JsonArrayRequest(url,
@@ -441,7 +441,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                     });
 
-
+                    queueVagas.add(getRequest);
 
                 }
                 else if(position==1){
