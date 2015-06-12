@@ -61,8 +61,7 @@ public class PerfilEditActivity extends ActionBarActivity {
 
     Spinner spnCursos;
 
-    //variavel que guarda foto
-    Bitmap fotoPerfil;
+    View focusView;
 
     Button btnBuscar;
     Button btnSalvar;
@@ -79,6 +78,8 @@ public class PerfilEditActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_edit);
+
+        focusView = null;
 
         //Auxiliar na transicao de telas e pilha
         variaveisGlobais.setAlert(PerfilEditActivity.this);
@@ -198,88 +199,130 @@ public class PerfilEditActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                //variaveis que recebem os valores das edts
-                int  cursoId, ano, semestre, lembrarRm;
-                final String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf;
+                if (edtNome.getText().toString().equals("")) {
+                    focusView = edtNome;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
 
-                //atribuição do valor das edts para as variaveis codificando-as para que a url de requisição as entenda
-                ano = Integer.parseInt(edtAno.getText().toString());
-                semestre = Integer.parseInt(edtSemestre.getText().toString());
-                nome = Uri.encode(edtNome.getText().toString());
-                email = Uri.encode(edtEmail.getText().toString());
-                telefone = Uri.encode(edtTelefone.getText().toString());
-                cep = Uri.encode(edtCep.getText().toString());
-                logradouro = Uri.encode(edtLogradouro.getText().toString());
-                complemento = Uri.encode(edtComplemento.getText().toString());
-                bairro = Uri.encode(edtBairro.getText().toString());
-                cidade = Uri.encode(edtCidade.getText().toString());
-                uf = Uri.encode(edtUf.getText().toString());
-                cursoId = idCurso;
+                } else if (edtEmail.getText().toString().equals("")) {
+                    focusView = edtEmail;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
 
-                url = variaveisGlobais.EndIPAPP + "/perfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
-                        + nome + "&email=" + email + "&telefone=" + telefone + "&cep=" + cep + "&logradouro=" + logradouro + "&complemento="
-                        + complemento + "&bairro=" + bairro + "&cidade=" + cidade + "&uf=" + uf + "&rm=" + variaveisGlobais.getUserRm() +
-                        "&curso=" + cursoId + "&acao=atualizar";
+                } else if (edtTelefone.getText().toString().equals("")) {
+                    focusView = edtTelefone;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
 
-                //webservice que atualiza perfil
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                } else if (edtCep.getText().toString().equals("")) {
+                    focusView = edtCep;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
 
-                JsonObjectRequest getRequest =
-                        new JsonObjectRequest(Request.Method.GET, url, null,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject jsonObject) {
+                } else if (edtLogradouro.getText().toString().equals("")) {
+                    focusView = edtLogradouro;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
 
-                                        try {
-                                            if(jsonObject.getString("Conteudo").equals("ok")) {
-                                                Toast.makeText(PerfilEditActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
-                                                variaveisGlobais.setUserName(Uri.decode(nome));
-                                                variaveisGlobais.setUserEmail(Uri.decode(email));
+                } else if (edtBairro.getText().toString().equals("")) {
+                    focusView = edtBairro;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
+
+                } else if (edtCidade.getText().toString().equals("")) {
+                    focusView = edtCidade;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
+
+                } else if (edtUf.getText().toString().equals("")) {
+                    focusView = edtUf;
+                    ((EditText) focusView).setError("Campo obrigatório!");
+                    focusView.requestFocus();
+
+                } else {
+
+                    //variaveis que recebem os valores das edts
+                    int cursoId, ano, semestre, lembrarRm;
+                    final String nome, email, telefone, cep, logradouro, complemento, bairro, cidade, uf;
+
+                    //atribuição do valor das edts para as variaveis codificando-as para que a url de requisição as entenda
+                    ano = Integer.parseInt(edtAno.getText().toString());
+                    semestre = Integer.parseInt(edtSemestre.getText().toString());
+                    nome = Uri.encode(edtNome.getText().toString());
+                    email = Uri.encode(edtEmail.getText().toString());
+                    telefone = Uri.encode(edtTelefone.getText().toString());
+                    cep = Uri.encode(edtCep.getText().toString());
+                    logradouro = Uri.encode(edtLogradouro.getText().toString());
+                    complemento = Uri.encode(edtComplemento.getText().toString());
+                    bairro = Uri.encode(edtBairro.getText().toString());
+                    cidade = Uri.encode(edtCidade.getText().toString());
+                    uf = Uri.encode(edtUf.getText().toString());
+                    cursoId = idCurso;
+
+                    url = variaveisGlobais.EndIPAPP + "/perfil.aspx?ano=" + ano + "&semestre=" + semestre + "&nome="
+                            + nome + "&email=" + email + "&telefone=" + telefone + "&cep=" + cep + "&logradouro=" + logradouro + "&complemento="
+                            + complemento + "&bairro=" + bairro + "&cidade=" + cidade + "&uf=" + uf + "&rm=" + variaveisGlobais.getUserRm() +
+                            "&curso=" + cursoId + "&acao=atualizar";
+
+                    //webservice que atualiza perfil
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                    JsonObjectRequest getRequest =
+                            new JsonObjectRequest(Request.Method.GET, url, null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject jsonObject) {
+
+                                            try {
+                                                if (jsonObject.getString("Conteudo").equals("ok")) {
+                                                    Toast.makeText(PerfilEditActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
+                                                    variaveisGlobais.setUserName(Uri.decode(nome));
+                                                    variaveisGlobais.setUserEmail(Uri.decode(email));
+                                                } else {
+                                                    Toast.makeText(PerfilEditActivity.this, "Erro ao salvar o perfil, tente mais tarde!", Toast.LENGTH_LONG).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
                                             }
-                                            else {
-                                                Toast.makeText(PerfilEditActivity.this, "Erro ao salvar o perfil, tente mais tarde!", Toast.LENGTH_LONG).show();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+
+
                                         }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+                                    Log.d("Error.Response", "erro");
+                                }
+                            });
 
+                    queue.add(getRequest);
 
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Log.d("Error.Response", "erro");
-                            }
-                        });
+                    //Toast.makeText(PerfilEditActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
 
-                queue.add(getRequest);
+                    //atualizando os dados da variavel global perfil com os novos que o usuario atualizou
+                    Perfil perfilAtualizado = new Perfil();
 
-                //Toast.makeText(PerfilEditActivity.this, "Perfil salvo com sucesso!", Toast.LENGTH_LONG).show();
+                    perfilAtualizado.setAno(ano);
+                    perfilAtualizado.setBairro(Uri.decode(bairro));
+                    perfilAtualizado.setCEP(Uri.decode(cep));
+                    perfilAtualizado.setCidade(Uri.decode(cidade));
+                    perfilAtualizado.setComplemento(Uri.decode(complemento));
+                    perfilAtualizado.setCursoId(cursoId);
+                    perfilAtualizado.setEmail(Uri.decode(email));
+                    perfilAtualizado.setLogradouro(Uri.decode(logradouro));
+                    perfilAtualizado.setNome(Uri.decode(nome));
+                    variaveisGlobais.setUserName(Uri.decode(nome));
+                    variaveisGlobais.setUserEmail(Uri.decode(email));
+                    perfilAtualizado.setSemestre(String.valueOf(semestre));
+                    perfilAtualizado.setTelefone(Uri.decode(telefone));
+                    perfilAtualizado.setUf(Uri.decode(uf));
 
-                //atualizando os dados da variavel global perfil com os novos que o usuario atualizou
-                Perfil perfilAtualizado = new Perfil();
+                    Log.d("Email: ", variaveisGlobais.getUserEmail());
 
-                perfilAtualizado.setAno(ano);
-                perfilAtualizado.setBairro(Uri.decode(bairro));
-                perfilAtualizado.setCEP(Uri.decode(cep));
-                perfilAtualizado.setCidade(Uri.decode(cidade));
-                perfilAtualizado.setComplemento(Uri.decode(complemento));
-                perfilAtualizado.setCursoId(cursoId);
-                perfilAtualizado.setEmail(Uri.decode(email));
-                perfilAtualizado.setLogradouro(Uri.decode(logradouro));
-                perfilAtualizado.setNome(Uri.decode(nome));
-                variaveisGlobais.setUserName(Uri.decode(nome));
-                variaveisGlobais.setUserEmail(Uri.decode(email));
-                perfilAtualizado.setSemestre(String.valueOf(semestre));
-                perfilAtualizado.setTelefone(Uri.decode(telefone));
-                perfilAtualizado.setUf(Uri.decode(uf));
+                    variaveisGlobais.perfilRm = perfilAtualizado;
 
-                Log.d("Email: ", variaveisGlobais.getUserEmail());
-
-                variaveisGlobais.perfilRm = perfilAtualizado;
-
-                startActivity(new Intent(PerfilEditActivity.this, PerfilActivity.class));
-                PerfilEditActivity.this.finish();
+                    startActivity(new Intent(PerfilEditActivity.this, PerfilActivity.class));
+                    PerfilEditActivity.this.finish();
+                }
             }
         });
 
