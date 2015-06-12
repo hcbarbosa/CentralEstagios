@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -271,7 +273,7 @@ public class MainActivity extends ActionBarActivity {
                     layout = inflater.inflate(R.layout.activity_tabvaga, container, false);
                     listViewVagas = (ListView) layout.findViewById(R.id.listViewVagasTab);
                     edtFiltroNome = (EditText) layout.findViewById(R.id.edtFiltroNomeTab);
-                    edtFiltroNome.setHint("Teste");
+                    edtFiltroNome.setHint("Digite uma vaga");
                     listViewVagas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -319,6 +321,57 @@ public class MainActivity extends ActionBarActivity {
                             intent.putExtras(params);
                             startActivity(intent);
                             //finish();
+                        }
+                    });
+                    edtFiltroNome.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            final ArrayList<HashMap<String, String>> listaFiltrada = new ArrayList<>();
+                            auxCloneListVagas = new ArrayList<Vaga>();
+                            for (Vaga x : variaveisGlobais.listVagas) {
+                                auxCloneListVagas.add(x);
+                            }
+                            final ArrayList<Vaga> auxListaVaga = new ArrayList<Vaga>();
+                            for (Vaga v : auxCloneListVagas) {
+
+                                if (v.getDescricao().toLowerCase().contains(edtFiltroNome.getText().toString().toLowerCase())) {
+
+                                    HashMap<String, String> mapValue = new HashMap<>();
+                                    mapValue.put(variaveisGlobais.KEY_ID, String.valueOf(v.getId()));
+                                    mapValue.put(variaveisGlobais.KEY_TITLE, v.getDescricao());
+                                    mapValue.put(variaveisGlobais.KEY_COMPANY, v.getEmpresa());
+                                    mapValue.put(variaveisGlobais.KEY_SALARY, String.valueOf(v.getRemuneracao()));
+                                    for (Candidato c : variaveisGlobais.listCandidato) {
+                                        if (v.getId() == c.getVagaId()) {
+                                            mapValue.put(variaveisGlobais.KEY_CANDIDATE, "Candidatou-se");
+                                            v.setCandidatado(true);
+                                            break;
+                                        } else {
+                                            mapValue.put(variaveisGlobais.KEY_CANDIDATE, "");
+                                            v.setCandidatado(false);
+                                        }
+                                    }
+                                    auxListaVaga.add(v);
+                                    listaFiltrada.add(mapValue);
+                                }
+                            }
+                            auxCloneListVagas.clear();
+                            for (Vaga x : auxListaVaga) {
+                                auxCloneListVagas.add(x);
+                            }
+                            adapter = new ListVagasAdapter(getActivity(), listaFiltrada);
+                            listViewVagas.setAdapter(adapter);
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
                         }
                     });
                     String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
@@ -426,6 +479,7 @@ public class MainActivity extends ActionBarActivity {
                                             for (Vaga v : variaveisGlobais.listVagas){
                                                 auxCloneListVagas.add(v);
                                             }
+                                            atualizarConhecimentoPerfil();
                                             popularVagas();
                                         }
 
