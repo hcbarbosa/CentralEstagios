@@ -17,7 +17,8 @@
             android:layout_height="20sp"
             android:layout_gravity="right"
             android:textSize="10sp"
-            android:textColor="@android:color/secondary_text_dark" />
+            android:textColor="@android:color/secondary_text_dark"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:id="@+id/contentWithBackground"
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:maxWidth="250dp" />
+                android:maxWidth="200dp" />
 
         </LinearLayout>
 

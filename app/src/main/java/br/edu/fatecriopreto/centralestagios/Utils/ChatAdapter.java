@@ -18,6 +18,9 @@ import br.edu.fatecriopreto.centralestagios.Entidades.Perfil;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 
+import static br.edu.fatecriopreto.centralestagios.R.color.colorBlack;
+import static br.edu.fatecriopreto.centralestagios.R.color.colorLogo;
+
 public class ChatAdapter extends BaseAdapter {
 
     private Activity context;
@@ -74,8 +77,10 @@ public class ChatAdapter extends BaseAdapter {
         if (mensagem.getDonoMsg() != null) {
             if(user == dono){
                 holder.txtInfo.setText(variaveisGlobais.getUserName());
+                holder.txtInfo.setTextColor(colorBlack);
             }else {
                 holder.txtInfo.setText("Central");
+                holder.txtInfo.setTextColor(colorLogo);
             }
 
         }

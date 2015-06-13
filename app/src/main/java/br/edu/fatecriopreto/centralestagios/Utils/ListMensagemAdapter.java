@@ -59,14 +59,12 @@ public class ListMensagemAdapter extends BaseAdapter {
             Vaga dialog = listaVaga.get(position);
             holder.nome.setText(dialog.getDescricao());
 
+            holder.naolidas.setText("");
             boolean existe = false;
             for(MensagemActivity.Qtd qtd : variaveisGlobais.listqdt){
                 if(qtd.idVaga == dialog.Id){
                     holder.naolidas.setText("Mensagens para serem visualizadas: " + qtd.qtd);
                     holder.naolidas.setEnabled(true);
-                }
-                else{
-                    holder.naolidas.setText("");
                 }
             }
 
