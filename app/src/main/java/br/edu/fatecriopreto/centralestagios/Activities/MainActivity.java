@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Auxiliar na transicao de telas e pilha
+        //Auxiliar na transicao de telas e pilhas
         if(variaveisGlobais.getSizeActivityAnterior()!=0 && variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior()-1)) != MainActivity.class)
             variaveisGlobais.setActivityAnterior(MainActivity.class);
         else{
@@ -328,6 +328,8 @@ public class MainActivity extends ActionBarActivity {
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                         }
+
+
 
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
