@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/roomName"
         android:layout_toRightOf="@+id/roomImage"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="20dp"
@@ -31,5 +31,13 @@
         android:layout_toRightOf="@+id/roomImage"
         android:text="numero de nao lidas"
         android:textColor="@color/colorLogo"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/roomName"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/delete"/>
 
 </RelativeLayout>
