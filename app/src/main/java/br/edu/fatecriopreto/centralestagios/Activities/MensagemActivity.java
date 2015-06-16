@@ -85,17 +85,21 @@ public class MensagemActivity extends ActionBarActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         JsonArrayRequest getRequest =
-                new JsonArrayRequest( url,
-                        new Response.Listener<JSONArray>() {
+                new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                             @Override
                             public void onResponse(JSONArray jsonArray) {
 
                                 if(jsonArray != null) {
                                         Gson gson = new Gson();
 
+                                    AuxListaVaga auxiliar = null;
                                     try {
-                                        AuxListaVaga auxiliar = gson.fromJson(jsonArray.getString(0), AuxListaVaga.class);
+                                        auxiliar = gson.fromJson(jsonArray.get(0).toString(), AuxListaVaga.class);
                                         listaRooms.addAll(auxiliar.listaVaga);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
                                     Collections.sort(listaRooms, new Comparator<Vaga>() {
                                         @Override
@@ -103,15 +107,12 @@ public class MensagemActivity extends ActionBarActivity {
                                             return lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
                                         }
                                     });
-                                        variaveisGlobais.listRooms = listaRooms;
-                                        variaveisGlobais.listqdt = auxiliar.listaQtd;
+                                    variaveisGlobais.listRooms = listaRooms;
+                                    variaveisGlobais.listqdt = auxiliar.listaQtd;
 
                                     listAdapter = new ListMensagemAdapter(variaveisGlobais.listRooms, MensagemActivity.this);
                                     listViewMensagens.setAdapter(listAdapter);
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
                                 }
 
                             }
