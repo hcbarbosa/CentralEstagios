@@ -30,7 +30,6 @@
         android:layout_below="@+id/roomName"
         android:layout_toRightOf="@+id/roomImage"
         android:text="numero de nao lidas"
-        android:textColor="@color/colorLogo"
-        android:visibility="invisible" />
+        android:textColor="@color/colorLogo"/>
 
 </RelativeLayout>

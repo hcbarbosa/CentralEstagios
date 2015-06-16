@@ -77,7 +77,18 @@ public class MensagemActivity extends ActionBarActivity {
 
 
         listViewMensagens = (ListView) findViewById(R.id.roomsList);
-
+        listViewMensagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), ChatActivity.class);
+                Bundle params = new Bundle();
+                params.putString("titlevaga", listaRooms.get(position).getDescricao());
+                params.putString("id", String.valueOf(listaRooms.get(position).getId()));
+                intent.putExtras(params);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         final String url = variaveisGlobais.EndIPAPP + "/Mensagem.aspx?rm=" + variaveisGlobais.getUserRm() +
                 "&acao=listarRooms";
