@@ -69,13 +69,13 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         Perfil currentUser = variaveisGlobais.perfilRm;
-        int dono = Integer.parseInt(mensagem.getDonoMsg());
+        String dono = mensagem.getDonoMsg();
         int user = Integer.parseInt(currentUser.getRm() + "");
-        boolean isOutgoing =  (user == dono);
+        boolean isOutgoing =  (String.valueOf(user).equals(dono));
         setAlignment(holder, isOutgoing);
         holder.txtMessage.setText(mensagem.getDescricao());
         if (mensagem.getDonoMsg() != null) {
-            if(user == dono){
+            if(String.valueOf(user).equals(dono)){
                 holder.txtInfo.setText(variaveisGlobais.getUserName());
                 holder.txtInfo.setTextColor(colorBlack);
             }else {
