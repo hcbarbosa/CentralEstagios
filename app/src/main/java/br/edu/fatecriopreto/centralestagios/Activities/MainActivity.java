@@ -369,6 +369,8 @@ public class MainActivity extends ActionBarActivity {
                             adapter = new ListVagasAdapter(getActivity(), listaFiltrada);
                             listViewVagas.setAdapter(adapter);
 
+                            Log.d("lista: ", variaveisGlobais.listVagas.get(0).Descricao);
+
                         }
 
                         @Override
