@@ -576,6 +576,7 @@ public class MainActivity extends ActionBarActivity {
                                                                     Toast.makeText(getActivity(), "Chat excluido com sucesso!", Toast.LENGTH_LONG).show();
                                                                     listViewMensagens.removeViewInLayout(v);
                                                                     variaveisGlobais.listRooms.remove(pos);
+                                                                    listAdapter.notifyDataSetChanged();
                                                                 } else {
                                                                     Toast.makeText(getActivity(), "Erro ao excluir chat, tente mais tarde!", Toast.LENGTH_LONG).show();
                                                                 }
