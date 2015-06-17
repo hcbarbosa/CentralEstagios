@@ -90,10 +90,7 @@ public class VagaActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
-        // chama progress bar
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(ProgressBar.GONE);
-        mProgressBar.setVisibility(ProgressBar.VISIBLE);
+
 
         atualizarConhecimentoPerfil();
         edtFiltroNome = (EditText) findViewById(R.id.edtFiltroNome);
@@ -151,6 +148,11 @@ public class VagaActivity extends ActionBarActivity {
 
         String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        // chama progress bar
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(ProgressBar.GONE);
+        mProgressBar.setVisibility(ProgressBar.VISIBLE);
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -313,7 +315,7 @@ public class VagaActivity extends ActionBarActivity {
                     }
                     adapter = new ListVagasAdapter(VagaActivity.this, listaFiltrada);
                     listViewVagas.setAdapter(adapter);
-
+                    mProgressBar.setVisibility(ProgressBar.INVISIBLE);
             }
 
             @Override

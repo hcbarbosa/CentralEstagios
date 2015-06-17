@@ -194,6 +194,7 @@ public class NavigationDrawerFragment extends Fragment implements InformationAda
             case 7: //"Sair"
                 AlertDialog.Builder alert = new AlertDialog.Builder(variaveisGlobais.getAlert());
                 alert.setTitle("Sair");
+                alert.setIcon(R.drawable.app_icon);
                 alert.setCancelable(false);
                 alert.setMessage(R.string.alertsair);
                 alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {

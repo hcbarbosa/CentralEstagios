@@ -58,6 +58,8 @@ public class MensagemActivity extends ActionBarActivity {
     List<Vaga> listaRooms = new ArrayList<>();
     ImageView btnExcluirMsg;
 
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class MensagemActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
+
 
         listViewMensagens = (ListView) findViewById(R.id.roomsList);
         listViewMensagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {

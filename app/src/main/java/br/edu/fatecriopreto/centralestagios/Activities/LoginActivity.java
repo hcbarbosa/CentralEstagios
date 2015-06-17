@@ -120,6 +120,7 @@ public class LoginActivity extends Activity  {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                 alert.setTitle(R.string.duvidasTitle);
+                alert.setIcon(R.drawable.app_icon);
                 alert.setCancelable(false);
                 final View recipientsLayout = getLayoutInflater().inflate(R.layout.scrollable_alert, null);
                 final TextView recipientsTextView = (TextView) recipientsLayout.findViewById(R.id.textDuvidas);
@@ -135,7 +136,11 @@ public class LoginActivity extends Activity  {
                                 + getResources().getString(R.string.duvidasBody9) + "\n"
                                 + getResources().getString(R.string.duvidasBody10) + "\n"
                                 + getResources().getString(R.string.duvidasBody11) + "\n"
-                                + getResources().getString(R.string.duvidasBody12) + "\n");
+                                + getResources().getString(R.string.duvidasBody12) + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody13).toUpperCase() + "\n" + "\n"
+                                + getResources().getString(R.string.duvidasBody14) + "\n"
+                                + getResources().getString(R.string.duvidasBody15) + "\n"
+                                + getResources().getString(R.string.duvidasBody16) + "\n");
                 alert.setIcon(R.drawable.help_circle);
                 alert.setView(recipientsLayout);
                 alert.setNeutralButton("Fechar", new DialogInterface.OnClickListener() {

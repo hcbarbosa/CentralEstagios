@@ -27,7 +27,11 @@
     <string name="duvidasBody11">3)Ao se candidatar a uma vaga uma tela para edição do email que será enviado a empresa aparecerá.</string>
     <string name="duvidasBody12">4)Qualquer dúvida sobre a vaga pode ser enviada clicando sobre o ícone de mensagens da vaga,
         isso fará que um chat seja aberto.</string>
-
-
+    <string name="duvidasBody13">Mensagens</string>
+    <string name="duvidasBody14">1)O usuário pode enviar mensagens sobre as vagas que serão respondidas pela central de estágio.</string>
+    <string name="duvidasBody15">2)Para deletar um bate-papo sobre determinada, basta clicar e segurar por um tempo sobre o
+        bate-papo de vaga que deseja apagar </string>
+    <string name="duvidasBody16">3)Uma caixa de dialogo irá aparecer selecione Excluir para deletar o bate-papo, caso ele seja
+        deletado irá aparecer uma mensagem avisando que foi apagado com sucesso.</string>
 
 </resources>
