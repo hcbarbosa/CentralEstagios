@@ -62,7 +62,6 @@ public class VagaActivity extends ActionBarActivity {
     EditText edtFiltroNome;
     ArrayList<Vaga> auxCloneListVagas;
 
-    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,10 +148,6 @@ public class VagaActivity extends ActionBarActivity {
         String url = variaveisGlobais.EndIPAPP+"/vagas.aspx?rm=" + variaveisGlobais.getUserRm();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        // chama progress bar
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(ProgressBar.GONE);
-        mProgressBar.setVisibility(ProgressBar.VISIBLE);
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -315,7 +310,6 @@ public class VagaActivity extends ActionBarActivity {
                     }
                     adapter = new ListVagasAdapter(VagaActivity.this, listaFiltrada);
                     listViewVagas.setAdapter(adapter);
-                    mProgressBar.setVisibility(ProgressBar.INVISIBLE);
             }
 
             @Override
@@ -347,7 +341,6 @@ public class VagaActivity extends ActionBarActivity {
 
         adapter = new ListVagasAdapter(this, lista);
         listViewVagas.setAdapter(adapter);
-        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
         listViewVagas.setVisibility(View.VISIBLE);
     }
     public void atualizarConhecimentoPerfil(){
