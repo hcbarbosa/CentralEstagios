@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import br.edu.fatecriopreto.centralestagios.Entidades.Beneficio;
 import br.edu.fatecriopreto.centralestagios.Entidades.Candidato;
@@ -51,6 +53,7 @@ import br.edu.fatecriopreto.centralestagios.Entidades.Vaga;
 import br.edu.fatecriopreto.centralestagios.Menu.NavigationDrawerFragment;
 import br.edu.fatecriopreto.centralestagios.R;
 import br.edu.fatecriopreto.centralestagios.Tabs.SlidingTabLayout;
+import br.edu.fatecriopreto.centralestagios.Utils.ListMensagemAdapter;
 import br.edu.fatecriopreto.centralestagios.Utils.ListVagasAdapter;
 import br.edu.fatecriopreto.centralestagios.variaveisGlobais;
 import br.edu.fatecriopreto.centralestagios.notificacao;
@@ -60,6 +63,7 @@ public class MainActivity extends ActionBarActivity {
     private Toolbar appBar;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +172,13 @@ public class MainActivity extends ActionBarActivity {
         private EditText edtFiltroNome;
         public ProgressBar mProgressBar;
         ArrayList<Vaga> auxCloneListVagas;
+
+
+        private ListView listViewMensagens;
+        private ListMensagemAdapter listAdapter;
+        List<Vaga> listaRooms = new ArrayList<>();
+
+
         public static Date convertDate(String date, String format)
                 throws ParseException {
             if(date != null) {
@@ -502,6 +513,72 @@ public class MainActivity extends ActionBarActivity {
                 }
                 else if(position==1){
                     layout= inflater.inflate(R.layout.activity_tabmensagem, container, false);
+
+                    listViewMensagens = (ListView) layout.findViewById(R.id.roomsListTab);
+                    listViewMensagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(view.getContext(), ChatActivity.class);
+                            Bundle params = new Bundle();
+                            params.putString("titlevaga", listaRooms.get(position).getDescricao());
+                            params.putString("id", String.valueOf(listaRooms.get(position).getId()));
+                            intent.putExtras(params);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    });
+
+                    final String url = variaveisGlobais.EndIPAPP + "/Mensagem.aspx?rm=" + variaveisGlobais.getUserRm() +
+                            "&acao=listarRooms";
+
+                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+                    JsonArrayRequest getRequest =
+                            new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                                @Override
+                                public void onResponse(JSONArray jsonArray) {
+
+                                    if(jsonArray != null) {
+                                        Gson gson = new Gson();
+
+                                        MensagemActivity.AuxListaVaga auxiliar = null;
+                                        try {
+                                            auxiliar = gson.fromJson(jsonArray.get(0).toString(), MensagemActivity.AuxListaVaga.class);
+                                            listaRooms.addAll(auxiliar.listaVaga);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        Collections.sort(listaRooms, new Comparator<Vaga>() {
+                                            @Override
+                                            public int compare(Vaga lhs, Vaga rhs) {
+                                                return lhs.getDescricao().compareToIgnoreCase(rhs.getDescricao());
+                                            }
+                                        });
+                                        variaveisGlobais.listRooms = listaRooms;
+                                        variaveisGlobais.listqdt = auxiliar.listaQtd;
+
+                                        listAdapter = new ListMensagemAdapter(variaveisGlobais.listRooms, getActivity());
+                                        listViewMensagens.setAdapter(listAdapter);
+
+                                    }
+
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+                                    Log.d("Error.Response", volleyError.getMessage());
+                                }
+                            });
+
+                    queue.add(getRequest);
+
+
+
+
+
+
                 }
             }
 
