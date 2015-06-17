@@ -1,6 +1,8 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,16 +27,20 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -525,6 +531,74 @@ public class MainActivity extends ActionBarActivity {
                             intent.putExtras(params);
                             startActivity(intent);
                             getActivity().finish();
+                        }
+                    });
+
+                    final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+
+                    alertDialog.setTitle("Excluir Chat?");
+                    alertDialog.setIcon(R.drawable.app_icon);
+                    alertDialog.setMessage("Deseja realmente excluir este chat?");
+
+                    alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "FECHAR", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    listViewMensagens.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            final int pos = position;
+                            final View v = view;
+
+                            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "EXCLUIR", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    final String url = variaveisGlobais.EndIPAPP + "/ExcluirChat.aspx?rm=" + variaveisGlobais.getUserRm() +
+                                            "&vaga=" + String.valueOf(listaRooms.get(pos).getId());
+
+                                    final RequestQueue queueExcluir = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+                                    final JsonObjectRequest getRequest =
+                                            new JsonObjectRequest(Request.Method.GET, url, null,
+                                                    new Response.Listener<JSONObject>() {
+                                                        @Override
+                                                        public void onResponse(JSONObject jsonObject) {
+
+                                                            try {
+                                                                if (jsonObject.getString("Conteudo").equals("ok")) {
+
+                                                                    Toast.makeText(getActivity(), "Chat excluido com sucesso!", Toast.LENGTH_LONG).show();
+                                                                    listViewMensagens.removeViewInLayout(v);
+                                                                    variaveisGlobais.listRooms.remove(pos);
+                                                                } else {
+                                                                    Toast.makeText(getActivity(), "Erro ao excluir chat, tente mais tarde!", Toast.LENGTH_LONG).show();
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+
+
+                                                        }
+                                                    }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError volleyError) {
+                                                    Log.d("Error.Response", "erro");
+                                                }
+                                            });
+
+                                    queueExcluir.add(getRequest);
+                                }
+                            });
+
+                            alertDialog.show();
+
+                            return false;
                         }
                     });
 

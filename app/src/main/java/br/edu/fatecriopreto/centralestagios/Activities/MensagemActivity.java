@@ -1,6 +1,7 @@
 package br.edu.fatecriopreto.centralestagios.Activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -54,6 +56,7 @@ public class MensagemActivity extends ActionBarActivity {
     private ListMensagemAdapter listAdapter;
     private Toolbar appBar;
     List<Vaga> listaRooms = new ArrayList<>();
+    ImageView btnExcluirMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +78,11 @@ public class MensagemActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), appBar);
 
-
         listViewMensagens = (ListView) findViewById(R.id.roomsList);
         listViewMensagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent = new Intent(view.getContext(), ChatActivity.class);
                 Bundle params = new Bundle();
                 params.putString("titlevaga", listaRooms.get(position).getDescricao());
@@ -87,6 +90,73 @@ public class MensagemActivity extends ActionBarActivity {
                 intent.putExtras(params);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        alertDialog.setTitle("Excluir Chat?");
+        alertDialog.setIcon(R.drawable.app_icon);
+        alertDialog.setMessage("Deseja realmente excluir este chat?");
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "FECHAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                alertDialog.dismiss();
+            }
+        });
+
+        listViewMensagens.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final int pos = position;
+                final View v = view;
+
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "EXCLUIR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        final String url = variaveisGlobais.EndIPAPP + "/ExcluirChat.aspx?rm=" + variaveisGlobais.getUserRm() +
+                                "&vaga=" + String.valueOf(listaRooms.get(pos).getId());
+
+                        final RequestQueue queueExcluir = Volley.newRequestQueue(getApplicationContext());
+
+                        final JsonObjectRequest getRequest =
+                                new JsonObjectRequest(Request.Method.GET, url, null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject jsonObject) {
+
+                                                try {
+                                                    if (jsonObject.getString("Conteudo").equals("ok")) {
+
+                                                        Toast.makeText(MensagemActivity.this, "Chat excluido com sucesso!", Toast.LENGTH_LONG).show();
+                                                        listViewMensagens.removeViewInLayout(v);
+                                                    } else {
+                                                        Toast.makeText(MensagemActivity.this, "Erro ao excluir chat, tente mais tarde!", Toast.LENGTH_LONG).show();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError volleyError) {
+                                        Log.d("Error.Response", "erro");
+                                    }
+                                });
+
+                        queueExcluir.add(getRequest);
+                    }
+                });
+
+                alertDialog.show();
+
+                return false;
             }
         });
 

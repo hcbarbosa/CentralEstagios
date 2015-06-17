@@ -138,7 +138,7 @@ public class PerfilActivity extends ActionBarActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            Log.d("Error.Response", volleyError.getMessage());
+                            Log.d("Error.Response", "erro no webservice de perfil");
                         }
                     });
 
