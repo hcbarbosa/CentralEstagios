@@ -55,11 +55,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
                             android:text="@string/dadosPessoais"
                             android:id="@+id/textView"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/colorLogo"/>
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -69,10 +70,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@string/nomeCompleto"
                             android:id="@+id/txtNomeCompleto"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -82,9 +84,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="E-mail:"
-                            android:id="@+id/txtEmail" />
+                            android:id="@+id/txtEmail"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -96,9 +99,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Telefone:"
-                            android:id="@+id/txtTelefone" />
+                            android:id="@+id/txtTelefone"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -110,10 +114,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Ano  de início do curso:"
                             android:id="@+id/txtAno"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -126,10 +131,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Semestre  de início do curso:"
                             android:id="@+id/txtSemestre"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -142,10 +148,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Curso:"
                             android:id="@+id/txtCurso"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <Spinner
                             android:layout_width="wrap_content"
@@ -156,11 +163,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
                             android:text="Endereço"
                             android:id="@+id/txtEndereco"
                             android:layout_marginTop="20dp"
-                            android:textColor="@color/colorLogo"/>
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -171,9 +179,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Cep:"
-                            android:id="@+id/txtCep" />
+                            android:id="@+id/txtCep"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -197,10 +206,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Logradouro:"
                             android:id="@+id/txtLogradouro"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -210,10 +220,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Complemento:"
                             android:id="@+id/txtComplemento"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -223,10 +234,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Bairro:"
                             android:id="@+id/txtBairro"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -236,10 +248,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="Localidade:"
                             android:id="@+id/txtCidade"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
@@ -249,10 +262,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="UF:"
                             android:id="@+id/txtUf"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:layout_width="match_parent"
