@@ -73,8 +73,6 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
         setContentView(R.layout.activity_vaga__consultar);
 
         //Auxiliar na transicao de telas e pilha
-        if(variaveisGlobais.getActivityAnterior((variaveisGlobais.getSizeActivityAnterior() - 1)) != Vaga_ConsultarActivity.class)
-            variaveisGlobais.setActivityAnterior(Vaga_ConsultarActivity.class);
         variaveisGlobais.setAlert(Vaga_ConsultarActivity.this);
 
         //AppBar
@@ -276,7 +274,7 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
 
     //Pega o evento de voltar do celular e volta para a activity anterior
     public void onBackPressed(){
-        startActivity(new Intent(this, variaveisGlobais.getActivityAnterior(variaveisGlobais.getSizeActivityAnterior()-2)));
+        startActivity(new Intent(this,VagaActivity.class));
         variaveisGlobais.deleteAnterior();
         this.finish();
     }

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -45,6 +46,7 @@ public class ConfiguracoesActivity extends ActionBarActivity {
     EditText edtTempoNotificacao;
     Button btnSalvar;
     Button btnSalvarTempo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

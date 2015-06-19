@@ -32,12 +32,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Vaga:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtNomeVaga" />
 
@@ -46,12 +47,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Empresa:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtEmpresa"/>
             <TextView
@@ -59,12 +61,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Salario:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtSalario" />
             <TextView
@@ -72,12 +75,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Periodo:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtPeriodo" />
             <TextView
@@ -85,12 +89,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Horario:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtHorario" />
             <TextView
@@ -98,12 +103,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="E-mail:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtEmail" />
             <TextView
@@ -111,12 +117,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Contato:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtContato" />
             <TextView
@@ -124,12 +131,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Tipo de Vaga:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txttipovaga" />
             <TextView
@@ -137,12 +145,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Telefone:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtTelefone" />
             <TextView
@@ -150,12 +159,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Observacoes:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtObservacoes" />
             <TextView
@@ -163,12 +173,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Beneficios:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtBeneficios" />
 
@@ -177,12 +188,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Conhecimentos:"
-                android:textColor="@color/colorLogo"/>
+                android:textColor="@color/colorLogo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=""
                 android:id="@+id/txtConhecimentos" />
 
