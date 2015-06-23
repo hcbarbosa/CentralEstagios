@@ -157,7 +157,10 @@ public class Vaga_ConsultarActivity extends ActionBarActivity {
             txtcontato.setText(bundle.getString("contact"));
             txtemail.setText(bundle.getString("email"));
             txthorario.setText(bundle.getString("hour"));
-            txtobservacoes.setText(bundle.getString("observation"));
+            if(!bundle.getString("observation").equals("null"))
+                txtobservacoes.setText(bundle.getString("observation"));
+            else
+                txtobservacoes.setText("");
             txttipovaga.setText(bundle.getString("type"));
             txttelefone.setText(bundle.getString("phone"));
             txtperiodo.setText(bundle.getString("periody"));
